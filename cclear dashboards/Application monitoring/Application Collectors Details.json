@@ -1,0 +1,5694 @@
+{
+  "annotations": {
+    "list": [
+      {
+        "builtIn": 1,
+        "datasource": "-- Grafana --",
+        "enable": true,
+        "hide": true,
+        "iconColor": "rgba(0, 211, 255, 1)",
+        "name": "Annotations & Alerts",
+        "type": "dashboard"
+      }
+    ]
+  },
+  "editable": true,
+  "gnetId": null,
+  "graphTooltip": 1,
+  "id": 36,
+  "iteration": 1638904522840,
+  "links": [],
+  "panels": [
+    {
+      "datasource": null,
+      "fieldConfig": {
+        "defaults": {
+          "custom": {}
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 3,
+        "w": 24,
+        "x": 0,
+        "y": 0
+      },
+      "id": 35,
+      "options": {
+        "content": "<center style=\"background-color:black;padding:1rem\"><a href=\"http://www.cpacketnetworks.com\" target=\"_new\"><img width=\"220px\" src=\"/static/images/cpacket_white_text.svg\"></a></center> ",
+        "mode": "html"
+      },
+      "pluginVersion": "7.3.1",
+      "targets": [
+        {
+          "groupBy": [
+            {
+              "params": [
+                "$__interval"
+              ],
+              "type": "time"
+            },
+            {
+              "params": [
+                "null"
+              ],
+              "type": "fill"
+            }
+          ],
+          "orderByTime": "ASC",
+          "policy": "default",
+          "refId": "A",
+          "resultFormat": "time_series",
+          "select": [
+            [
+              {
+                "params": [
+                  "value"
+                ],
+                "type": "field"
+              },
+              {
+                "params": [],
+                "type": "mean"
+              }
+            ]
+          ],
+          "tags": []
+        }
+      ],
+      "timeFrom": null,
+      "timeShift": null,
+      "title": "",
+      "transparent": true,
+      "type": "text"
+    },
+    {
+      "collapsed": true,
+      "datasource": null,
+      "gridPos": {
+        "h": 1,
+        "w": 24,
+        "x": 0,
+        "y": 3
+      },
+      "id": 53,
+      "panels": [
+        {
+          "datasource": null,
+          "fieldConfig": {
+            "defaults": {
+              "custom": {}
+            },
+            "overrides": []
+          },
+          "gridPos": {
+            "h": 12,
+            "w": 8,
+            "x": 0,
+            "y": 4
+          },
+          "id": 51,
+          "options": {},
+          "pluginVersion": "7.3.1",
+          "targets": [
+            {
+              "alias": "<CSTOR_$tag_cstor_ip>",
+              "groupBy": [
+                {
+                  "params": [
+                    "$__interval"
+                  ],
+                  "type": "time"
+                },
+                {
+                  "params": [
+                    "cstor_ip"
+                  ],
+                  "type": "tag"
+                },
+                {
+                  "params": [
+                    "null"
+                  ],
+                  "type": "fill"
+                }
+              ],
+              "measurement": "tcp_active_sessions_4_tuple",
+              "orderByTime": "ASC",
+              "policy": "default",
+              "refId": "A",
+              "resultFormat": "time_series",
+              "select": [
+                [
+                  {
+                    "params": [
+                      "active_sessions"
+                    ],
+                    "type": "field"
+                  },
+                  {
+                    "params": [],
+                    "type": "mean"
+                  }
+                ]
+              ],
+              "tags": []
+            }
+          ],
+          "timeFrom": null,
+          "timeShift": null,
+          "title": "Download Packets",
+          "type": "cclear-pcap-panel-v2"
+        }
+      ],
+      "title": "Download Packets",
+      "type": "row"
+    },
+    {
+      "collapsed": true,
+      "datasource": null,
+      "gridPos": {
+        "h": 1,
+        "w": 24,
+        "x": 0,
+        "y": 4
+      },
+      "id": 136,
+      "panels": [
+        {
+          "datasource": null,
+          "fieldConfig": {
+            "defaults": {
+              "custom": {},
+              "mappings": [],
+              "thresholds": {
+                "mode": "absolute",
+                "steps": [
+                  {
+                    "color": "green",
+                    "value": null
+                  },
+                  {
+                    "color": "red",
+                    "value": 80
+                  }
+                ]
+              }
+            },
+            "overrides": []
+          },
+          "gridPos": {
+            "h": 7,
+            "w": 3,
+            "x": 0,
+            "y": 5
+          },
+          "id": 143,
+          "options": {
+            "colorMode": "value",
+            "graphMode": "area",
+            "justifyMode": "auto",
+            "orientation": "auto",
+            "reduceOptions": {
+              "calcs": [
+                "sum"
+              ],
+              "fields": "",
+              "values": false
+            },
+            "textMode": "auto"
+          },
+          "pluginVersion": "7.3.1",
+          "targets": [
+            {
+              "groupBy": [
+                {
+                  "params": [
+                    "$__interval"
+                  ],
+                  "type": "time"
+                },
+                {
+                  "params": [
+                    "none"
+                  ],
+                  "type": "fill"
+                }
+              ],
+              "measurement": "https",
+              "orderByTime": "ASC",
+              "policy": "default",
+              "refId": "A",
+              "resultFormat": "time_series",
+              "select": [
+                [
+                  {
+                    "params": [
+                      "connections"
+                    ],
+                    "type": "field"
+                  },
+                  {
+                    "params": [],
+                    "type": "sum"
+                  }
+                ]
+              ],
+              "tags": [
+                {
+                  "key": "network_monitor_name",
+                  "operator": "=~",
+                  "value": "/^$network_monitor$/"
+                }
+              ]
+            }
+          ],
+          "timeFrom": null,
+          "timeShift": null,
+          "title": "All Handshakes",
+          "type": "stat"
+        },
+        {
+          "datasource": null,
+          "fieldConfig": {
+            "defaults": {
+              "custom": {},
+              "mappings": [],
+              "noValue": "0",
+              "thresholds": {
+                "mode": "absolute",
+                "steps": [
+                  {
+                    "color": "green",
+                    "value": null
+                  },
+                  {
+                    "color": "red",
+                    "value": 80
+                  }
+                ]
+              }
+            },
+            "overrides": []
+          },
+          "gridPos": {
+            "h": 7,
+            "w": 3,
+            "x": 3,
+            "y": 5
+          },
+          "id": 144,
+          "options": {
+            "colorMode": "value",
+            "graphMode": "area",
+            "justifyMode": "auto",
+            "orientation": "auto",
+            "reduceOptions": {
+              "calcs": [
+                "sum"
+              ],
+              "fields": "",
+              "values": false
+            },
+            "textMode": "auto"
+          },
+          "pluginVersion": "7.3.1",
+          "targets": [
+            {
+              "groupBy": [
+                {
+                  "params": [
+                    "$__interval"
+                  ],
+                  "type": "time"
+                },
+                {
+                  "params": [
+                    "null"
+                  ],
+                  "type": "fill"
+                }
+              ],
+              "measurement": "https",
+              "orderByTime": "ASC",
+              "policy": "default",
+              "refId": "A",
+              "resultFormat": "time_series",
+              "select": [
+                [
+                  {
+                    "params": [
+                      "connections"
+                    ],
+                    "type": "field"
+                  },
+                  {
+                    "params": [],
+                    "type": "sum"
+                  }
+                ]
+              ],
+              "tags": [
+                {
+                  "key": "network_monitor_name",
+                  "operator": "=~",
+                  "value": "/^$network_monitor$/"
+                },
+                {
+                  "condition": "AND",
+                  "key": "server_hello_version_name",
+                  "operator": "=",
+                  "value": "missing"
+                }
+              ]
+            }
+          ],
+          "timeFrom": null,
+          "timeShift": null,
+          "title": "TLS Version Missing",
+          "type": "stat"
+        },
+        {
+          "datasource": null,
+          "fieldConfig": {
+            "defaults": {
+              "custom": {},
+              "mappings": [],
+              "noValue": "0",
+              "thresholds": {
+                "mode": "absolute",
+                "steps": [
+                  {
+                    "color": "green",
+                    "value": null
+                  },
+                  {
+                    "color": "red",
+                    "value": 80
+                  }
+                ]
+              }
+            },
+            "overrides": []
+          },
+          "gridPos": {
+            "h": 7,
+            "w": 3,
+            "x": 6,
+            "y": 5
+          },
+          "id": 148,
+          "options": {
+            "colorMode": "value",
+            "graphMode": "area",
+            "justifyMode": "auto",
+            "orientation": "auto",
+            "reduceOptions": {
+              "calcs": [
+                "sum"
+              ],
+              "fields": "",
+              "values": false
+            },
+            "textMode": "auto"
+          },
+          "pluginVersion": "7.3.1",
+          "targets": [
+            {
+              "groupBy": [
+                {
+                  "params": [
+                    "$__interval"
+                  ],
+                  "type": "time"
+                },
+                {
+                  "params": [
+                    "none"
+                  ],
+                  "type": "fill"
+                }
+              ],
+              "measurement": "https",
+              "orderByTime": "ASC",
+              "policy": "default",
+              "refId": "A",
+              "resultFormat": "time_series",
+              "select": [
+                [
+                  {
+                    "params": [
+                      "connections"
+                    ],
+                    "type": "field"
+                  },
+                  {
+                    "params": [],
+                    "type": "sum"
+                  }
+                ]
+              ],
+              "tags": [
+                {
+                  "key": "network_monitor_name",
+                  "operator": "=~",
+                  "value": "/^$network_monitor$/"
+                },
+                {
+                  "condition": "AND",
+                  "key": "server_hello_version_name",
+                  "operator": "=",
+                  "value": "TLS-1.2"
+                }
+              ]
+            }
+          ],
+          "timeFrom": null,
+          "timeShift": null,
+          "title": "TLS-1.2",
+          "type": "stat"
+        },
+        {
+          "datasource": null,
+          "fieldConfig": {
+            "defaults": {
+              "custom": {},
+              "mappings": [],
+              "noValue": "0",
+              "thresholds": {
+                "mode": "absolute",
+                "steps": [
+                  {
+                    "color": "green",
+                    "value": null
+                  },
+                  {
+                    "color": "red",
+                    "value": 80
+                  }
+                ]
+              }
+            },
+            "overrides": []
+          },
+          "gridPos": {
+            "h": 7,
+            "w": 3,
+            "x": 9,
+            "y": 5
+          },
+          "id": 149,
+          "options": {
+            "colorMode": "value",
+            "graphMode": "area",
+            "justifyMode": "auto",
+            "orientation": "auto",
+            "reduceOptions": {
+              "calcs": [
+                "sum"
+              ],
+              "fields": "",
+              "values": false
+            },
+            "textMode": "auto"
+          },
+          "pluginVersion": "7.3.1",
+          "targets": [
+            {
+              "groupBy": [
+                {
+                  "params": [
+                    "$__interval"
+                  ],
+                  "type": "time"
+                },
+                {
+                  "params": [
+                    "null"
+                  ],
+                  "type": "fill"
+                }
+              ],
+              "measurement": "https",
+              "orderByTime": "ASC",
+              "policy": "default",
+              "refId": "A",
+              "resultFormat": "time_series",
+              "select": [
+                [
+                  {
+                    "params": [
+                      "connections"
+                    ],
+                    "type": "field"
+                  },
+                  {
+                    "params": [],
+                    "type": "sum"
+                  }
+                ]
+              ],
+              "tags": [
+                {
+                  "key": "network_monitor_name",
+                  "operator": "=~",
+                  "value": "/^$network_monitor$/"
+                },
+                {
+                  "condition": "AND",
+                  "key": "server_hello_version_name",
+                  "operator": "=",
+                  "value": "TLS-1.1"
+                }
+              ]
+            }
+          ],
+          "timeFrom": null,
+          "timeShift": null,
+          "title": "TLS-1.1 Handshakes",
+          "type": "stat"
+        },
+        {
+          "datasource": null,
+          "fieldConfig": {
+            "defaults": {
+              "custom": {},
+              "mappings": [],
+              "noValue": "0",
+              "thresholds": {
+                "mode": "absolute",
+                "steps": [
+                  {
+                    "color": "green",
+                    "value": null
+                  },
+                  {
+                    "color": "red",
+                    "value": 80
+                  }
+                ]
+              }
+            },
+            "overrides": []
+          },
+          "gridPos": {
+            "h": 7,
+            "w": 3,
+            "x": 12,
+            "y": 5
+          },
+          "id": 150,
+          "options": {
+            "colorMode": "value",
+            "graphMode": "area",
+            "justifyMode": "auto",
+            "orientation": "auto",
+            "reduceOptions": {
+              "calcs": [
+                "sum"
+              ],
+              "fields": "",
+              "values": false
+            },
+            "textMode": "auto"
+          },
+          "pluginVersion": "7.3.1",
+          "targets": [
+            {
+              "groupBy": [
+                {
+                  "params": [
+                    "$__interval"
+                  ],
+                  "type": "time"
+                },
+                {
+                  "params": [
+                    "null"
+                  ],
+                  "type": "fill"
+                }
+              ],
+              "measurement": "https",
+              "orderByTime": "ASC",
+              "policy": "default",
+              "refId": "A",
+              "resultFormat": "time_series",
+              "select": [
+                [
+                  {
+                    "params": [
+                      "connections"
+                    ],
+                    "type": "field"
+                  },
+                  {
+                    "params": [],
+                    "type": "sum"
+                  }
+                ]
+              ],
+              "tags": [
+                {
+                  "key": "network_monitor_name",
+                  "operator": "=~",
+                  "value": "/^$network_monitor$/"
+                },
+                {
+                  "condition": "AND",
+                  "key": "server_hello_version_name",
+                  "operator": "=",
+                  "value": "TLS-1.0"
+                }
+              ]
+            }
+          ],
+          "timeFrom": null,
+          "timeShift": null,
+          "title": "TLS-1.0 Handshakes",
+          "type": "stat"
+        },
+        {
+          "datasource": null,
+          "fieldConfig": {
+            "defaults": {
+              "custom": {},
+              "mappings": [],
+              "noValue": "0",
+              "thresholds": {
+                "mode": "absolute",
+                "steps": [
+                  {
+                    "color": "green",
+                    "value": null
+                  },
+                  {
+                    "color": "red",
+                    "value": 80
+                  }
+                ]
+              }
+            },
+            "overrides": []
+          },
+          "gridPos": {
+            "h": 7,
+            "w": 3,
+            "x": 18,
+            "y": 5
+          },
+          "id": 152,
+          "options": {
+            "colorMode": "value",
+            "graphMode": "area",
+            "justifyMode": "auto",
+            "orientation": "auto",
+            "reduceOptions": {
+              "calcs": [
+                "max"
+              ],
+              "fields": "",
+              "values": false
+            },
+            "textMode": "auto"
+          },
+          "pluginVersion": "7.3.1",
+          "targets": [
+            {
+              "groupBy": [
+                {
+                  "params": [
+                    "$__interval"
+                  ],
+                  "type": "time"
+                },
+                {
+                  "params": [
+                    "none"
+                  ],
+                  "type": "fill"
+                }
+              ],
+              "measurement": "https",
+              "orderByTime": "ASC",
+              "policy": "default",
+              "refId": "A",
+              "resultFormat": "time_series",
+              "select": [
+                [
+                  {
+                    "params": [
+                      "certificate_not_valid_before"
+                    ],
+                    "type": "field"
+                  },
+                  {
+                    "params": [],
+                    "type": "count"
+                  }
+                ]
+              ],
+              "tags": [
+                {
+                  "key": "network_monitor_name",
+                  "operator": "=~",
+                  "value": "/^$network_monitor$/"
+                },
+                {
+                  "condition": "AND",
+                  "key": "certificate_not_valid_before",
+                  "operator": ">",
+                  "value": "1633113481"
+                }
+              ]
+            }
+          ],
+          "timeFrom": null,
+          "timeShift": null,
+          "title": "Certificate Not Valid Before",
+          "type": "stat"
+        },
+        {
+          "datasource": null,
+          "fieldConfig": {
+            "defaults": {
+              "custom": {},
+              "mappings": [],
+              "noValue": "0",
+              "thresholds": {
+                "mode": "absolute",
+                "steps": [
+                  {
+                    "color": "red",
+                    "value": null
+                  }
+                ]
+              }
+            },
+            "overrides": []
+          },
+          "gridPos": {
+            "h": 7,
+            "w": 3,
+            "x": 21,
+            "y": 5
+          },
+          "id": 153,
+          "options": {
+            "colorMode": "value",
+            "graphMode": "area",
+            "justifyMode": "auto",
+            "orientation": "auto",
+            "reduceOptions": {
+              "calcs": [
+                "max"
+              ],
+              "fields": "",
+              "values": false
+            },
+            "textMode": "auto"
+          },
+          "pluginVersion": "7.3.1",
+          "targets": [
+            {
+              "groupBy": [
+                {
+                  "params": [
+                    "$__interval"
+                  ],
+                  "type": "time"
+                },
+                {
+                  "params": [
+                    "none"
+                  ],
+                  "type": "fill"
+                }
+              ],
+              "measurement": "https",
+              "orderByTime": "ASC",
+              "policy": "default",
+              "refId": "A",
+              "resultFormat": "time_series",
+              "select": [
+                [
+                  {
+                    "params": [
+                      "certificate_not_valid_after"
+                    ],
+                    "type": "field"
+                  },
+                  {
+                    "params": [],
+                    "type": "count"
+                  }
+                ]
+              ],
+              "tags": [
+                {
+                  "key": "network_monitor_name",
+                  "operator": "=~",
+                  "value": "/^$network_monitor$/"
+                },
+                {
+                  "condition": "AND",
+                  "key": "certificate_not_valid_after",
+                  "operator": ">",
+                  "value": "1633113481"
+                }
+              ]
+            }
+          ],
+          "timeFrom": null,
+          "timeShift": null,
+          "title": "Certificate Not Valid After",
+          "type": "stat"
+        },
+        {
+          "aliasColors": {},
+          "bars": true,
+          "dashLength": 10,
+          "dashes": false,
+          "datasource": null,
+          "fieldConfig": {
+            "defaults": {
+              "custom": {},
+              "mappings": [],
+              "thresholds": {
+                "mode": "absolute",
+                "steps": [
+                  {
+                    "color": "green",
+                    "value": null
+                  },
+                  {
+                    "color": "red",
+                    "value": 80
+                  }
+                ]
+              }
+            },
+            "overrides": []
+          },
+          "fill": 1,
+          "fillGradient": 0,
+          "gridPos": {
+            "h": 13,
+            "w": 12,
+            "x": 0,
+            "y": 12
+          },
+          "hiddenSeries": false,
+          "id": 290,
+          "legend": {
+            "avg": false,
+            "current": false,
+            "max": false,
+            "min": false,
+            "show": true,
+            "total": false,
+            "values": false
+          },
+          "lines": false,
+          "linewidth": 1,
+          "nullPointMode": "null",
+          "options": {
+            "alertThreshold": true
+          },
+          "percentage": false,
+          "pluginVersion": "7.3.1",
+          "pointradius": 2,
+          "points": false,
+          "renderer": "flot",
+          "seriesOverrides": [],
+          "spaceLength": 10,
+          "stack": false,
+          "steppedLine": false,
+          "targets": [
+            {
+              "groupBy": [
+                {
+                  "params": [
+                    "$resolution"
+                  ],
+                  "type": "time"
+                },
+                {
+                  "params": [
+                    "none"
+                  ],
+                  "type": "fill"
+                }
+              ],
+              "measurement": "https",
+              "orderByTime": "ASC",
+              "policy": "default",
+              "refId": "A",
+              "resultFormat": "time_series",
+              "select": [
+                [
+                  {
+                    "params": [
+                      "connections"
+                    ],
+                    "type": "field"
+                  },
+                  {
+                    "params": [],
+                    "type": "sum"
+                  }
+                ]
+              ],
+              "tags": [
+                {
+                  "key": "network_monitor_name",
+                  "operator": "=~",
+                  "value": "/^$network_monitor$/"
+                }
+              ]
+            }
+          ],
+          "thresholds": [],
+          "timeFrom": null,
+          "timeRegions": [],
+          "timeShift": null,
+          "title": "All Handshakes",
+          "tooltip": {
+            "shared": true,
+            "sort": 0,
+            "value_type": "individual"
+          },
+          "type": "graph",
+          "xaxis": {
+            "buckets": null,
+            "mode": "time",
+            "name": null,
+            "show": true,
+            "values": []
+          },
+          "yaxes": [
+            {
+              "format": "short",
+              "label": null,
+              "logBase": 1,
+              "max": null,
+              "min": null,
+              "show": true
+            },
+            {
+              "format": "short",
+              "label": null,
+              "logBase": 1,
+              "max": null,
+              "min": null,
+              "show": true
+            }
+          ],
+          "yaxis": {
+            "align": false,
+            "alignLevel": null
+          }
+        },
+        {
+          "datasource": "indicators",
+          "description": "",
+          "fieldConfig": {
+            "defaults": {
+              "custom": {}
+            },
+            "overrides": []
+          },
+          "gridPos": {
+            "h": 13,
+            "w": 12,
+            "x": 12,
+            "y": 12
+          },
+          "id": 154,
+          "options": {
+            "colorHigh": 10,
+            "colorLow": 0,
+            "dataAscend": true,
+            "layouts": "structural",
+            "metric": "connections",
+            "sideA": "client",
+            "sideAInMonitor": "client_in_monitor",
+            "sideB": "server",
+            "sideBInMonitor": "server_in_monitor",
+            "view": "graph"
+          },
+          "pluginVersion": "7.3.1",
+          "targets": [
+            {
+              "groupBy": [
+                {
+                  "params": [
+                    "$__interval"
+                  ],
+                  "type": "time"
+                },
+                {
+                  "params": [
+                    "client_ip"
+                  ],
+                  "type": "tag"
+                },
+                {
+                  "params": [
+                    "server_ip"
+                  ],
+                  "type": "tag"
+                },
+                {
+                  "params": [
+                    "client_in_monitor"
+                  ],
+                  "type": "tag"
+                },
+                {
+                  "params": [
+                    "server_in_monitor"
+                  ],
+                  "type": "tag"
+                },
+                {
+                  "params": [
+                    "network_monitor_name"
+                  ],
+                  "type": "tag"
+                },
+                {
+                  "params": [
+                    "client_longitude"
+                  ],
+                  "type": "tag"
+                },
+                {
+                  "params": [
+                    "client_latitude"
+                  ],
+                  "type": "tag"
+                },
+                {
+                  "params": [
+                    "server_longitude"
+                  ],
+                  "type": "tag"
+                },
+                {
+                  "params": [
+                    "server_latitude"
+                  ],
+                  "type": "tag"
+                },
+                {
+                  "params": [
+                    "none"
+                  ],
+                  "type": "fill"
+                }
+              ],
+              "measurement": "https",
+              "orderByTime": "ASC",
+              "policy": "default",
+              "refId": "A",
+              "resultFormat": "table",
+              "select": [
+                [
+                  {
+                    "params": [
+                      "connections"
+                    ],
+                    "type": "field"
+                  },
+                  {
+                    "params": [],
+                    "type": "sum"
+                  },
+                  {
+                    "params": [
+                      "connections"
+                    ],
+                    "type": "alias"
+                  }
+                ],
+                [
+                  {
+                    "params": [
+                      "packets"
+                    ],
+                    "type": "field"
+                  },
+                  {
+                    "params": [],
+                    "type": "sum"
+                  },
+                  {
+                    "params": [
+                      "packets"
+                    ],
+                    "type": "alias"
+                  }
+                ]
+              ],
+              "tags": [
+                {
+                  "key": "network_monitor_name",
+                  "operator": "=~",
+                  "value": "/^$network_monitor$/"
+                }
+              ]
+            }
+          ],
+          "timeFrom": null,
+          "timeShift": null,
+          "title": "HTTPS Sessions $network_monitor",
+          "transformations": [],
+          "type": "c-packet-networks-network-map"
+        }
+      ],
+      "repeat": null,
+      "title": "HTTPS Analytics for $network_monitor",
+      "type": "row"
+    },
+    {
+      "collapsed": false,
+      "datasource": null,
+      "gridPos": {
+        "h": 1,
+        "w": 24,
+        "x": 0,
+        "y": 5
+      },
+      "id": 159,
+      "panels": [],
+      "repeat": null,
+      "title": "ICMP Analytics for: $network_monitor",
+      "type": "row"
+    },
+    {
+      "datasource": "indicators",
+      "description": "",
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "fixedColor": "green",
+            "mode": "fixed"
+          },
+          "custom": {
+            "align": null,
+            "displayMode": "color-text",
+            "filterable": false
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              }
+            ]
+          },
+          "unit": "none"
+        },
+        "overrides": [
+          {
+            "matcher": {
+              "id": "byRegexp",
+              "options": "/.*(RTT|Response|Duration|Idle).*Time.*/"
+            },
+            "properties": [
+              {
+                "id": "unit",
+                "value": "s"
+              },
+              {
+                "id": "decimals",
+                "value": 2
+              }
+            ]
+          }
+        ]
+      },
+      "gridPos": {
+        "h": 10,
+        "w": 12,
+        "x": 0,
+        "y": 6
+      },
+      "id": 151,
+      "options": {
+        "showHeader": true,
+        "sortBy": [
+          {
+            "desc": true,
+            "displayName": "Transactions (sum)"
+          }
+        ]
+      },
+      "pluginVersion": "7.3.1",
+      "targets": [
+        {
+          "alias": "Packet Per Second $tag_destination_ip",
+          "groupBy": [
+            {
+              "params": [
+                "requester_ip"
+              ],
+              "type": "tag"
+            },
+            {
+              "params": [
+                "responder_ip"
+              ],
+              "type": "tag"
+            },
+            {
+              "params": [
+                "icmp_code_description"
+              ],
+              "type": "tag"
+            },
+            {
+              "params": [
+                "icmp_message_type_description"
+              ],
+              "type": "tag"
+            },
+            {
+              "params": [
+                "original_destination_ip"
+              ],
+              "type": "tag"
+            },
+            {
+              "params": [
+                "original_source_ip"
+              ],
+              "type": "tag"
+            }
+          ],
+          "hide": false,
+          "measurement": "icmp",
+          "orderByTime": "ASC",
+          "policy": "default",
+          "refId": "A",
+          "resultFormat": "table",
+          "select": [
+            [
+              {
+                "params": [
+                  "packets"
+                ],
+                "type": "field"
+              }
+            ]
+          ],
+          "tags": [
+            {
+              "key": "network_monitor_name",
+              "operator": "=~",
+              "value": "/^$network_monitor$/"
+            },
+            {
+              "condition": "AND",
+              "key": "icmp_message_type_description",
+              "operator": "!~",
+              "value": "/^Echo.*/"
+            }
+          ]
+        }
+      ],
+      "timeFrom": null,
+      "timeShift": null,
+      "title": "ICMP Analytics Details for:  $network_monitor ",
+      "transformations": [
+        {
+          "id": "organize",
+          "options": {
+            "excludeByName": {
+              "Time": true,
+              "network_monitor_name": true
+            },
+            "indexByName": {
+              "Time": 0,
+              "icmp_code_description": 10,
+              "icmp_message_type_description": 9,
+              "original_destination_hostname": 8,
+              "original_destination_ip": 7,
+              "original_source_hostname": 6,
+              "original_source_ip": 5,
+              "packets": 13,
+              "requester_hostname": 2,
+              "requester_ip": 1,
+              "responder_hostname": 4,
+              "responder_ip": 3,
+              "response_time": 12,
+              "transactions": 11
+            },
+            "renameByName": {
+              "Missing SYNs": "",
+              "RTT Client": "Client RTT",
+              "RTT Server": "Server RTT",
+              "Retransmissions Client": "",
+              "application_port": "Appliication ",
+              "certificate_not_valid_after": "Certificate Valid Until",
+              "certificate_not_valid_before": "Certificate Valid From",
+              "certificate_subject": "Certificate Subject",
+              "client_city": "Client City",
+              "client_hostname": "Client Hostname",
+              "client_ip": "Client IP",
+              "connections": "Connections",
+              "handshake_accepted": "Handshake Accepted",
+              "icmp_code_description": "ICMP Code Description",
+              "icmp_message_type_description": "ICMP Message Type",
+              "network_monitor_name": "Network Monitor",
+              "original_destination_hostname": "Original Destination Hostname",
+              "original_destination_ip": "Original Destination IP",
+              "original_source_hostname": "Original Source Hostname",
+              "original_source_ip": "Original Source IP",
+              "packets": "Packets",
+              "query_name": "Query Name",
+              "query_type": "Query Type",
+              "query_type_name": "Query Type Name",
+              "requester_hostname": "Requester Hostname",
+              "requester_ip": "Requester IP",
+              "requests": "Requests",
+              "responder_hostname": "Responder Hostname",
+              "responder_ip": "Responder IP",
+              "response_time": "Response Time",
+              "responses": "Responses",
+              "server_hello_version": "Server Hello Version",
+              "server_hello_version_name": "TLS Version",
+              "server_hostname": "Server Hostname",
+              "server_ip": "Server IP",
+              "transactions": "Transactions"
+            }
+          }
+        },
+        {
+          "id": "groupBy",
+          "options": {
+            "fields": {
+              "Active Sessions": {
+                "aggregations": [
+                  "max"
+                ],
+                "operation": "aggregate"
+              },
+              "Appliication ": {
+                "aggregations": [],
+                "operation": null
+              },
+              "Bytes Client": {
+                "aggregations": [
+                  "sum"
+                ],
+                "operation": "aggregate"
+              },
+              "Bytes Server": {
+                "aggregations": [
+                  "sum"
+                ],
+                "operation": "aggregate"
+              },
+              "Certificate Subject": {
+                "aggregations": [],
+                "operation": "groupby"
+              },
+              "Certificate Valid From": {
+                "aggregations": [
+                  "max"
+                ],
+                "operation": "aggregate"
+              },
+              "Certificate Valid Until": {
+                "aggregations": [
+                  "min"
+                ],
+                "operation": "aggregate"
+              },
+              "Client City": {
+                "aggregations": [],
+                "operation": "groupby"
+              },
+              "Client Hostname": {
+                "aggregations": [],
+                "operation": "groupby"
+              },
+              "Client IP": {
+                "aggregations": [],
+                "operation": "groupby"
+              },
+              "Client RTT": {
+                "aggregations": [
+                  "mean"
+                ],
+                "operation": "aggregate"
+              },
+              "Connections": {
+                "aggregations": [
+                  "sum"
+                ],
+                "operation": "aggregate"
+              },
+              "Duplicates Client": {
+                "aggregations": [
+                  "sum"
+                ],
+                "operation": "aggregate"
+              },
+              "Duplicates Server": {
+                "aggregations": [
+                  "sum"
+                ],
+                "operation": "aggregate"
+              },
+              "Duraction Max": {
+                "aggregations": [
+                  "max"
+                ],
+                "operation": "aggregate"
+              },
+              "Duration": {
+                "aggregations": [
+                  "max"
+                ],
+                "operation": "aggregate"
+              },
+              "Duration Max": {
+                "aggregations": [
+                  "max"
+                ],
+                "operation": "aggregate"
+              },
+              "Fragments": {
+                "aggregations": [
+                  "sum"
+                ],
+                "operation": "aggregate"
+              },
+              "Fragments Client": {
+                "aggregations": [
+                  "sum"
+                ],
+                "operation": "aggregate"
+              },
+              "Fragments Server": {
+                "aggregations": [
+                  "sum"
+                ],
+                "operation": "aggregate"
+              },
+              "Gaps Client": {
+                "aggregations": [
+                  "sum"
+                ],
+                "operation": "aggregate"
+              },
+              "Gaps Server": {
+                "aggregations": [
+                  "sum"
+                ],
+                "operation": "aggregate"
+              },
+              "Handshake Accepted": {
+                "aggregations": [],
+                "operation": "groupby"
+              },
+              "ICMP Code Description": {
+                "aggregations": [],
+                "operation": "groupby"
+              },
+              "ICMP Message Type": {
+                "aggregations": [],
+                "operation": "groupby"
+              },
+              "Idle time": {
+                "aggregations": [
+                  "max"
+                ],
+                "operation": "aggregate"
+              },
+              "Missing SYNs": {
+                "aggregations": [
+                  "sum"
+                ],
+                "operation": "aggregate"
+              },
+              "Network Monitor": {
+                "aggregations": [],
+                "operation": "groupby"
+              },
+              "Original Destination Hostname": {
+                "aggregations": [],
+                "operation": "groupby"
+              },
+              "Original Destination IP": {
+                "aggregations": [],
+                "operation": "groupby"
+              },
+              "Original Source Hostname": {
+                "aggregations": [],
+                "operation": "groupby"
+              },
+              "Original Source IP": {
+                "aggregations": [],
+                "operation": "groupby"
+              },
+              "Packet Client": {
+                "aggregations": [
+                  "sum"
+                ],
+                "operation": "aggregate"
+              },
+              "Packets": {
+                "aggregations": [
+                  "sum"
+                ],
+                "operation": "aggregate"
+              },
+              "Packets Client": {
+                "aggregations": [
+                  "sum"
+                ],
+                "operation": "aggregate"
+              },
+              "Packets Server": {
+                "aggregations": [
+                  "sum"
+                ],
+                "operation": "aggregate"
+              },
+              "Query Name": {
+                "aggregations": [],
+                "operation": "groupby"
+              },
+              "Query Type": {
+                "aggregations": [],
+                "operation": "groupby"
+              },
+              "Query Type Name": {
+                "aggregations": [],
+                "operation": "groupby"
+              },
+              "RTT Client": {
+                "aggregations": [
+                  "mean"
+                ],
+                "operation": "aggregate"
+              },
+              "RTT Server": {
+                "aggregations": [
+                  "mean"
+                ],
+                "operation": "aggregate"
+              },
+              "Requester Hostname": {
+                "aggregations": [],
+                "operation": "groupby"
+              },
+              "Requester IP": {
+                "aggregations": [],
+                "operation": "groupby"
+              },
+              "Requests": {
+                "aggregations": [
+                  "sum"
+                ],
+                "operation": "aggregate"
+              },
+              "Responder Hostname": {
+                "aggregations": [],
+                "operation": "groupby"
+              },
+              "Responder IP": {
+                "aggregations": [],
+                "operation": "groupby"
+              },
+              "Response Time": {
+                "aggregations": [
+                  "mean"
+                ],
+                "operation": "aggregate"
+              },
+              "Responses": {
+                "aggregations": [
+                  "sum"
+                ],
+                "operation": "aggregate"
+              },
+              "Retransmission Server": {
+                "aggregations": [
+                  "sum"
+                ],
+                "operation": "aggregate"
+              },
+              "Retransmissions Client": {
+                "aggregations": [
+                  "sum"
+                ],
+                "operation": "aggregate"
+              },
+              "SYN Failure": {
+                "aggregations": [
+                  "sum"
+                ],
+                "operation": "aggregate"
+              },
+              "SYN Failure 1": {
+                "aggregations": [],
+                "operation": "aggregate"
+              },
+              "Server Hello Version": {
+                "aggregations": [],
+                "operation": "groupby"
+              },
+              "Server Hostname": {
+                "aggregations": [],
+                "operation": "groupby"
+              },
+              "Server IP": {
+                "aggregations": [],
+                "operation": "groupby"
+              },
+              "Server RTT": {
+                "aggregations": [
+                  "mean"
+                ],
+                "operation": "aggregate"
+              },
+              "TLS Version": {
+                "aggregations": [],
+                "operation": "groupby"
+              },
+              "Time": {
+                "aggregations": [],
+                "operation": "groupby"
+              },
+              "Transactions": {
+                "aggregations": [
+                  "sum"
+                ],
+                "operation": "aggregate"
+              },
+              "application_port": {
+                "aggregations": [],
+                "operation": "groupby"
+              },
+              "certificate_subject": {
+                "aggregations": [],
+                "operation": "groupby"
+              },
+              "client_hostname": {
+                "aggregations": [],
+                "operation": "groupby"
+              },
+              "client_ip": {
+                "aggregations": [],
+                "operation": "groupby"
+              },
+              "connections": {
+                "aggregations": [
+                  "sum"
+                ],
+                "operation": "aggregate"
+              },
+              "handshake_accepted": {
+                "aggregations": [],
+                "operation": "groupby"
+              },
+              "packets": {
+                "aggregations": [
+                  "sum"
+                ],
+                "operation": "aggregate"
+              },
+              "server_hello_version": {
+                "aggregations": [],
+                "operation": "groupby"
+              },
+              "server_hostname": {
+                "aggregations": [],
+                "operation": "groupby"
+              },
+              "server_ip": {
+                "aggregations": [],
+                "operation": "groupby"
+              }
+            }
+          }
+        }
+      ],
+      "type": "table"
+    },
+    {
+      "aliasColors": {},
+      "breakPoint": "50%",
+      "cacheTimeout": null,
+      "combine": {
+        "label": "Others",
+        "threshold": 0
+      },
+      "datasource": "indicators",
+      "description": "",
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "fixedColor": "green",
+            "mode": "fixed"
+          },
+          "custom": {
+            "align": null,
+            "displayMode": "color-text",
+            "filterable": false
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              }
+            ]
+          },
+          "unit": "none"
+        },
+        "overrides": [
+          {
+            "matcher": {
+              "id": "byRegexp",
+              "options": "/.*(RTT|Response|Duration|Idle).*Time.*/"
+            },
+            "properties": [
+              {
+                "id": "unit",
+                "value": "s"
+              },
+              {
+                "id": "decimals",
+                "value": 2
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "Query Name"
+            },
+            "properties": [
+              {
+                "id": "custom.width",
+                "value": 242
+              }
+            ]
+          }
+        ]
+      },
+      "fontSize": "80%",
+      "format": "short",
+      "gridPos": {
+        "h": 10,
+        "w": 4,
+        "x": 12,
+        "y": 6
+      },
+      "id": 246,
+      "interval": null,
+      "legend": {
+        "show": true,
+        "sort": "total",
+        "sortDesc": true,
+        "values": true
+      },
+      "legendType": "Under graph",
+      "links": [],
+      "maxDataPoints": 3,
+      "nullPointMode": "connected",
+      "pieType": "pie",
+      "pluginVersion": "7.3.1",
+      "strokeWidth": 1,
+      "targets": [
+        {
+          "alias": "$tag_icmp_message_type_description",
+          "groupBy": [
+            {
+              "params": [
+                "$resolution"
+              ],
+              "type": "time"
+            },
+            {
+              "params": [
+                "icmp_message_type_description"
+              ],
+              "type": "tag"
+            }
+          ],
+          "hide": false,
+          "measurement": "icmp",
+          "orderByTime": "ASC",
+          "policy": "default",
+          "refId": "A",
+          "resultFormat": "time_series",
+          "select": [
+            [
+              {
+                "params": [
+                  "packets"
+                ],
+                "type": "field"
+              },
+              {
+                "params": [],
+                "type": "sum"
+              }
+            ]
+          ],
+          "tags": [
+            {
+              "key": "network_monitor_name",
+              "operator": "=~",
+              "value": "/^$network_monitor$/"
+            }
+          ]
+        }
+      ],
+      "timeFrom": null,
+      "timeShift": null,
+      "title": "ICMP Message Type:  $network_monitor ",
+      "transformations": [],
+      "type": "grafana-piechart-panel",
+      "valueName": "total"
+    },
+    {
+      "aliasColors": {},
+      "breakPoint": "50%",
+      "cacheTimeout": null,
+      "combine": {
+        "label": "Others",
+        "threshold": 0
+      },
+      "datasource": "indicators",
+      "description": "",
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "fixedColor": "green",
+            "mode": "fixed"
+          },
+          "custom": {
+            "align": null,
+            "displayMode": "color-text",
+            "filterable": false
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              }
+            ]
+          },
+          "unit": "none"
+        },
+        "overrides": [
+          {
+            "matcher": {
+              "id": "byRegexp",
+              "options": "/.*(RTT|Response|Duration|Idle).*Time.*/"
+            },
+            "properties": [
+              {
+                "id": "unit",
+                "value": "s"
+              },
+              {
+                "id": "decimals",
+                "value": 2
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "Query Name"
+            },
+            "properties": [
+              {
+                "id": "custom.width",
+                "value": 242
+              }
+            ]
+          }
+        ]
+      },
+      "fontSize": "80%",
+      "format": "short",
+      "gridPos": {
+        "h": 10,
+        "w": 4,
+        "x": 16,
+        "y": 6
+      },
+      "id": 251,
+      "interval": null,
+      "legend": {
+        "show": true,
+        "sort": "total",
+        "sortDesc": true,
+        "values": true
+      },
+      "legendType": "Under graph",
+      "links": [],
+      "maxDataPoints": 3,
+      "nullPointMode": "connected",
+      "pieType": "pie",
+      "pluginVersion": "7.3.1",
+      "strokeWidth": 1,
+      "targets": [
+        {
+          "alias": "$tag_icmp_code_description",
+          "groupBy": [
+            {
+              "params": [
+                "$resolution"
+              ],
+              "type": "time"
+            },
+            {
+              "params": [
+                "icmp_code_description"
+              ],
+              "type": "tag"
+            }
+          ],
+          "hide": false,
+          "measurement": "icmp",
+          "orderByTime": "ASC",
+          "policy": "default",
+          "refId": "A",
+          "resultFormat": "time_series",
+          "select": [
+            [
+              {
+                "params": [
+                  "packets"
+                ],
+                "type": "field"
+              },
+              {
+                "params": [],
+                "type": "sum"
+              }
+            ]
+          ],
+          "tags": [
+            {
+              "key": "network_monitor_name",
+              "operator": "=~",
+              "value": "/^$network_monitor$/"
+            }
+          ]
+        }
+      ],
+      "timeFrom": null,
+      "timeShift": null,
+      "title": "ICMP Code Types:  $network_monitor ",
+      "transformations": [],
+      "type": "grafana-piechart-panel",
+      "valueName": "total"
+    },
+    {
+      "aliasColors": {},
+      "breakPoint": "50%",
+      "cacheTimeout": null,
+      "combine": {
+        "label": "Others",
+        "threshold": 0
+      },
+      "datasource": "indicators",
+      "description": "",
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "fixedColor": "green",
+            "mode": "fixed"
+          },
+          "custom": {
+            "align": null,
+            "displayMode": "color-text",
+            "filterable": false
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              }
+            ]
+          },
+          "unit": "none"
+        },
+        "overrides": [
+          {
+            "matcher": {
+              "id": "byRegexp",
+              "options": "/.*(RTT|Response|Duration|Idle).*Time.*/"
+            },
+            "properties": [
+              {
+                "id": "unit",
+                "value": "s"
+              },
+              {
+                "id": "decimals",
+                "value": 2
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "Query Name"
+            },
+            "properties": [
+              {
+                "id": "custom.width",
+                "value": 242
+              }
+            ]
+          }
+        ]
+      },
+      "fontSize": "80%",
+      "format": "short",
+      "gridPos": {
+        "h": 10,
+        "w": 4,
+        "x": 20,
+        "y": 6
+      },
+      "id": 249,
+      "interval": null,
+      "legend": {
+        "show": true,
+        "sort": "total",
+        "sortDesc": true,
+        "values": true
+      },
+      "legendType": "Right side",
+      "links": [],
+      "maxDataPoints": 3,
+      "nullPointMode": "connected",
+      "pieType": "pie",
+      "pluginVersion": "7.3.1",
+      "strokeWidth": 1,
+      "targets": [
+        {
+          "alias": "$tag_responder_ip",
+          "groupBy": [
+            {
+              "params": [
+                "$resolution"
+              ],
+              "type": "time"
+            },
+            {
+              "params": [
+                "responder_ip"
+              ],
+              "type": "tag"
+            }
+          ],
+          "hide": false,
+          "measurement": "icmp",
+          "orderByTime": "ASC",
+          "policy": "default",
+          "refId": "A",
+          "resultFormat": "time_series",
+          "select": [
+            [
+              {
+                "params": [
+                  "packets"
+                ],
+                "type": "field"
+              },
+              {
+                "params": [],
+                "type": "sum"
+              }
+            ]
+          ],
+          "tags": [
+            {
+              "key": "network_monitor_name",
+              "operator": "=~",
+              "value": "/^$network_monitor$/"
+            },
+            {
+              "condition": "AND",
+              "key": "icmp_message_type_description",
+              "operator": "!=",
+              "value": "Echo Reply"
+            }
+          ]
+        }
+      ],
+      "timeFrom": null,
+      "timeShift": null,
+      "title": "ICMP Responders IP:  $network_monitor ",
+      "transformations": [],
+      "type": "grafana-piechart-panel",
+      "valueName": "total"
+    },
+    {
+      "datasource": "indicators",
+      "description": "",
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "fixedColor": "green",
+            "mode": "fixed"
+          },
+          "custom": {
+            "align": null,
+            "displayMode": "color-text",
+            "filterable": false
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              }
+            ]
+          },
+          "unit": "none"
+        },
+        "overrides": [
+          {
+            "matcher": {
+              "id": "byRegexp",
+              "options": "/.*(RTT|Response|Duration|Idle).*Time.*/"
+            },
+            "properties": [
+              {
+                "id": "unit",
+                "value": "s"
+              },
+              {
+                "id": "decimals",
+                "value": 2
+              }
+            ]
+          }
+        ]
+      },
+      "gridPos": {
+        "h": 10,
+        "w": 12,
+        "x": 0,
+        "y": 16
+      },
+      "id": 161,
+      "options": {
+        "showHeader": true,
+        "sortBy": [
+          {
+            "desc": true,
+            "displayName": "Response Time (mean)"
+          }
+        ]
+      },
+      "pluginVersion": "7.3.1",
+      "targets": [
+        {
+          "alias": "Packet Per Second $tag_destination_ip",
+          "groupBy": [
+            {
+              "params": [
+                "requester_ip"
+              ],
+              "type": "tag"
+            },
+            {
+              "params": [
+                "responder_ip"
+              ],
+              "type": "tag"
+            },
+            {
+              "params": [
+                "requester_hostname"
+              ],
+              "type": "tag"
+            },
+            {
+              "params": [
+                "responder_hostname"
+              ],
+              "type": "tag"
+            },
+            {
+              "params": [
+                "icmp_message_type_description"
+              ],
+              "type": "tag"
+            }
+          ],
+          "hide": false,
+          "measurement": "icmp",
+          "orderByTime": "ASC",
+          "policy": "default",
+          "refId": "A",
+          "resultFormat": "table",
+          "select": [
+            [
+              {
+                "params": [
+                  "response_time"
+                ],
+                "type": "field"
+              }
+            ],
+            [
+              {
+                "params": [
+                  "packets"
+                ],
+                "type": "field"
+              }
+            ],
+            [
+              {
+                "params": [
+                  "transactions"
+                ],
+                "type": "field"
+              }
+            ]
+          ],
+          "tags": [
+            {
+              "key": "network_monitor_name",
+              "operator": "=~",
+              "value": "/^$network_monitor$/"
+            },
+            {
+              "condition": "AND",
+              "key": "icmp_message_type_description",
+              "operator": "=~",
+              "value": "/^Echo.*/"
+            }
+          ]
+        }
+      ],
+      "timeFrom": null,
+      "timeShift": null,
+      "title": "ICMP Ping Analytics Details for:  $network_monitor ",
+      "transformations": [
+        {
+          "id": "organize",
+          "options": {
+            "excludeByName": {
+              "Time": true,
+              "network_monitor_name": true
+            },
+            "indexByName": {
+              "Time": 0,
+              "icmp_message_type_description": 5,
+              "packets": 8,
+              "requester_hostname": 2,
+              "requester_ip": 1,
+              "responder_hostname": 4,
+              "responder_ip": 3,
+              "response_time": 6,
+              "transactions": 7
+            },
+            "renameByName": {
+              "Missing SYNs": "",
+              "RTT Client": "Client RTT",
+              "RTT Server": "Server RTT",
+              "Retransmissions Client": "",
+              "application_port": "Appliication ",
+              "certificate_not_valid_after": "Certificate Valid Until",
+              "certificate_not_valid_before": "Certificate Valid From",
+              "certificate_subject": "Certificate Subject",
+              "client_city": "Client City",
+              "client_hostname": "Client Hostname",
+              "client_ip": "Client IP",
+              "connections": "Connections",
+              "handshake_accepted": "Handshake Accepted",
+              "icmp_code_description": "ICMP Code Description",
+              "icmp_message_type_description": "ICMP Message Type",
+              "network_monitor_name": "Network Monitor",
+              "original_destination_hostname": "Original Destination Hostname",
+              "original_destination_ip": "Original Destination IP",
+              "original_source_hostname": "Original Source Hostname",
+              "original_source_ip": "Original Source IP",
+              "packets": "Packets",
+              "query_name": "Query Name",
+              "query_type": "Query Type",
+              "query_type_name": "Query Type Name",
+              "requester_hostname": "Requester Hostname",
+              "requester_ip": "Requester IP",
+              "requests": "Requests",
+              "responder_hostname": "Responder Hostname",
+              "responder_ip": "Responder IP",
+              "response_time": "Response Time",
+              "responses": "Responses",
+              "server_hello_version": "Server Hello Version",
+              "server_hello_version_name": "TLS Version",
+              "server_hostname": "Server Hostname",
+              "server_ip": "Server IP",
+              "transactions": "Transactions"
+            }
+          }
+        },
+        {
+          "id": "groupBy",
+          "options": {
+            "fields": {
+              "Active Sessions": {
+                "aggregations": [
+                  "max"
+                ],
+                "operation": "aggregate"
+              },
+              "Appliication ": {
+                "aggregations": [],
+                "operation": null
+              },
+              "Bytes Client": {
+                "aggregations": [
+                  "sum"
+                ],
+                "operation": "aggregate"
+              },
+              "Bytes Server": {
+                "aggregations": [
+                  "sum"
+                ],
+                "operation": "aggregate"
+              },
+              "Certificate Subject": {
+                "aggregations": [],
+                "operation": "groupby"
+              },
+              "Certificate Valid From": {
+                "aggregations": [
+                  "max"
+                ],
+                "operation": "aggregate"
+              },
+              "Certificate Valid Until": {
+                "aggregations": [
+                  "min"
+                ],
+                "operation": "aggregate"
+              },
+              "Client City": {
+                "aggregations": [],
+                "operation": "groupby"
+              },
+              "Client Hostname": {
+                "aggregations": [],
+                "operation": "groupby"
+              },
+              "Client IP": {
+                "aggregations": [],
+                "operation": "groupby"
+              },
+              "Client RTT": {
+                "aggregations": [
+                  "mean"
+                ],
+                "operation": "aggregate"
+              },
+              "Connections": {
+                "aggregations": [
+                  "sum"
+                ],
+                "operation": "aggregate"
+              },
+              "Duplicates Client": {
+                "aggregations": [
+                  "sum"
+                ],
+                "operation": "aggregate"
+              },
+              "Duplicates Server": {
+                "aggregations": [
+                  "sum"
+                ],
+                "operation": "aggregate"
+              },
+              "Duraction Max": {
+                "aggregations": [
+                  "max"
+                ],
+                "operation": "aggregate"
+              },
+              "Duration": {
+                "aggregations": [
+                  "max"
+                ],
+                "operation": "aggregate"
+              },
+              "Duration Max": {
+                "aggregations": [
+                  "max"
+                ],
+                "operation": "aggregate"
+              },
+              "Fragments": {
+                "aggregations": [
+                  "sum"
+                ],
+                "operation": "aggregate"
+              },
+              "Fragments Client": {
+                "aggregations": [
+                  "sum"
+                ],
+                "operation": "aggregate"
+              },
+              "Fragments Server": {
+                "aggregations": [
+                  "sum"
+                ],
+                "operation": "aggregate"
+              },
+              "Gaps Client": {
+                "aggregations": [
+                  "sum"
+                ],
+                "operation": "aggregate"
+              },
+              "Gaps Server": {
+                "aggregations": [
+                  "sum"
+                ],
+                "operation": "aggregate"
+              },
+              "Handshake Accepted": {
+                "aggregations": [],
+                "operation": "groupby"
+              },
+              "ICMP Code Description": {
+                "aggregations": [],
+                "operation": "groupby"
+              },
+              "ICMP Message Type": {
+                "aggregations": [],
+                "operation": "groupby"
+              },
+              "Idle time": {
+                "aggregations": [
+                  "max"
+                ],
+                "operation": "aggregate"
+              },
+              "Missing SYNs": {
+                "aggregations": [
+                  "sum"
+                ],
+                "operation": "aggregate"
+              },
+              "Network Monitor": {
+                "aggregations": [],
+                "operation": "groupby"
+              },
+              "Original Destination Hostname": {
+                "aggregations": [],
+                "operation": "groupby"
+              },
+              "Original Destination IP": {
+                "aggregations": [],
+                "operation": "groupby"
+              },
+              "Original Source Hostname": {
+                "aggregations": [],
+                "operation": "groupby"
+              },
+              "Original Source IP": {
+                "aggregations": [],
+                "operation": "groupby"
+              },
+              "Packet Client": {
+                "aggregations": [
+                  "sum"
+                ],
+                "operation": "aggregate"
+              },
+              "Packets": {
+                "aggregations": [
+                  "sum"
+                ],
+                "operation": "aggregate"
+              },
+              "Packets Client": {
+                "aggregations": [
+                  "sum"
+                ],
+                "operation": "aggregate"
+              },
+              "Packets Server": {
+                "aggregations": [
+                  "sum"
+                ],
+                "operation": "aggregate"
+              },
+              "Query Name": {
+                "aggregations": [],
+                "operation": "groupby"
+              },
+              "Query Type": {
+                "aggregations": [],
+                "operation": "groupby"
+              },
+              "Query Type Name": {
+                "aggregations": [],
+                "operation": "groupby"
+              },
+              "RTT Client": {
+                "aggregations": [
+                  "mean"
+                ],
+                "operation": "aggregate"
+              },
+              "RTT Server": {
+                "aggregations": [
+                  "mean"
+                ],
+                "operation": "aggregate"
+              },
+              "Requester Hostname": {
+                "aggregations": [],
+                "operation": "groupby"
+              },
+              "Requester IP": {
+                "aggregations": [],
+                "operation": "groupby"
+              },
+              "Requests": {
+                "aggregations": [
+                  "sum"
+                ],
+                "operation": "aggregate"
+              },
+              "Responder Hostname": {
+                "aggregations": [],
+                "operation": "groupby"
+              },
+              "Responder IP": {
+                "aggregations": [],
+                "operation": "groupby"
+              },
+              "Response Time": {
+                "aggregations": [
+                  "mean"
+                ],
+                "operation": "aggregate"
+              },
+              "Responses": {
+                "aggregations": [
+                  "sum"
+                ],
+                "operation": "aggregate"
+              },
+              "Retransmission Server": {
+                "aggregations": [
+                  "sum"
+                ],
+                "operation": "aggregate"
+              },
+              "Retransmissions Client": {
+                "aggregations": [
+                  "sum"
+                ],
+                "operation": "aggregate"
+              },
+              "SYN Failure": {
+                "aggregations": [
+                  "sum"
+                ],
+                "operation": "aggregate"
+              },
+              "SYN Failure 1": {
+                "aggregations": [],
+                "operation": "aggregate"
+              },
+              "Server Hello Version": {
+                "aggregations": [],
+                "operation": "groupby"
+              },
+              "Server Hostname": {
+                "aggregations": [],
+                "operation": "groupby"
+              },
+              "Server IP": {
+                "aggregations": [],
+                "operation": "groupby"
+              },
+              "Server RTT": {
+                "aggregations": [
+                  "mean"
+                ],
+                "operation": "aggregate"
+              },
+              "TLS Version": {
+                "aggregations": [],
+                "operation": "groupby"
+              },
+              "Time": {
+                "aggregations": [],
+                "operation": "groupby"
+              },
+              "Transactions": {
+                "aggregations": [
+                  "sum"
+                ],
+                "operation": "aggregate"
+              },
+              "application_port": {
+                "aggregations": [],
+                "operation": "groupby"
+              },
+              "certificate_subject": {
+                "aggregations": [],
+                "operation": "groupby"
+              },
+              "client_hostname": {
+                "aggregations": [],
+                "operation": "groupby"
+              },
+              "client_ip": {
+                "aggregations": [],
+                "operation": "groupby"
+              },
+              "connections": {
+                "aggregations": [
+                  "sum"
+                ],
+                "operation": "aggregate"
+              },
+              "handshake_accepted": {
+                "aggregations": [],
+                "operation": "groupby"
+              },
+              "packets": {
+                "aggregations": [
+                  "sum"
+                ],
+                "operation": "aggregate"
+              },
+              "server_hello_version": {
+                "aggregations": [],
+                "operation": "groupby"
+              },
+              "server_hostname": {
+                "aggregations": [],
+                "operation": "groupby"
+              },
+              "server_ip": {
+                "aggregations": [],
+                "operation": "groupby"
+              }
+            }
+          }
+        }
+      ],
+      "type": "table"
+    },
+    {
+      "aliasColors": {},
+      "bars": true,
+      "cacheTimeout": null,
+      "dashLength": 10,
+      "dashes": false,
+      "datasource": "indicators",
+      "description": "",
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "fixedColor": "green",
+            "mode": "fixed"
+          },
+          "custom": {
+            "align": null,
+            "displayMode": "color-text",
+            "filterable": false
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              }
+            ]
+          },
+          "unit": "none"
+        },
+        "overrides": [
+          {
+            "matcher": {
+              "id": "byRegexp",
+              "options": "/.*(RTT|Response|Duration|Idle).*Time.*/"
+            },
+            "properties": [
+              {
+                "id": "unit",
+                "value": "s"
+              },
+              {
+                "id": "decimals",
+                "value": 2
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "Query Name"
+            },
+            "properties": [
+              {
+                "id": "custom.width",
+                "value": 242
+              }
+            ]
+          }
+        ]
+      },
+      "fill": 0,
+      "fillGradient": 0,
+      "gridPos": {
+        "h": 10,
+        "w": 8,
+        "x": 12,
+        "y": 16
+      },
+      "hiddenSeries": false,
+      "id": 247,
+      "interval": null,
+      "legend": {
+        "alignAsTable": true,
+        "avg": true,
+        "current": false,
+        "max": false,
+        "min": false,
+        "show": true,
+        "total": true,
+        "values": true
+      },
+      "lines": false,
+      "linewidth": 1,
+      "links": [],
+      "nullPointMode": "null",
+      "options": {
+        "alertThreshold": true
+      },
+      "percentage": false,
+      "pluginVersion": "7.3.1",
+      "pointradius": 2,
+      "points": false,
+      "renderer": "flot",
+      "seriesOverrides": [],
+      "spaceLength": 10,
+      "stack": true,
+      "steppedLine": false,
+      "targets": [
+        {
+          "alias": "$tag_icmp_code_description",
+          "groupBy": [
+            {
+              "params": [
+                "$resolution"
+              ],
+              "type": "time"
+            },
+            {
+              "params": [
+                "icmp_code_description"
+              ],
+              "type": "tag"
+            }
+          ],
+          "hide": false,
+          "measurement": "icmp",
+          "orderByTime": "ASC",
+          "policy": "default",
+          "refId": "A",
+          "resultFormat": "time_series",
+          "select": [
+            [
+              {
+                "params": [
+                  "packets"
+                ],
+                "type": "field"
+              },
+              {
+                "params": [],
+                "type": "sum"
+              }
+            ]
+          ],
+          "tags": [
+            {
+              "key": "network_monitor_name",
+              "operator": "=~",
+              "value": "/^$network_monitor$/"
+            },
+            {
+              "condition": "AND",
+              "key": "icmp_message_type_description",
+              "operator": "!=",
+              "value": "Echo Reply"
+            }
+          ]
+        }
+      ],
+      "thresholds": [],
+      "timeFrom": null,
+      "timeRegions": [],
+      "timeShift": null,
+      "title": "ICMP Packets:  $network_monitor ",
+      "tooltip": {
+        "shared": true,
+        "sort": 0,
+        "value_type": "individual"
+      },
+      "transformations": [],
+      "type": "graph",
+      "xaxis": {
+        "buckets": null,
+        "mode": "time",
+        "name": null,
+        "show": true,
+        "values": []
+      },
+      "yaxes": [
+        {
+          "$$hashKey": "object:2421",
+          "format": "none",
+          "label": null,
+          "logBase": 1,
+          "max": null,
+          "min": null,
+          "show": true
+        },
+        {
+          "$$hashKey": "object:2422",
+          "format": "short",
+          "label": null,
+          "logBase": 1,
+          "max": null,
+          "min": null,
+          "show": true
+        }
+      ],
+      "yaxis": {
+        "align": false,
+        "alignLevel": null
+      }
+    },
+    {
+      "aliasColors": {},
+      "breakPoint": "50%",
+      "cacheTimeout": null,
+      "combine": {
+        "label": "Others",
+        "threshold": 0
+      },
+      "datasource": "indicators",
+      "description": "",
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "fixedColor": "green",
+            "mode": "fixed"
+          },
+          "custom": {
+            "align": null,
+            "displayMode": "color-text",
+            "filterable": false
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              }
+            ]
+          },
+          "unit": "none"
+        },
+        "overrides": [
+          {
+            "matcher": {
+              "id": "byRegexp",
+              "options": "/.*(RTT|Response|Duration|Idle).*Time.*/"
+            },
+            "properties": [
+              {
+                "id": "unit",
+                "value": "s"
+              },
+              {
+                "id": "decimals",
+                "value": 2
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "Query Name"
+            },
+            "properties": [
+              {
+                "id": "custom.width",
+                "value": 242
+              }
+            ]
+          }
+        ]
+      },
+      "fontSize": "80%",
+      "format": "short",
+      "gridPos": {
+        "h": 10,
+        "w": 4,
+        "x": 20,
+        "y": 16
+      },
+      "id": 250,
+      "interval": null,
+      "legend": {
+        "show": true,
+        "sort": "total",
+        "sortDesc": true,
+        "values": true
+      },
+      "legendType": "Right side",
+      "links": [],
+      "maxDataPoints": 3,
+      "nullPointMode": "connected",
+      "pieType": "pie",
+      "pluginVersion": "7.3.1",
+      "strokeWidth": 1,
+      "targets": [
+        {
+          "alias": "$tag_requester_ip",
+          "groupBy": [
+            {
+              "params": [
+                "$resolution"
+              ],
+              "type": "time"
+            },
+            {
+              "params": [
+                "requester_ip"
+              ],
+              "type": "tag"
+            }
+          ],
+          "hide": false,
+          "measurement": "icmp",
+          "orderByTime": "ASC",
+          "policy": "default",
+          "refId": "A",
+          "resultFormat": "time_series",
+          "select": [
+            [
+              {
+                "params": [
+                  "packets"
+                ],
+                "type": "field"
+              },
+              {
+                "params": [],
+                "type": "sum"
+              }
+            ]
+          ],
+          "tags": [
+            {
+              "key": "network_monitor_name",
+              "operator": "=~",
+              "value": "/^$network_monitor$/"
+            },
+            {
+              "condition": "AND",
+              "key": "icmp_message_type_description",
+              "operator": "!=",
+              "value": "Echo Reply"
+            }
+          ]
+        }
+      ],
+      "timeFrom": null,
+      "timeShift": null,
+      "title": "ICMP Responders IP:  $network_monitor ",
+      "transformations": [],
+      "type": "grafana-piechart-panel",
+      "valueName": "total"
+    },
+    {
+      "collapsed": true,
+      "datasource": null,
+      "gridPos": {
+        "h": 1,
+        "w": 24,
+        "x": 0,
+        "y": 26
+      },
+      "id": 156,
+      "panels": [
+        {
+          "datasource": "indicators",
+          "description": "",
+          "fieldConfig": {
+            "defaults": {
+              "color": {
+                "fixedColor": "green",
+                "mode": "fixed"
+              },
+              "custom": {
+                "align": null,
+                "displayMode": "color-text",
+                "filterable": false
+              },
+              "mappings": [],
+              "thresholds": {
+                "mode": "absolute",
+                "steps": [
+                  {
+                    "color": "green",
+                    "value": null
+                  }
+                ]
+              },
+              "unit": "none"
+            },
+            "overrides": [
+              {
+                "matcher": {
+                  "id": "byRegexp",
+                  "options": "/.*(RTT|Duration|Idle).*Time.*/"
+                },
+                "properties": [
+                  {
+                    "id": "unit",
+                    "value": "s"
+                  },
+                  {
+                    "id": "decimals",
+                    "value": 2
+                  }
+                ]
+              },
+              {
+                "matcher": {
+                  "id": "byName",
+                  "options": "Response Time (min)"
+                },
+                "properties": [
+                  {
+                    "id": "unit",
+                    "value": "dateTimeAsUSNoDateIfToday"
+                  }
+                ]
+              },
+              {
+                "matcher": {
+                  "id": "byName",
+                  "options": "Request Time (min)"
+                },
+                "properties": [
+                  {
+                    "id": "unit",
+                    "value": "dateTimeAsUSNoDateIfToday"
+                  }
+                ]
+              }
+            ]
+          },
+          "gridPos": {
+            "h": 10,
+            "w": 12,
+            "x": 0,
+            "y": 7
+          },
+          "id": 160,
+          "options": {
+            "showHeader": true,
+            "sortBy": [
+              {
+                "desc": true,
+                "displayName": "Responder Hostname"
+              }
+            ]
+          },
+          "pluginVersion": "7.3.1",
+          "targets": [
+            {
+              "alias": "Packet Per Second $tag_destination_ip",
+              "groupBy": [
+                {
+                  "params": [
+                    "requester_ip"
+                  ],
+                  "type": "tag"
+                },
+                {
+                  "params": [
+                    "responder_ip"
+                  ],
+                  "type": "tag"
+                },
+                {
+                  "params": [
+                    "requester_hostname"
+                  ],
+                  "type": "tag"
+                },
+                {
+                  "params": [
+                    "responder_hostname"
+                  ],
+                  "type": "tag"
+                },
+                {
+                  "params": [
+                    "query_type_name"
+                  ],
+                  "type": "tag"
+                },
+                {
+                  "params": [
+                    "query_name"
+                  ],
+                  "type": "tag"
+                },
+                {
+                  "params": [
+                    "transaction_id"
+                  ],
+                  "type": "tag"
+                }
+              ],
+              "hide": false,
+              "measurement": "dns",
+              "orderByTime": "ASC",
+              "policy": "default",
+              "refId": "A",
+              "resultFormat": "table",
+              "select": [
+                [
+                  {
+                    "params": [
+                      "requests"
+                    ],
+                    "type": "field"
+                  }
+                ],
+                [
+                  {
+                    "params": [
+                      "response_time"
+                    ],
+                    "type": "field"
+                  },
+                  {
+                    "params": [
+                      " / 1000000"
+                    ],
+                    "type": "math"
+                  }
+                ],
+                [
+                  {
+                    "params": [
+                      "responses"
+                    ],
+                    "type": "field"
+                  }
+                ],
+                [
+                  {
+                    "params": [
+                      "packets"
+                    ],
+                    "type": "field"
+                  }
+                ],
+                [
+                  {
+                    "params": [
+                      "request_time"
+                    ],
+                    "type": "field"
+                  },
+                  {
+                    "params": [
+                      " / 1000000"
+                    ],
+                    "type": "math"
+                  }
+                ]
+              ],
+              "tags": [
+                {
+                  "key": "network_monitor_name",
+                  "operator": "=~",
+                  "value": "/^$network_monitor$/"
+                },
+                {
+                  "condition": "AND",
+                  "key": "query_type_name",
+                  "operator": "!=",
+                  "value": "none"
+                }
+              ]
+            }
+          ],
+          "timeFrom": null,
+          "timeShift": null,
+          "title": "DNS Analytics Details for:  $network_monitor ",
+          "transformations": [
+            {
+              "id": "organize",
+              "options": {
+                "excludeByName": {
+                  "Time": true,
+                  "network_monitor_name": true,
+                  "packets": true,
+                  "request_time": true,
+                  "response_time": true,
+                  "transaction_id": true
+                },
+                "indexByName": {
+                  "Time": 0,
+                  "packets": 12,
+                  "query_name": 5,
+                  "query_type_name": 6,
+                  "request_time": 10,
+                  "requester_hostname": 2,
+                  "requester_ip": 1,
+                  "requests": 8,
+                  "responder_hostname": 4,
+                  "responder_ip": 3,
+                  "response_time": 11,
+                  "responses": 9,
+                  "transaction_id": 7
+                },
+                "renameByName": {
+                  "Missing SYNs": "",
+                  "RTT Client": "Client RTT",
+                  "RTT Server": "Server RTT",
+                  "Retransmissions Client": "",
+                  "application_port": "Appliication ",
+                  "certificate_not_valid_after": "Certificate Valid Until",
+                  "certificate_not_valid_before": "Certificate Valid From",
+                  "certificate_subject": "Certificate Subject",
+                  "client_city": "Client City",
+                  "client_hostname": "Client Hostname",
+                  "client_ip": "Client IP",
+                  "connections": "Connections",
+                  "handshake_accepted": "Handshake Accepted",
+                  "network_monitor_name": "Network Monitor",
+                  "packets": "Packets",
+                  "query_name": "Query Name",
+                  "query_type": "Query Type",
+                  "query_type_name": "Query Type Name",
+                  "request_time": "Request Time",
+                  "requester_hostname": "Requester Hostname",
+                  "requester_ip": "Requester IP",
+                  "requests": "Requests",
+                  "responder_hostname": "Responder Hostname",
+                  "responder_ip": "Responder IP",
+                  "response_time": "Response Time",
+                  "responses": "Responses",
+                  "server_hello_version": "Server Hello Version",
+                  "server_hello_version_name": "TLS Version",
+                  "server_hostname": "Server Hostname",
+                  "server_ip": "Server IP",
+                  "transactions": "Transactions"
+                }
+              }
+            },
+            {
+              "id": "groupBy",
+              "options": {
+                "fields": {
+                  "Active Sessions": {
+                    "aggregations": [
+                      "max"
+                    ],
+                    "operation": "aggregate"
+                  },
+                  "Appliication ": {
+                    "aggregations": [],
+                    "operation": null
+                  },
+                  "Bytes Client": {
+                    "aggregations": [
+                      "sum"
+                    ],
+                    "operation": "aggregate"
+                  },
+                  "Bytes Server": {
+                    "aggregations": [
+                      "sum"
+                    ],
+                    "operation": "aggregate"
+                  },
+                  "Certificate Subject": {
+                    "aggregations": [],
+                    "operation": "groupby"
+                  },
+                  "Certificate Valid From": {
+                    "aggregations": [
+                      "max"
+                    ],
+                    "operation": "aggregate"
+                  },
+                  "Certificate Valid Until": {
+                    "aggregations": [
+                      "min"
+                    ],
+                    "operation": "aggregate"
+                  },
+                  "Client City": {
+                    "aggregations": [],
+                    "operation": "groupby"
+                  },
+                  "Client Hostname": {
+                    "aggregations": [],
+                    "operation": "groupby"
+                  },
+                  "Client IP": {
+                    "aggregations": [],
+                    "operation": "groupby"
+                  },
+                  "Client RTT": {
+                    "aggregations": [
+                      "mean"
+                    ],
+                    "operation": "aggregate"
+                  },
+                  "Connections": {
+                    "aggregations": [
+                      "sum"
+                    ],
+                    "operation": "aggregate"
+                  },
+                  "Duplicates Client": {
+                    "aggregations": [
+                      "sum"
+                    ],
+                    "operation": "aggregate"
+                  },
+                  "Duplicates Server": {
+                    "aggregations": [
+                      "sum"
+                    ],
+                    "operation": "aggregate"
+                  },
+                  "Duraction Max": {
+                    "aggregations": [
+                      "max"
+                    ],
+                    "operation": "aggregate"
+                  },
+                  "Duration": {
+                    "aggregations": [
+                      "max"
+                    ],
+                    "operation": "aggregate"
+                  },
+                  "Duration Max": {
+                    "aggregations": [
+                      "max"
+                    ],
+                    "operation": "aggregate"
+                  },
+                  "Fragments": {
+                    "aggregations": [
+                      "sum"
+                    ],
+                    "operation": "aggregate"
+                  },
+                  "Fragments Client": {
+                    "aggregations": [
+                      "sum"
+                    ],
+                    "operation": "aggregate"
+                  },
+                  "Fragments Server": {
+                    "aggregations": [
+                      "sum"
+                    ],
+                    "operation": "aggregate"
+                  },
+                  "Gaps Client": {
+                    "aggregations": [
+                      "sum"
+                    ],
+                    "operation": "aggregate"
+                  },
+                  "Gaps Server": {
+                    "aggregations": [
+                      "sum"
+                    ],
+                    "operation": "aggregate"
+                  },
+                  "Handshake Accepted": {
+                    "aggregations": [],
+                    "operation": "groupby"
+                  },
+                  "Idle time": {
+                    "aggregations": [
+                      "max"
+                    ],
+                    "operation": "aggregate"
+                  },
+                  "Missing SYNs": {
+                    "aggregations": [
+                      "sum"
+                    ],
+                    "operation": "aggregate"
+                  },
+                  "Network Monitor": {
+                    "aggregations": [],
+                    "operation": "groupby"
+                  },
+                  "Packet Client": {
+                    "aggregations": [
+                      "sum"
+                    ],
+                    "operation": "aggregate"
+                  },
+                  "Packets": {
+                    "aggregations": [
+                      "sum"
+                    ],
+                    "operation": "aggregate"
+                  },
+                  "Packets Client": {
+                    "aggregations": [
+                      "sum"
+                    ],
+                    "operation": "aggregate"
+                  },
+                  "Packets Server": {
+                    "aggregations": [
+                      "sum"
+                    ],
+                    "operation": "aggregate"
+                  },
+                  "Query Name": {
+                    "aggregations": [],
+                    "operation": "groupby"
+                  },
+                  "Query Type": {
+                    "aggregations": [],
+                    "operation": "groupby"
+                  },
+                  "Query Type Name": {
+                    "aggregations": [],
+                    "operation": "groupby"
+                  },
+                  "RTT Client": {
+                    "aggregations": [
+                      "mean"
+                    ],
+                    "operation": "aggregate"
+                  },
+                  "RTT Server": {
+                    "aggregations": [
+                      "mean"
+                    ],
+                    "operation": "aggregate"
+                  },
+                  "Request Time": {
+                    "aggregations": [
+                      "min"
+                    ],
+                    "operation": "aggregate"
+                  },
+                  "Requester Hostname": {
+                    "aggregations": [],
+                    "operation": "groupby"
+                  },
+                  "Requester IP": {
+                    "aggregations": [],
+                    "operation": "groupby"
+                  },
+                  "Requests": {
+                    "aggregations": [
+                      "sum"
+                    ],
+                    "operation": "aggregate"
+                  },
+                  "Responder Hostname": {
+                    "aggregations": [],
+                    "operation": "groupby"
+                  },
+                  "Responder IP": {
+                    "aggregations": [],
+                    "operation": "groupby"
+                  },
+                  "Response Time": {
+                    "aggregations": [
+                      "min"
+                    ],
+                    "operation": "aggregate"
+                  },
+                  "Responses": {
+                    "aggregations": [
+                      "sum"
+                    ],
+                    "operation": "aggregate"
+                  },
+                  "Retransmission Server": {
+                    "aggregations": [
+                      "sum"
+                    ],
+                    "operation": "aggregate"
+                  },
+                  "Retransmissions Client": {
+                    "aggregations": [
+                      "sum"
+                    ],
+                    "operation": "aggregate"
+                  },
+                  "SYN Failure": {
+                    "aggregations": [
+                      "sum"
+                    ],
+                    "operation": "aggregate"
+                  },
+                  "SYN Failure 1": {
+                    "aggregations": [],
+                    "operation": "aggregate"
+                  },
+                  "Server Hello Version": {
+                    "aggregations": [],
+                    "operation": "groupby"
+                  },
+                  "Server Hostname": {
+                    "aggregations": [],
+                    "operation": "groupby"
+                  },
+                  "Server IP": {
+                    "aggregations": [],
+                    "operation": "groupby"
+                  },
+                  "Server RTT": {
+                    "aggregations": [
+                      "mean"
+                    ],
+                    "operation": "aggregate"
+                  },
+                  "TLS Version": {
+                    "aggregations": [],
+                    "operation": "groupby"
+                  },
+                  "Time": {
+                    "aggregations": [],
+                    "operation": "groupby"
+                  },
+                  "Transactions": {
+                    "aggregations": [
+                      "sum"
+                    ],
+                    "operation": "aggregate"
+                  },
+                  "application_port": {
+                    "aggregations": [],
+                    "operation": "groupby"
+                  },
+                  "certificate_subject": {
+                    "aggregations": [],
+                    "operation": "groupby"
+                  },
+                  "client_hostname": {
+                    "aggregations": [],
+                    "operation": "groupby"
+                  },
+                  "client_ip": {
+                    "aggregations": [],
+                    "operation": "groupby"
+                  },
+                  "connections": {
+                    "aggregations": [
+                      "sum"
+                    ],
+                    "operation": "aggregate"
+                  },
+                  "handshake_accepted": {
+                    "aggregations": [],
+                    "operation": "groupby"
+                  },
+                  "packets": {
+                    "aggregations": [
+                      "sum"
+                    ],
+                    "operation": "aggregate"
+                  },
+                  "server_hello_version": {
+                    "aggregations": [],
+                    "operation": "groupby"
+                  },
+                  "server_hostname": {
+                    "aggregations": [],
+                    "operation": "groupby"
+                  },
+                  "server_ip": {
+                    "aggregations": [],
+                    "operation": "groupby"
+                  },
+                  "transaction_id": {
+                    "aggregations": [],
+                    "operation": "groupby"
+                  }
+                }
+              }
+            }
+          ],
+          "type": "table"
+        },
+        {
+          "aliasColors": {},
+          "breakPoint": "50%",
+          "cacheTimeout": null,
+          "combine": {
+            "label": "Others",
+            "threshold": 0
+          },
+          "datasource": "indicators",
+          "description": "",
+          "fieldConfig": {
+            "defaults": {
+              "color": {
+                "fixedColor": "green",
+                "mode": "fixed"
+              },
+              "custom": {
+                "align": null,
+                "displayMode": "color-text",
+                "filterable": false
+              },
+              "mappings": [],
+              "thresholds": {
+                "mode": "absolute",
+                "steps": [
+                  {
+                    "color": "green",
+                    "value": null
+                  }
+                ]
+              },
+              "unit": "none"
+            },
+            "overrides": [
+              {
+                "matcher": {
+                  "id": "byRegexp",
+                  "options": "/.*(RTT|Response|Duration|Idle).*Time.*/"
+                },
+                "properties": [
+                  {
+                    "id": "unit",
+                    "value": "s"
+                  },
+                  {
+                    "id": "decimals",
+                    "value": 2
+                  }
+                ]
+              },
+              {
+                "matcher": {
+                  "id": "byName",
+                  "options": "Query Name"
+                },
+                "properties": [
+                  {
+                    "id": "custom.width",
+                    "value": 242
+                  }
+                ]
+              }
+            ]
+          },
+          "fontSize": "80%",
+          "format": "short",
+          "gridPos": {
+            "h": 10,
+            "w": 4,
+            "x": 12,
+            "y": 7
+          },
+          "id": 244,
+          "interval": null,
+          "legend": {
+            "show": true,
+            "sort": "total",
+            "sortDesc": true,
+            "values": true
+          },
+          "legendType": "Right side",
+          "links": [],
+          "maxDataPoints": 3,
+          "nullPointMode": "connected",
+          "pieType": "pie",
+          "pluginVersion": "7.3.1",
+          "strokeWidth": 1,
+          "targets": [
+            {
+              "alias": "$tag_responder_hostname",
+              "groupBy": [
+                {
+                  "params": [
+                    "$resolution"
+                  ],
+                  "type": "time"
+                },
+                {
+                  "params": [
+                    "responder_hostname"
+                  ],
+                  "type": "tag"
+                }
+              ],
+              "hide": false,
+              "measurement": "dns",
+              "orderByTime": "ASC",
+              "policy": "default",
+              "refId": "A",
+              "resultFormat": "time_series",
+              "select": [
+                [
+                  {
+                    "params": [
+                      "responses"
+                    ],
+                    "type": "field"
+                  },
+                  {
+                    "params": [],
+                    "type": "sum"
+                  }
+                ]
+              ],
+              "tags": [
+                {
+                  "key": "network_monitor_name",
+                  "operator": "=~",
+                  "value": "/^$network_monitor$/"
+                }
+              ]
+            }
+          ],
+          "timeFrom": null,
+          "timeShift": null,
+          "title": "DNS Responders:  $network_monitor ",
+          "transformations": [],
+          "type": "grafana-piechart-panel",
+          "valueName": "total"
+        },
+        {
+          "aliasColors": {},
+          "breakPoint": "50%",
+          "cacheTimeout": null,
+          "combine": {
+            "label": "Others",
+            "threshold": 0
+          },
+          "datasource": "indicators",
+          "description": "",
+          "fieldConfig": {
+            "defaults": {
+              "color": {
+                "fixedColor": "green",
+                "mode": "fixed"
+              },
+              "custom": {
+                "align": null,
+                "displayMode": "color-text",
+                "filterable": false
+              },
+              "mappings": [],
+              "thresholds": {
+                "mode": "absolute",
+                "steps": [
+                  {
+                    "color": "green",
+                    "value": null
+                  }
+                ]
+              },
+              "unit": "none"
+            },
+            "overrides": [
+              {
+                "matcher": {
+                  "id": "byRegexp",
+                  "options": "/.*(RTT|Response|Duration|Idle).*Time.*/"
+                },
+                "properties": [
+                  {
+                    "id": "unit",
+                    "value": "s"
+                  },
+                  {
+                    "id": "decimals",
+                    "value": 2
+                  }
+                ]
+              },
+              {
+                "matcher": {
+                  "id": "byName",
+                  "options": "Query Name"
+                },
+                "properties": [
+                  {
+                    "id": "custom.width",
+                    "value": 242
+                  }
+                ]
+              }
+            ]
+          },
+          "fontSize": "80%",
+          "format": "short",
+          "gridPos": {
+            "h": 10,
+            "w": 4,
+            "x": 16,
+            "y": 7
+          },
+          "id": 243,
+          "interval": null,
+          "legend": {
+            "show": true,
+            "values": true
+          },
+          "legendType": "Right side",
+          "links": [],
+          "maxDataPoints": 3,
+          "nullPointMode": "connected",
+          "pieType": "pie",
+          "pluginVersion": "7.3.1",
+          "strokeWidth": 1,
+          "targets": [
+            {
+              "alias": "$tag_query_type_name",
+              "groupBy": [
+                {
+                  "params": [
+                    "$resolution"
+                  ],
+                  "type": "time"
+                },
+                {
+                  "params": [
+                    "query_type_name"
+                  ],
+                  "type": "tag"
+                }
+              ],
+              "hide": false,
+              "measurement": "dns",
+              "orderByTime": "ASC",
+              "policy": "default",
+              "refId": "A",
+              "resultFormat": "time_series",
+              "select": [
+                [
+                  {
+                    "params": [
+                      "requests"
+                    ],
+                    "type": "field"
+                  },
+                  {
+                    "params": [],
+                    "type": "sum"
+                  }
+                ]
+              ],
+              "tags": [
+                {
+                  "key": "network_monitor_name",
+                  "operator": "=~",
+                  "value": "/^$network_monitor$/"
+                }
+              ]
+            }
+          ],
+          "timeFrom": null,
+          "timeShift": null,
+          "title": "DNS Requests Query Type:  $network_monitor ",
+          "transformations": [],
+          "type": "grafana-piechart-panel",
+          "valueName": "total"
+        },
+        {
+          "aliasColors": {},
+          "breakPoint": "50%",
+          "cacheTimeout": null,
+          "combine": {
+            "label": "Others",
+            "threshold": 0
+          },
+          "datasource": "indicators",
+          "description": "",
+          "fieldConfig": {
+            "defaults": {
+              "color": {
+                "fixedColor": "green",
+                "mode": "fixed"
+              },
+              "custom": {
+                "align": null,
+                "displayMode": "color-text",
+                "filterable": false
+              },
+              "mappings": [],
+              "thresholds": {
+                "mode": "absolute",
+                "steps": [
+                  {
+                    "color": "green",
+                    "value": null
+                  }
+                ]
+              },
+              "unit": "none"
+            },
+            "overrides": [
+              {
+                "matcher": {
+                  "id": "byRegexp",
+                  "options": "/.*(RTT|Response|Duration|Idle).*Time.*/"
+                },
+                "properties": [
+                  {
+                    "id": "unit",
+                    "value": "s"
+                  },
+                  {
+                    "id": "decimals",
+                    "value": 2
+                  }
+                ]
+              },
+              {
+                "matcher": {
+                  "id": "byName",
+                  "options": "Query Name"
+                },
+                "properties": [
+                  {
+                    "id": "custom.width",
+                    "value": 242
+                  }
+                ]
+              }
+            ]
+          },
+          "fontSize": "80%",
+          "format": "short",
+          "gridPos": {
+            "h": 10,
+            "w": 4,
+            "x": 20,
+            "y": 7
+          },
+          "id": 245,
+          "interval": null,
+          "legend": {
+            "show": true,
+            "values": true
+          },
+          "legendType": "Right side",
+          "links": [],
+          "maxDataPoints": 3,
+          "nullPointMode": "connected",
+          "pieType": "pie",
+          "pluginVersion": "7.3.1",
+          "strokeWidth": 1,
+          "targets": [
+            {
+              "alias": "$tag_query_type_name",
+              "groupBy": [
+                {
+                  "params": [
+                    "$resolution"
+                  ],
+                  "type": "time"
+                },
+                {
+                  "params": [
+                    "query_type_name"
+                  ],
+                  "type": "tag"
+                }
+              ],
+              "hide": false,
+              "measurement": "dns",
+              "orderByTime": "ASC",
+              "policy": "default",
+              "refId": "A",
+              "resultFormat": "time_series",
+              "select": [
+                [
+                  {
+                    "params": [
+                      "requests"
+                    ],
+                    "type": "field"
+                  },
+                  {
+                    "params": [],
+                    "type": "sum"
+                  }
+                ]
+              ],
+              "tags": [
+                {
+                  "key": "network_monitor_name",
+                  "operator": "=~",
+                  "value": "/^$network_monitor$/"
+                }
+              ]
+            }
+          ],
+          "timeFrom": null,
+          "timeShift": null,
+          "title": "DNS Requests Query Type:  $network_monitor ",
+          "transformations": [],
+          "type": "grafana-piechart-panel",
+          "valueName": "total"
+        }
+      ],
+      "repeat": null,
+      "title": "DNS Analytics for: $network_monitor",
+      "type": "row"
+    },
+    {
+      "collapsed": true,
+      "datasource": null,
+      "gridPos": {
+        "h": 1,
+        "w": 24,
+        "x": 0,
+        "y": 27
+      },
+      "id": 293,
+      "panels": [
+        {
+          "datasource": "indicators",
+          "description": "",
+          "fieldConfig": {
+            "defaults": {
+              "color": {
+                "fixedColor": "green",
+                "mode": "fixed"
+              },
+              "custom": {
+                "align": null,
+                "displayMode": "color-text",
+                "filterable": false
+              },
+              "mappings": [],
+              "thresholds": {
+                "mode": "absolute",
+                "steps": [
+                  {
+                    "color": "green",
+                    "value": null
+                  }
+                ]
+              },
+              "unit": "none"
+            },
+            "overrides": [
+              {
+                "matcher": {
+                  "id": "byRegexp",
+                  "options": "/.*(RTT|Response|Duration|Idle).*/"
+                },
+                "properties": [
+                  {
+                    "id": "unit",
+                    "value": "s"
+                  },
+                  {
+                    "id": "decimals",
+                    "value": 2
+                  }
+                ]
+              },
+              {
+                "matcher": {
+                  "id": "byRegexp",
+                  "options": "/^Certificate.*/"
+                },
+                "properties": [
+                  {
+                    "id": "unit",
+                    "value": "dateTimeAsIsoNoDateIfToday"
+                  }
+                ]
+              },
+              {
+                "matcher": {
+                  "id": "byName",
+                  "options": "Certificate Valid Until (min)"
+                },
+                "properties": [
+                  {
+                    "id": "color"
+                  },
+                  {
+                    "id": "thresholds",
+                    "value": {
+                      "mode": "absolute",
+                      "steps": [
+                        {
+                          "color": "dark-red",
+                          "value": null
+                        },
+                        {
+                          "color": "green",
+                          "value": 1633112102890
+                        }
+                      ]
+                    }
+                  }
+                ]
+              },
+              {
+                "matcher": {
+                  "id": "byName",
+                  "options": "Certificate Valid From (max)"
+                },
+                "properties": [
+                  {
+                    "id": "thresholds",
+                    "value": {
+                      "mode": "absolute",
+                      "steps": [
+                        {
+                          "color": "green",
+                          "value": null
+                        },
+                        {
+                          "color": "red",
+                          "value": 1633112102890
+                        }
+                      ]
+                    }
+                  },
+                  {
+                    "id": "color"
+                  }
+                ]
+              },
+              {
+                "matcher": {
+                  "id": "byName",
+                  "options": "Client IP"
+                },
+                "properties": [
+                  {
+                    "id": "custom.width",
+                    "value": null
+                  }
+                ]
+              }
+            ]
+          },
+          "gridPos": {
+            "h": 9,
+            "w": 24,
+            "x": 0,
+            "y": 8
+          },
+          "id": 291,
+          "options": {
+            "showHeader": true,
+            "sortBy": [
+              {
+                "desc": true,
+                "displayName": "Handshake Accepted"
+              }
+            ]
+          },
+          "pluginVersion": "7.3.1",
+          "targets": [
+            {
+              "alias": "Packet Per Second $tag_destination_ip",
+              "groupBy": [
+                {
+                  "params": [
+                    "server_ip"
+                  ],
+                  "type": "tag"
+                },
+                {
+                  "params": [
+                    "client_ip"
+                  ],
+                  "type": "tag"
+                },
+                {
+                  "params": [
+                    "server_hostname"
+                  ],
+                  "type": "tag"
+                },
+                {
+                  "params": [
+                    "client_hostname"
+                  ],
+                  "type": "tag"
+                },
+                {
+                  "params": [
+                    "certificate_subject"
+                  ],
+                  "type": "tag"
+                },
+                {
+                  "params": [
+                    "handshake_accepted"
+                  ],
+                  "type": "tag"
+                },
+                {
+                  "params": [
+                    "server_hello_version_name"
+                  ],
+                  "type": "tag"
+                },
+                {
+                  "params": [
+                    "client_in_monitor"
+                  ],
+                  "type": "tag"
+                },
+                {
+                  "params": [
+                    "server_in_monitor"
+                  ],
+                  "type": "tag"
+                },
+                {
+                  "params": [
+                    "server_tls_hostname"
+                  ],
+                  "type": "tag"
+                }
+              ],
+              "hide": false,
+              "measurement": "https",
+              "orderByTime": "ASC",
+              "policy": "default",
+              "refId": "A",
+              "resultFormat": "table",
+              "select": [
+                [
+                  {
+                    "params": [
+                      "certificate_not_valid_after"
+                    ],
+                    "type": "field"
+                  },
+                  {
+                    "params": [
+                      "*1000"
+                    ],
+                    "type": "math"
+                  }
+                ],
+                [
+                  {
+                    "params": [
+                      "certificate_not_valid_before"
+                    ],
+                    "type": "field"
+                  },
+                  {
+                    "params": [
+                      "*1000"
+                    ],
+                    "type": "math"
+                  }
+                ],
+                [
+                  {
+                    "params": [
+                      "connections"
+                    ],
+                    "type": "field"
+                  }
+                ],
+                [
+                  {
+                    "params": [
+                      "packets"
+                    ],
+                    "type": "field"
+                  }
+                ],
+                [
+                  {
+                    "params": [
+                      "response_time"
+                    ],
+                    "type": "field"
+                  }
+                ]
+              ],
+              "tags": [
+                {
+                  "key": "network_monitor_name",
+                  "operator": "=~",
+                  "value": "/^$network_monitor$/"
+                }
+              ]
+            }
+          ],
+          "timeFrom": null,
+          "timeShift": null,
+          "title": "HTTPS Analytics Details for:  $network_monitor ",
+          "transformations": [
+            {
+              "id": "organize",
+              "options": {
+                "excludeByName": {
+                  "Time": true,
+                  "client_in_monitor": true,
+                  "network_monitor_name": true,
+                  "server_in_monitor": true
+                },
+                "indexByName": {
+                  "Time": 0,
+                  "certificate_not_valid_after": 10,
+                  "certificate_not_valid_before": 8,
+                  "certificate_subject": 11,
+                  "client_hostname": 2,
+                  "client_in_monitor": 3,
+                  "client_ip": 1,
+                  "connections": 14,
+                  "handshake_accepted": 12,
+                  "packets": 15,
+                  "response_time": 13,
+                  "server_hello_version_name": 9,
+                  "server_hostname": 5,
+                  "server_in_monitor": 7,
+                  "server_ip": 4,
+                  "server_tls_hostname": 6
+                },
+                "renameByName": {
+                  "Missing SYNs": "",
+                  "RTT Client": "Client RTT",
+                  "RTT Server": "Server RTT",
+                  "Retransmissions Client": "",
+                  "application_port": "Appliication ",
+                  "certificate_not_valid_after": "Certificate Valid Until",
+                  "certificate_not_valid_before": "Certificate Valid From",
+                  "certificate_subject": "Certificate Subject",
+                  "client_city": "Client City",
+                  "client_hostname": "Client Hostname",
+                  "client_in_monitor": "",
+                  "client_ip": "Client IP",
+                  "connections": "Connections",
+                  "handshake_accepted": "Handshake Accepted",
+                  "network_monitor_name": "Network Monitor",
+                  "packets": "Packets",
+                  "response_time": "Response Time",
+                  "server_hello_version": "Server Hello Version",
+                  "server_hello_version_name": "TLS Version",
+                  "server_hostname": "Server Hostname",
+                  "server_ip": "Server IP",
+                  "server_tls_hostname": "TLS Hostname"
+                }
+              }
+            },
+            {
+              "id": "groupBy",
+              "options": {
+                "fields": {
+                  "Active Sessions": {
+                    "aggregations": [
+                      "max"
+                    ],
+                    "operation": "aggregate"
+                  },
+                  "Appliication ": {
+                    "aggregations": [],
+                    "operation": null
+                  },
+                  "Bytes Client": {
+                    "aggregations": [
+                      "sum"
+                    ],
+                    "operation": "aggregate"
+                  },
+                  "Bytes Server": {
+                    "aggregations": [
+                      "sum"
+                    ],
+                    "operation": "aggregate"
+                  },
+                  "Certificate Subject": {
+                    "aggregations": [],
+                    "operation": "groupby"
+                  },
+                  "Certificate Valid From": {
+                    "aggregations": [
+                      "max"
+                    ],
+                    "operation": "aggregate"
+                  },
+                  "Certificate Valid Until": {
+                    "aggregations": [
+                      "min"
+                    ],
+                    "operation": "aggregate"
+                  },
+                  "Client City": {
+                    "aggregations": [],
+                    "operation": "groupby"
+                  },
+                  "Client Hostname": {
+                    "aggregations": [],
+                    "operation": "groupby"
+                  },
+                  "Client IP": {
+                    "aggregations": [],
+                    "operation": "groupby"
+                  },
+                  "Client RTT": {
+                    "aggregations": [
+                      "mean"
+                    ],
+                    "operation": "aggregate"
+                  },
+                  "Connections": {
+                    "aggregations": [
+                      "sum"
+                    ],
+                    "operation": "aggregate"
+                  },
+                  "Duplicates Client": {
+                    "aggregations": [
+                      "sum"
+                    ],
+                    "operation": "aggregate"
+                  },
+                  "Duplicates Server": {
+                    "aggregations": [
+                      "sum"
+                    ],
+                    "operation": "aggregate"
+                  },
+                  "Duraction Max": {
+                    "aggregations": [
+                      "max"
+                    ],
+                    "operation": "aggregate"
+                  },
+                  "Duration": {
+                    "aggregations": [
+                      "max"
+                    ],
+                    "operation": "aggregate"
+                  },
+                  "Duration Max": {
+                    "aggregations": [
+                      "max"
+                    ],
+                    "operation": "aggregate"
+                  },
+                  "Fragments": {
+                    "aggregations": [
+                      "sum"
+                    ],
+                    "operation": "aggregate"
+                  },
+                  "Fragments Client": {
+                    "aggregations": [
+                      "sum"
+                    ],
+                    "operation": "aggregate"
+                  },
+                  "Fragments Server": {
+                    "aggregations": [
+                      "sum"
+                    ],
+                    "operation": "aggregate"
+                  },
+                  "Gaps Client": {
+                    "aggregations": [
+                      "sum"
+                    ],
+                    "operation": "aggregate"
+                  },
+                  "Gaps Server": {
+                    "aggregations": [
+                      "sum"
+                    ],
+                    "operation": "aggregate"
+                  },
+                  "Handshake Accepted": {
+                    "aggregations": [],
+                    "operation": "groupby"
+                  },
+                  "Idle time": {
+                    "aggregations": [
+                      "max"
+                    ],
+                    "operation": "aggregate"
+                  },
+                  "Missing SYNs": {
+                    "aggregations": [
+                      "sum"
+                    ],
+                    "operation": "aggregate"
+                  },
+                  "Network Monitor": {
+                    "aggregations": [],
+                    "operation": "groupby"
+                  },
+                  "Packet Client": {
+                    "aggregations": [
+                      "sum"
+                    ],
+                    "operation": "aggregate"
+                  },
+                  "Packets": {
+                    "aggregations": [
+                      "sum"
+                    ],
+                    "operation": "aggregate"
+                  },
+                  "Packets Client": {
+                    "aggregations": [
+                      "sum"
+                    ],
+                    "operation": "aggregate"
+                  },
+                  "Packets Server": {
+                    "aggregations": [
+                      "sum"
+                    ],
+                    "operation": "aggregate"
+                  },
+                  "RTT Client": {
+                    "aggregations": [
+                      "mean"
+                    ],
+                    "operation": "aggregate"
+                  },
+                  "RTT Server": {
+                    "aggregations": [
+                      "mean"
+                    ],
+                    "operation": "aggregate"
+                  },
+                  "Response Time": {
+                    "aggregations": [
+                      "mean"
+                    ],
+                    "operation": "aggregate"
+                  },
+                  "Retransmission Server": {
+                    "aggregations": [
+                      "sum"
+                    ],
+                    "operation": "aggregate"
+                  },
+                  "Retransmissions Client": {
+                    "aggregations": [
+                      "sum"
+                    ],
+                    "operation": "aggregate"
+                  },
+                  "SYN Failure": {
+                    "aggregations": [
+                      "sum"
+                    ],
+                    "operation": "aggregate"
+                  },
+                  "SYN Failure 1": {
+                    "aggregations": [],
+                    "operation": "aggregate"
+                  },
+                  "Server Hello Version": {
+                    "aggregations": [],
+                    "operation": "groupby"
+                  },
+                  "Server Hostname": {
+                    "aggregations": [],
+                    "operation": "groupby"
+                  },
+                  "Server IP": {
+                    "aggregations": [],
+                    "operation": "groupby"
+                  },
+                  "Server RTT": {
+                    "aggregations": [
+                      "mean"
+                    ],
+                    "operation": "aggregate"
+                  },
+                  "TLS Hostname": {
+                    "aggregations": [],
+                    "operation": "groupby"
+                  },
+                  "TLS Version": {
+                    "aggregations": [],
+                    "operation": "groupby"
+                  },
+                  "Time": {
+                    "aggregations": [],
+                    "operation": "groupby"
+                  },
+                  "application_port": {
+                    "aggregations": [],
+                    "operation": "groupby"
+                  },
+                  "certificate_subject": {
+                    "aggregations": [],
+                    "operation": "groupby"
+                  },
+                  "client_hostname": {
+                    "aggregations": [],
+                    "operation": "groupby"
+                  },
+                  "client_in_monitor": {
+                    "aggregations": [],
+                    "operation": "groupby"
+                  },
+                  "client_ip": {
+                    "aggregations": [],
+                    "operation": "groupby"
+                  },
+                  "client_latitude": {
+                    "aggregations": [],
+                    "operation": "groupby"
+                  },
+                  "client_longitude": {
+                    "aggregations": [],
+                    "operation": "groupby"
+                  },
+                  "connections": {
+                    "aggregations": [
+                      "sum"
+                    ],
+                    "operation": "aggregate"
+                  },
+                  "handshake_accepted": {
+                    "aggregations": [],
+                    "operation": "groupby"
+                  },
+                  "packets": {
+                    "aggregations": [
+                      "sum"
+                    ],
+                    "operation": "aggregate"
+                  },
+                  "server_hello_version": {
+                    "aggregations": [],
+                    "operation": "groupby"
+                  },
+                  "server_hostname": {
+                    "aggregations": [],
+                    "operation": "groupby"
+                  },
+                  "server_in_monitor": {
+                    "aggregations": [],
+                    "operation": "groupby"
+                  },
+                  "server_ip": {
+                    "aggregations": [],
+                    "operation": "groupby"
+                  }
+                }
+              }
+            }
+          ],
+          "type": "table"
+        },
+        {
+          "datasource": "indicators",
+          "description": "",
+          "fieldConfig": {
+            "defaults": {
+              "color": {
+                "fixedColor": "green",
+                "mode": "fixed"
+              },
+              "custom": {
+                "align": null,
+                "displayMode": "color-text",
+                "filterable": false
+              },
+              "mappings": [],
+              "thresholds": {
+                "mode": "absolute",
+                "steps": [
+                  {
+                    "color": "green",
+                    "value": null
+                  }
+                ]
+              },
+              "unit": "none"
+            },
+            "overrides": [
+              {
+                "matcher": {
+                  "id": "byRegexp",
+                  "options": "/.*(RTT|Response|Duration|Idle).*/"
+                },
+                "properties": [
+                  {
+                    "id": "unit",
+                    "value": "s"
+                  },
+                  {
+                    "id": "decimals",
+                    "value": 2
+                  }
+                ]
+              },
+              {
+                "matcher": {
+                  "id": "byRegexp",
+                  "options": "/^Certificate.*/"
+                },
+                "properties": [
+                  {
+                    "id": "unit",
+                    "value": "dateTimeAsIsoNoDateIfToday"
+                  }
+                ]
+              },
+              {
+                "matcher": {
+                  "id": "byName",
+                  "options": "Certificate Valid Until (min)"
+                },
+                "properties": [
+                  {
+                    "id": "color"
+                  },
+                  {
+                    "id": "thresholds",
+                    "value": {
+                      "mode": "absolute",
+                      "steps": [
+                        {
+                          "color": "dark-red",
+                          "value": null
+                        },
+                        {
+                          "color": "green",
+                          "value": 1633112102890
+                        }
+                      ]
+                    }
+                  }
+                ]
+              },
+              {
+                "matcher": {
+                  "id": "byName",
+                  "options": "Certificate Valid From (max)"
+                },
+                "properties": [
+                  {
+                    "id": "thresholds",
+                    "value": {
+                      "mode": "absolute",
+                      "steps": [
+                        {
+                          "color": "green",
+                          "value": null
+                        },
+                        {
+                          "color": "red",
+                          "value": 1633112102890
+                        }
+                      ]
+                    }
+                  },
+                  {
+                    "id": "color"
+                  }
+                ]
+              },
+              {
+                "matcher": {
+                  "id": "byName",
+                  "options": "Client IP"
+                },
+                "properties": [
+                  {
+                    "id": "custom.width",
+                    "value": null
+                  }
+                ]
+              }
+            ]
+          },
+          "gridPos": {
+            "h": 9,
+            "w": 24,
+            "x": 0,
+            "y": 17
+          },
+          "id": 157,
+          "options": {
+            "showHeader": true,
+            "sortBy": [
+              {
+                "desc": true,
+                "displayName": "Handshake Accepted"
+              }
+            ]
+          },
+          "pluginVersion": "7.3.1",
+          "targets": [
+            {
+              "alias": "Packet Per Second $tag_destination_ip",
+              "groupBy": [
+                {
+                  "params": [
+                    "server_ip"
+                  ],
+                  "type": "tag"
+                },
+                {
+                  "params": [
+                    "client_ip"
+                  ],
+                  "type": "tag"
+                },
+                {
+                  "params": [
+                    "server_hostname"
+                  ],
+                  "type": "tag"
+                },
+                {
+                  "params": [
+                    "client_hostname"
+                  ],
+                  "type": "tag"
+                },
+                {
+                  "params": [
+                    "certificate_subject"
+                  ],
+                  "type": "tag"
+                },
+                {
+                  "params": [
+                    "handshake_accepted"
+                  ],
+                  "type": "tag"
+                },
+                {
+                  "params": [
+                    "server_hello_version_name"
+                  ],
+                  "type": "tag"
+                },
+                {
+                  "params": [
+                    "server_tls_hostname"
+                  ],
+                  "type": "tag"
+                }
+              ],
+              "hide": false,
+              "measurement": "https",
+              "orderByTime": "ASC",
+              "policy": "default",
+              "refId": "A",
+              "resultFormat": "table",
+              "select": [
+                [
+                  {
+                    "params": [
+                      "certificate_not_valid_after"
+                    ],
+                    "type": "field"
+                  },
+                  {
+                    "params": [
+                      "*1000"
+                    ],
+                    "type": "math"
+                  }
+                ],
+                [
+                  {
+                    "params": [
+                      "certificate_not_valid_before"
+                    ],
+                    "type": "field"
+                  },
+                  {
+                    "params": [
+                      "*1000"
+                    ],
+                    "type": "math"
+                  }
+                ],
+                [
+                  {
+                    "params": [
+                      "connections"
+                    ],
+                    "type": "field"
+                  }
+                ],
+                [
+                  {
+                    "params": [
+                      "packets"
+                    ],
+                    "type": "field"
+                  }
+                ],
+                [
+                  {
+                    "params": [
+                      "response_time"
+                    ],
+                    "type": "field"
+                  }
+                ]
+              ],
+              "tags": [
+                {
+                  "key": "server_ip",
+                  "operator": "=~",
+                  "value": "/^$ip$/"
+                },
+                {
+                  "condition": "OR",
+                  "key": "client_ip",
+                  "operator": "=~",
+                  "value": "/^$ip$/"
+                }
+              ]
+            }
+          ],
+          "timeFrom": null,
+          "timeShift": null,
+          "title": "HTTPS Analytics Details for:  IP: $ip",
+          "transformations": [
+            {
+              "id": "organize",
+              "options": {
+                "excludeByName": {
+                  "Time": true,
+                  "client_in_monitor": true,
+                  "network_monitor_name": true,
+                  "server_in_monitor": true
+                },
+                "indexByName": {
+                  "Time": 0,
+                  "certificate_not_valid_after": 10,
+                  "certificate_not_valid_before": 8,
+                  "certificate_subject": 11,
+                  "client_hostname": 2,
+                  "client_in_monitor": 3,
+                  "client_ip": 1,
+                  "connections": 14,
+                  "handshake_accepted": 12,
+                  "packets": 15,
+                  "response_time": 13,
+                  "server_hello_version_name": 9,
+                  "server_hostname": 5,
+                  "server_in_monitor": 7,
+                  "server_ip": 4,
+                  "server_tls_hostname": 6
+                },
+                "renameByName": {
+                  "Missing SYNs": "",
+                  "RTT Client": "Client RTT",
+                  "RTT Server": "Server RTT",
+                  "Retransmissions Client": "",
+                  "application_port": "Appliication ",
+                  "certificate_not_valid_after": "Certificate Valid Until",
+                  "certificate_not_valid_before": "Certificate Valid From",
+                  "certificate_subject": "Certificate Subject",
+                  "client_city": "Client City",
+                  "client_hostname": "Client Hostname",
+                  "client_in_monitor": "",
+                  "client_ip": "Client IP",
+                  "connections": "Connections",
+                  "handshake_accepted": "Handshake Accepted",
+                  "network_monitor_name": "Network Monitor",
+                  "packets": "Packets",
+                  "response_time": "Response Time",
+                  "server_hello_version": "Server Hello Version",
+                  "server_hello_version_name": "TLS Version",
+                  "server_hostname": "Server Hostname",
+                  "server_ip": "Server IP",
+                  "server_tls_hostname": "TLS Hostname"
+                }
+              }
+            },
+            {
+              "id": "groupBy",
+              "options": {
+                "fields": {
+                  "Active Sessions": {
+                    "aggregations": [
+                      "max"
+                    ],
+                    "operation": "aggregate"
+                  },
+                  "Appliication ": {
+                    "aggregations": [],
+                    "operation": null
+                  },
+                  "Bytes Client": {
+                    "aggregations": [
+                      "sum"
+                    ],
+                    "operation": "aggregate"
+                  },
+                  "Bytes Server": {
+                    "aggregations": [
+                      "sum"
+                    ],
+                    "operation": "aggregate"
+                  },
+                  "Certificate Subject": {
+                    "aggregations": [],
+                    "operation": "groupby"
+                  },
+                  "Certificate Valid From": {
+                    "aggregations": [
+                      "max"
+                    ],
+                    "operation": "aggregate"
+                  },
+                  "Certificate Valid Until": {
+                    "aggregations": [
+                      "min"
+                    ],
+                    "operation": "aggregate"
+                  },
+                  "Client City": {
+                    "aggregations": [],
+                    "operation": "groupby"
+                  },
+                  "Client Hostname": {
+                    "aggregations": [],
+                    "operation": "groupby"
+                  },
+                  "Client IP": {
+                    "aggregations": [],
+                    "operation": "groupby"
+                  },
+                  "Client RTT": {
+                    "aggregations": [
+                      "mean"
+                    ],
+                    "operation": "aggregate"
+                  },
+                  "Connections": {
+                    "aggregations": [
+                      "sum"
+                    ],
+                    "operation": "aggregate"
+                  },
+                  "Duplicates Client": {
+                    "aggregations": [
+                      "sum"
+                    ],
+                    "operation": "aggregate"
+                  },
+                  "Duplicates Server": {
+                    "aggregations": [
+                      "sum"
+                    ],
+                    "operation": "aggregate"
+                  },
+                  "Duraction Max": {
+                    "aggregations": [
+                      "max"
+                    ],
+                    "operation": "aggregate"
+                  },
+                  "Duration": {
+                    "aggregations": [
+                      "max"
+                    ],
+                    "operation": "aggregate"
+                  },
+                  "Duration Max": {
+                    "aggregations": [
+                      "max"
+                    ],
+                    "operation": "aggregate"
+                  },
+                  "Fragments": {
+                    "aggregations": [
+                      "sum"
+                    ],
+                    "operation": "aggregate"
+                  },
+                  "Fragments Client": {
+                    "aggregations": [
+                      "sum"
+                    ],
+                    "operation": "aggregate"
+                  },
+                  "Fragments Server": {
+                    "aggregations": [
+                      "sum"
+                    ],
+                    "operation": "aggregate"
+                  },
+                  "Gaps Client": {
+                    "aggregations": [
+                      "sum"
+                    ],
+                    "operation": "aggregate"
+                  },
+                  "Gaps Server": {
+                    "aggregations": [
+                      "sum"
+                    ],
+                    "operation": "aggregate"
+                  },
+                  "Handshake Accepted": {
+                    "aggregations": [],
+                    "operation": "groupby"
+                  },
+                  "Idle time": {
+                    "aggregations": [
+                      "max"
+                    ],
+                    "operation": "aggregate"
+                  },
+                  "Missing SYNs": {
+                    "aggregations": [
+                      "sum"
+                    ],
+                    "operation": "aggregate"
+                  },
+                  "Network Monitor": {
+                    "aggregations": [],
+                    "operation": "groupby"
+                  },
+                  "Packet Client": {
+                    "aggregations": [
+                      "sum"
+                    ],
+                    "operation": "aggregate"
+                  },
+                  "Packets": {
+                    "aggregations": [
+                      "sum"
+                    ],
+                    "operation": "aggregate"
+                  },
+                  "Packets Client": {
+                    "aggregations": [
+                      "sum"
+                    ],
+                    "operation": "aggregate"
+                  },
+                  "Packets Server": {
+                    "aggregations": [
+                      "sum"
+                    ],
+                    "operation": "aggregate"
+                  },
+                  "RTT Client": {
+                    "aggregations": [
+                      "mean"
+                    ],
+                    "operation": "aggregate"
+                  },
+                  "RTT Server": {
+                    "aggregations": [
+                      "mean"
+                    ],
+                    "operation": "aggregate"
+                  },
+                  "Response Time": {
+                    "aggregations": [
+                      "mean"
+                    ],
+                    "operation": "aggregate"
+                  },
+                  "Retransmission Server": {
+                    "aggregations": [
+                      "sum"
+                    ],
+                    "operation": "aggregate"
+                  },
+                  "Retransmissions Client": {
+                    "aggregations": [
+                      "sum"
+                    ],
+                    "operation": "aggregate"
+                  },
+                  "SYN Failure": {
+                    "aggregations": [
+                      "sum"
+                    ],
+                    "operation": "aggregate"
+                  },
+                  "SYN Failure 1": {
+                    "aggregations": [],
+                    "operation": "aggregate"
+                  },
+                  "Server Hello Version": {
+                    "aggregations": [],
+                    "operation": "groupby"
+                  },
+                  "Server Hostname": {
+                    "aggregations": [],
+                    "operation": "groupby"
+                  },
+                  "Server IP": {
+                    "aggregations": [],
+                    "operation": "groupby"
+                  },
+                  "Server RTT": {
+                    "aggregations": [
+                      "mean"
+                    ],
+                    "operation": "aggregate"
+                  },
+                  "TLS Hostname": {
+                    "aggregations": [],
+                    "operation": "groupby"
+                  },
+                  "TLS Version": {
+                    "aggregations": [],
+                    "operation": "groupby"
+                  },
+                  "Time": {
+                    "aggregations": [],
+                    "operation": "groupby"
+                  },
+                  "application_port": {
+                    "aggregations": [],
+                    "operation": "groupby"
+                  },
+                  "certificate_subject": {
+                    "aggregations": [],
+                    "operation": "groupby"
+                  },
+                  "client_hostname": {
+                    "aggregations": [],
+                    "operation": "groupby"
+                  },
+                  "client_in_monitor": {
+                    "aggregations": [],
+                    "operation": "groupby"
+                  },
+                  "client_ip": {
+                    "aggregations": [],
+                    "operation": "groupby"
+                  },
+                  "client_latitude": {
+                    "aggregations": [],
+                    "operation": "groupby"
+                  },
+                  "client_longitude": {
+                    "aggregations": [],
+                    "operation": "groupby"
+                  },
+                  "connections": {
+                    "aggregations": [
+                      "sum"
+                    ],
+                    "operation": "aggregate"
+                  },
+                  "handshake_accepted": {
+                    "aggregations": [],
+                    "operation": "groupby"
+                  },
+                  "packets": {
+                    "aggregations": [
+                      "sum"
+                    ],
+                    "operation": "aggregate"
+                  },
+                  "server_hello_version": {
+                    "aggregations": [],
+                    "operation": "groupby"
+                  },
+                  "server_hostname": {
+                    "aggregations": [],
+                    "operation": "groupby"
+                  },
+                  "server_in_monitor": {
+                    "aggregations": [],
+                    "operation": "groupby"
+                  },
+                  "server_ip": {
+                    "aggregations": [],
+                    "operation": "groupby"
+                  }
+                }
+              }
+            }
+          ],
+          "type": "table"
+        }
+      ],
+      "title": "HTTPS Details",
+      "type": "row"
+    },
+    {
+      "collapsed": false,
+      "datasource": null,
+      "gridPos": {
+        "h": 1,
+        "w": 24,
+        "x": 0,
+        "y": 28
+      },
+      "id": 100,
+      "panels": [],
+      "title": "Last Row",
+      "type": "row"
+    },
+    {
+      "datasource": null,
+      "description": "",
+      "fieldConfig": {
+        "defaults": {
+          "custom": {}
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 1,
+        "w": 24,
+        "x": 0,
+        "y": 29
+      },
+      "id": 102,
+      "options": {
+        "content": "",
+        "mode": "html"
+      },
+      "pluginVersion": "7.3.1",
+      "targets": [
+        {
+          "groupBy": [
+            {
+              "params": [
+                "$__interval"
+              ],
+              "type": "time"
+            },
+            {
+              "params": [
+                "null"
+              ],
+              "type": "fill"
+            }
+          ],
+          "orderByTime": "ASC",
+          "policy": "default",
+          "refId": "A",
+          "resultFormat": "time_series",
+          "select": [
+            [
+              {
+                "params": [
+                  "value"
+                ],
+                "type": "field"
+              },
+              {
+                "params": [],
+                "type": "mean"
+              }
+            ]
+          ],
+          "tags": []
+        }
+      ],
+      "timeFrom": null,
+      "timeShift": null,
+      "title": "placeholder",
+      "type": "text"
+    }
+  ],
+  "refresh": "5m",
+  "schemaVersion": 26,
+  "style": "dark",
+  "tags": [],
+  "templating": {
+    "list": [
+      {
+        "auto": true,
+        "auto_count": "20",
+        "auto_min": "10s",
+        "current": {
+          "selected": false,
+          "text": "auto",
+          "value": "$__auto_interval_resolution"
+        },
+        "error": null,
+        "hide": 0,
+        "label": null,
+        "name": "resolution",
+        "options": [
+          {
+            "selected": true,
+            "text": "auto",
+            "value": "$__auto_interval_resolution"
+          },
+          {
+            "selected": false,
+            "text": "1s",
+            "value": "1s"
+          },
+          {
+            "selected": false,
+            "text": "10s",
+            "value": "10s"
+          },
+          {
+            "selected": false,
+            "text": "1m",
+            "value": "1m"
+          },
+          {
+            "selected": false,
+            "text": "10m",
+            "value": "10m"
+          },
+          {
+            "selected": false,
+            "text": "30m",
+            "value": "30m"
+          },
+          {
+            "selected": false,
+            "text": "1h",
+            "value": "1h"
+          },
+          {
+            "selected": false,
+            "text": "6h",
+            "value": "6h"
+          },
+          {
+            "selected": false,
+            "text": "12h",
+            "value": "12h"
+          },
+          {
+            "selected": false,
+            "text": "1d",
+            "value": "1d"
+          },
+          {
+            "selected": false,
+            "text": "7d",
+            "value": "7d"
+          },
+          {
+            "selected": false,
+            "text": "14d",
+            "value": "14d"
+          },
+          {
+            "selected": false,
+            "text": "30d",
+            "value": "30d"
+          }
+        ],
+        "query": "1s,10s,1m,10m,30m,1h,6h,12h,1d,7d,14d,30d",
+        "queryValue": "",
+        "refresh": 2,
+        "skipUrlSync": false,
+        "type": "interval"
+      },
+      {
+        "allValue": null,
+        "current": {
+          "selected": false,
+          "text": "All",
+          "value": "$__all"
+        },
+        "datasource": "indicators",
+        "definition": "",
+        "error": null,
+        "hide": 0,
+        "includeAll": true,
+        "label": "Network Monitor",
+        "multi": true,
+        "name": "network_monitor",
+        "options": [],
+        "query": "show tag values with key=\"network_monitor_name\"",
+        "refresh": 1,
+        "regex": "",
+        "skipUrlSync": false,
+        "sort": 1,
+        "tagValuesQuery": "",
+        "tags": [],
+        "tagsQuery": "",
+        "type": "query",
+        "useTags": false
+      },
+      {
+        "allValue": null,
+        "current": {
+          "selected": false,
+          "text": "45.79.204.46",
+          "value": "45.79.204.46"
+        },
+        "datasource": "indicators",
+        "definition": "",
+        "error": null,
+        "hide": 0,
+        "includeAll": false,
+        "label": null,
+        "multi": false,
+        "name": "ip",
+        "options": [],
+        "query": "show tag values with key=~/.*_ip/   LIMIT 100",
+        "refresh": 1,
+        "regex": "",
+        "skipUrlSync": false,
+        "sort": 1,
+        "tagValuesQuery": "",
+        "tags": [],
+        "tagsQuery": "",
+        "type": "query",
+        "useTags": false
+      },
+      {
+        "allValue": null,
+        "current": {
+          "selected": false,
+          "text": "none",
+          "value": "none"
+        },
+        "datasource": "indicators",
+        "definition": "",
+        "error": null,
+        "hide": 0,
+        "includeAll": false,
+        "label": null,
+        "multi": false,
+        "name": "application",
+        "options": [],
+        "query": "show tag values with key= application_port",
+        "refresh": 1,
+        "regex": "",
+        "skipUrlSync": false,
+        "sort": 1,
+        "tagValuesQuery": "",
+        "tags": [],
+        "tagsQuery": "",
+        "type": "query",
+        "useTags": false
+      },
+      {
+        "allValue": null,
+        "current": {
+          "selected": false,
+          "text": "0",
+          "value": "0"
+        },
+        "datasource": "indicators",
+        "definition": "",
+        "error": null,
+        "hide": 0,
+        "includeAll": false,
+        "label": null,
+        "multi": false,
+        "name": "vlan",
+        "options": [],
+        "query": "show tag values with key=~/vlan_.*/",
+        "refresh": 1,
+        "regex": "",
+        "skipUrlSync": false,
+        "sort": 1,
+        "tagValuesQuery": "",
+        "tags": [],
+        "tagsQuery": "",
+        "type": "query",
+        "useTags": false
+      }
+    ]
+  },
+  "time": {
+    "from": "now-15m",
+    "to": "now"
+  },
+  "timepicker": {},
+  "timezone": "",
+  "title": "Application Collectors Details",
+  "uid": "AiWgGpKnz",
+  "version": 29
+}
