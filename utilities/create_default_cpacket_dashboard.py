@@ -11,7 +11,7 @@ import getopt
 import sys
 from time import time
 
-from cclear.collector.cstor_schema import APPLICATION_PORT_STR
+APPLICATION_PORT = "application_port"
 
 INDICATORS_DATASOURCE = "indicators"
 
@@ -320,7 +320,7 @@ def ip_var():
 def application_var():
     label = "application port"
     var_name = "application"
-    query = f"show tag values with key= {APPLICATION_PORT_STR}"
+    query = f"show tag values with key= {APPLICATION_PORT}"
     return simple_query_variable(INDICATORS_DATASOURCE, label, var_name, query)
 
 
@@ -342,26 +342,11 @@ def single_vlan_var(vlan_name, vlan_tag_id):
 
 def vlan_names_var(vlan_keys, var_name="vlan_names", label="VLAN Names"):
     # this is an alternative way to generate named vlans to vlan_pairs_var
-    var = {
-        "allValue": None,
-        "current": {"selected": True, "tags": [], "text": [], "value": []},
-        "error": None,
-        "hide": 0,
-        "includeAll": True,
-        "label": str(label),
-        "multi": True,
-        "name": str(var_name),
-        "options": [],
-        "query": "",
-        "queryValue": "",
-        "skipUrlSync": False,
-        "type": "custom",
-    }
+    var = {"allValue": None, "current": {"selected": True, "tags": [], "text": [], "value": []}, "error": None,
+           "hide": 0, "includeAll": True, "label": str(label), "multi": True, "name": str(var_name), "options": [],
+           "query": ", ".join(vlan_keys), "queryValue": "", "skipUrlSync": False, "type": "custom"}
 
-    first = True
     for vlan_name in vlan_keys:
-        var["query"] += f"{', ' if not first else ''} {vlan_name}"
-        first = False
         var["current"]["text"].append(vlan_name)
         var["current"]["value"].append(vlan_name)
         option = {"selected": True, "text": vlan_name, "value": vlan_name}
@@ -385,18 +370,11 @@ def vlan_pairs_var(vlan_list, var_name="vlan_names", label="VLAN Names"):
         "skipUrlSync": False,
         "type": "custom",
     }
-
-    first = True
-    for vlan_name in vlan_list:
-        if first:
-            var["query"] += f"{vlan_name}:{vlan_list[vlan_name]}"
-            var["current"]["text"].append(vlan_name)
-            var["current"]["value"].append(vlan_list[vlan_name])
-        else:
-            var["query"] += f"{', ' if not first else ''} {vlan_name}:{vlan_list[vlan_name]}"
-        option = {"selected": False, "text": vlan_name, "value": vlan_list[vlan_name]}
-        var["options"].append(option)
-        first = False
+    var["query"] = ",".join([f"{key}: {value}" for key, value in vlan_list.items()])
+    var["options"] = [{"selected": False, "text": key, "value": value} for key, value in vlan_list.items()]
+    vlan_name = next(iter(vlan_list))
+    var["current"]["text"].append(vlan_name)
+    var["current"]["value"].append(vlan_list[vlan_name])
     return var
 
 
