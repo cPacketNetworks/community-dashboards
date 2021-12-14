@@ -1,0 +1,4836 @@
+{
+  "annotations": {
+    "list": [
+      {
+        "builtIn": 1,
+        "datasource": "-- Grafana --",
+        "enable": true,
+        "hide": true,
+        "iconColor": "rgba(0, 211, 255, 1)",
+        "name": "Annotations & Alerts",
+        "type": "dashboard"
+      }
+    ]
+  },
+  "editable": true,
+  "gnetId": null,
+  "graphTooltip": 1,
+  "id": 46,
+  "iteration": 1638901145138,
+  "links": [],
+  "panels": [
+    {
+      "datasource": null,
+      "fieldConfig": {
+        "defaults": {
+          "custom": {}
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 3,
+        "w": 24,
+        "x": 0,
+        "y": 0
+      },
+      "id": 35,
+      "options": {
+        "content": "<center style=\"background-color:black;padding:1rem\"><a href=\"http://www.cpacketnetworks.com\" target=\"_new\"><img width=\"220px\" src=\"/static/images/cpacket_white_text.svg\"></a></center> ",
+        "mode": "html"
+      },
+      "pluginVersion": "7.3.1",
+      "targets": [
+        {
+          "groupBy": [
+            {
+              "params": [
+                "$__interval"
+              ],
+              "type": "time"
+            },
+            {
+              "params": [
+                "null"
+              ],
+              "type": "fill"
+            }
+          ],
+          "orderByTime": "ASC",
+          "policy": "default",
+          "refId": "A",
+          "resultFormat": "time_series",
+          "select": [
+            [
+              {
+                "params": [
+                  "value"
+                ],
+                "type": "field"
+              },
+              {
+                "params": [],
+                "type": "mean"
+              }
+            ]
+          ],
+          "tags": []
+        }
+      ],
+      "timeFrom": null,
+      "timeShift": null,
+      "title": "",
+      "transparent": true,
+      "type": "text"
+    },
+    {
+      "collapsed": true,
+      "datasource": null,
+      "gridPos": {
+        "h": 1,
+        "w": 24,
+        "x": 0,
+        "y": 3
+      },
+      "id": 53,
+      "panels": [
+        {
+          "datasource": null,
+          "fieldConfig": {
+            "defaults": {
+              "custom": {}
+            },
+            "overrides": []
+          },
+          "gridPos": {
+            "h": 12,
+            "w": 8,
+            "x": 0,
+            "y": 4
+          },
+          "id": 51,
+          "options": {},
+          "pluginVersion": "7.3.1",
+          "targets": [
+            {
+              "alias": "<CSTOR_$tag_cstor_ip>",
+              "groupBy": [
+                {
+                  "params": [
+                    "$__interval"
+                  ],
+                  "type": "time"
+                },
+                {
+                  "params": [
+                    "cstor_ip"
+                  ],
+                  "type": "tag"
+                },
+                {
+                  "params": [
+                    "null"
+                  ],
+                  "type": "fill"
+                }
+              ],
+              "measurement": "flow_data_4_tuple",
+              "orderByTime": "ASC",
+              "policy": "default",
+              "refId": "A",
+              "resultFormat": "time_series",
+              "select": [
+                [
+                  {
+                    "params": [
+                      "bytes_per_s"
+                    ],
+                    "type": "field"
+                  },
+                  {
+                    "params": [],
+                    "type": "mean"
+                  }
+                ]
+              ],
+              "tags": []
+            }
+          ],
+          "timeFrom": null,
+          "timeShift": null,
+          "title": "Download Packets",
+          "type": "cclear-pcap-panel-v2"
+        },
+        {
+          "datasource": "indicators",
+          "description": "",
+          "fieldConfig": {
+            "defaults": {
+              "custom": {}
+            },
+            "overrides": []
+          },
+          "gridPos": {
+            "h": 12,
+            "w": 16,
+            "x": 8,
+            "y": 4
+          },
+          "id": 79,
+          "options": {
+            "colorHigh": 0.00001,
+            "colorLow": 0,
+            "dataAscend": true,
+            "layouts": "structural",
+            "metric": "bytes",
+            "sideA": "source",
+            "sideAInMonitor": "client_in_monitor",
+            "sideB": "destination",
+            "sideBInMonitor": "server_in_monitor",
+            "view": "graph"
+          },
+          "pluginVersion": "7.3.1",
+          "targets": [
+            {
+              "groupBy": [
+                {
+                  "params": [
+                    "$__interval"
+                  ],
+                  "type": "time"
+                },
+                {
+                  "params": [
+                    "source_ip"
+                  ],
+                  "type": "tag"
+                },
+                {
+                  "params": [
+                    "destination_ip"
+                  ],
+                  "type": "tag"
+                },
+                {
+                  "params": [
+                    "source_in_monitor"
+                  ],
+                  "type": "tag"
+                },
+                {
+                  "params": [
+                    "destination_in_monitor"
+                  ],
+                  "type": "tag"
+                },
+                {
+                  "params": [
+                    "network_monitor_name"
+                  ],
+                  "type": "tag"
+                },
+                {
+                  "params": [
+                    "source_latitude"
+                  ],
+                  "type": "tag"
+                },
+                {
+                  "params": [
+                    "source_longitude"
+                  ],
+                  "type": "tag"
+                },
+                {
+                  "params": [
+                    "destination_latitude"
+                  ],
+                  "type": "tag"
+                },
+                {
+                  "params": [
+                    "destination_longitude"
+                  ],
+                  "type": "tag"
+                },
+                {
+                  "params": [
+                    "none"
+                  ],
+                  "type": "fill"
+                }
+              ],
+              "hide": false,
+              "limit": "",
+              "measurement": "flow_data_4_tuple",
+              "orderByTime": "ASC",
+              "policy": "default",
+              "refId": "A",
+              "resultFormat": "table",
+              "select": [
+                [
+                  {
+                    "params": [
+                      "bytes_per_s"
+                    ],
+                    "type": "field"
+                  },
+                  {
+                    "params": [],
+                    "type": "sum"
+                  },
+                  {
+                    "params": [
+                      "bytes"
+                    ],
+                    "type": "alias"
+                  }
+                ]
+              ],
+              "slimit": "1000",
+              "tags": [
+                {
+                  "key": "destination_ip",
+                  "operator": "=~",
+                  "value": "/^$ip$/"
+                },
+                {
+                  "condition": "OR",
+                  "key": "source_ip",
+                  "operator": "=~",
+                  "value": "/^$ip$/"
+                }
+              ]
+            }
+          ],
+          "timeFrom": null,
+          "timeShift": null,
+          "title": "Flows Map ( IP: $ip)",
+          "transformations": [],
+          "type": "c-packet-networks-network-map"
+        }
+      ],
+      "title": "Download Packets",
+      "type": "row"
+    },
+    {
+      "datasource": null,
+      "gridPos": {
+        "h": 1,
+        "w": 24,
+        "x": 0,
+        "y": 4
+      },
+      "id": 284,
+      "title": "Flows Breakdown by Application",
+      "type": "row"
+    },
+    {
+      "aliasColors": {},
+      "breakPoint": "50%",
+      "cacheTimeout": null,
+      "combine": {
+        "label": "Others",
+        "threshold": "0.02"
+      },
+      "datasource": "indicators",
+      "description": "",
+      "fieldConfig": {
+        "defaults": {
+          "custom": {
+            "align": null,
+            "filterable": false
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "red",
+                "value": 80
+              }
+            ]
+          },
+          "unit": "none"
+        },
+        "overrides": []
+      },
+      "fontSize": "80%",
+      "format": "none",
+      "gridPos": {
+        "h": 10,
+        "w": 8,
+        "x": 0,
+        "y": 5
+      },
+      "id": 121,
+      "interval": null,
+      "legend": {
+        "show": true,
+        "sort": "total",
+        "sortDesc": true,
+        "values": true
+      },
+      "legendType": "Right side",
+      "links": [],
+      "maxDataPoints": 3,
+      "nullPointMode": "connected",
+      "pieType": "pie",
+      "pluginVersion": "7.3.1",
+      "strokeWidth": 1,
+      "targets": [
+        {
+          "alias": "$tag_application_port",
+          "groupBy": [
+            {
+              "params": [
+                "$resolution"
+              ],
+              "type": "time"
+            },
+            {
+              "params": [
+                "application_port"
+              ],
+              "type": "tag"
+            },
+            {
+              "params": [
+                "0"
+              ],
+              "type": "fill"
+            }
+          ],
+          "measurement": "flow_data_4_tuple",
+          "orderByTime": "ASC",
+          "policy": "default",
+          "query": "SELECT sum(\"retransmissions_client\") + sum(\"retransmissions_server\") FROM \"tcp_4_tuple\" WHERE (\"client_ip\" =~ /^$ip$/ OR \"server_ip\" =~ /^$ip$/) AND $timeFilter GROUP BY time($resolution), \"server_ip\", \"client_ip\" fill(0)",
+          "rawQuery": false,
+          "refId": "A",
+          "resultFormat": "time_series",
+          "select": [
+            [
+              {
+                "params": [
+                  "flows"
+                ],
+                "type": "field"
+              },
+              {
+                "params": [],
+                "type": "sum"
+              }
+            ]
+          ],
+          "tags": [
+            {
+              "key": "network_monitor_name",
+              "operator": "=~",
+              "value": "/^$network_monitor$/"
+            },
+            {
+              "condition": "AND",
+              "key": "ip_protocol_name",
+              "operator": "=",
+              "value": "TCP"
+            }
+          ]
+        }
+      ],
+      "timeFrom": null,
+      "timeShift": null,
+      "title": "Total Flows by TCP Application for Network Monitor: $network_monitor",
+      "transformations": [],
+      "type": "grafana-piechart-panel",
+      "valueName": "total"
+    },
+    {
+      "aliasColors": {},
+      "breakPoint": "50%",
+      "cacheTimeout": null,
+      "combine": {
+        "label": "Others",
+        "threshold": "0.02"
+      },
+      "datasource": "indicators",
+      "description": "",
+      "fieldConfig": {
+        "defaults": {
+          "custom": {
+            "align": null,
+            "filterable": false
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "red",
+                "value": 80
+              }
+            ]
+          },
+          "unit": "none"
+        },
+        "overrides": []
+      },
+      "fontSize": "80%",
+      "format": "none",
+      "gridPos": {
+        "h": 10,
+        "w": 8,
+        "x": 8,
+        "y": 5
+      },
+      "id": 270,
+      "interval": null,
+      "legend": {
+        "show": true,
+        "sort": "total",
+        "sortDesc": true,
+        "values": true
+      },
+      "legendType": "Right side",
+      "links": [],
+      "maxDataPoints": 3,
+      "nullPointMode": "connected",
+      "pieType": "pie",
+      "pluginVersion": "7.3.1",
+      "strokeWidth": 1,
+      "targets": [
+        {
+          "alias": "$tag_application_port",
+          "groupBy": [
+            {
+              "params": [
+                "$resolution"
+              ],
+              "type": "time"
+            },
+            {
+              "params": [
+                "application_port"
+              ],
+              "type": "tag"
+            },
+            {
+              "params": [
+                "0"
+              ],
+              "type": "fill"
+            }
+          ],
+          "measurement": "flow_data_4_tuple",
+          "orderByTime": "ASC",
+          "policy": "default",
+          "query": "SELECT sum(\"retransmissions_client\") + sum(\"retransmissions_server\") FROM \"tcp_4_tuple\" WHERE (\"client_ip\" =~ /^$ip$/ OR \"server_ip\" =~ /^$ip$/) AND $timeFilter GROUP BY time($resolution), \"server_ip\", \"client_ip\" fill(0)",
+          "rawQuery": false,
+          "refId": "A",
+          "resultFormat": "time_series",
+          "select": [
+            [
+              {
+                "params": [
+                  "flows"
+                ],
+                "type": "field"
+              },
+              {
+                "params": [],
+                "type": "sum"
+              }
+            ]
+          ],
+          "tags": [
+            {
+              "key": "network_monitor_name",
+              "operator": "=~",
+              "value": "/^$network_monitor$/"
+            },
+            {
+              "condition": "AND",
+              "key": "ip_protocol_name",
+              "operator": "=",
+              "value": "UDP"
+            }
+          ]
+        }
+      ],
+      "timeFrom": null,
+      "timeShift": null,
+      "title": "Total Flows by UDP Application for Network Monitor: $network_monitor",
+      "transformations": [],
+      "type": "grafana-piechart-panel",
+      "valueName": "total"
+    },
+    {
+      "collapsed": false,
+      "datasource": null,
+      "gridPos": {
+        "h": 1,
+        "w": 24,
+        "x": 0,
+        "y": 15
+      },
+      "id": 269,
+      "panels": [],
+      "title": "Flow Data Overview Network Monitor: $network_monitor",
+      "type": "row"
+    },
+    {
+      "datasource": "indicators",
+      "description": "",
+      "fieldConfig": {
+        "defaults": {
+          "custom": {
+            "align": null,
+            "filterable": false
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "red",
+                "value": 80
+              }
+            ]
+          }
+        },
+        "overrides": [
+          {
+            "matcher": {
+              "id": "byRegexp",
+              "options": "/.*Bytes,*/"
+            },
+            "properties": [
+              {
+                "id": "unit",
+                "value": "decbytes"
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "Source IP"
+            },
+            "properties": [
+              {
+                "id": "custom.width",
+                "value": null
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "application_side"
+            },
+            "properties": [
+              {
+                "id": "custom.width",
+                "value": 136
+              }
+            ]
+          }
+        ]
+      },
+      "gridPos": {
+        "h": 15,
+        "w": 15,
+        "x": 0,
+        "y": 16
+      },
+      "id": 257,
+      "options": {
+        "showHeader": true,
+        "sortBy": []
+      },
+      "pluginVersion": "7.3.1",
+      "targets": [
+        {
+          "groupBy": [
+            {
+              "params": [
+                "$interval"
+              ],
+              "type": "time"
+            },
+            {
+              "params": [
+                "source_ip"
+              ],
+              "type": "tag"
+            },
+            {
+              "params": [
+                "destination_ip"
+              ],
+              "type": "tag"
+            },
+            {
+              "params": [
+                "ip_protocol_name"
+              ],
+              "type": "tag"
+            },
+            {
+              "params": [
+                "application_port"
+              ],
+              "type": "tag"
+            },
+            {
+              "params": [
+                "destination_hostname"
+              ],
+              "type": "tag"
+            },
+            {
+              "params": [
+                "source_hostname"
+              ],
+              "type": "tag"
+            },
+            {
+              "params": [
+                "ethertype"
+              ],
+              "type": "tag"
+            },
+            {
+              "params": [
+                "source_in_monitor"
+              ],
+              "type": "tag"
+            },
+            {
+              "params": [
+                "destination_in_monitor"
+              ],
+              "type": "tag"
+            }
+          ],
+          "hide": false,
+          "measurement": "flow_data_4_tuple",
+          "orderByTime": "ASC",
+          "policy": "default",
+          "query": "SELECT sum(\"bytes_per_s\") AS \"bytes\", sum(\"fragments\") AS \"fragments\" FROM \"flow_data_4_tuple\" WHERE (\"network_monitor_name\" =~ /^$network_monitor$/ AND \"ip_protocol_name\" =~ /^$ip_protocol$/) AND $timeFilter GROUP BY time($interval), \"source_ip\", \"destination_ip\", \"ip_protocol_name\", \"application_port\"",
+          "rawQuery": false,
+          "refId": "A",
+          "resultFormat": "table",
+          "select": [
+            [
+              {
+                "params": [
+                  "bytes_per_s"
+                ],
+                "type": "field"
+              },
+              {
+                "params": [],
+                "type": "sum"
+              },
+              {
+                "params": [
+                  "bytes"
+                ],
+                "type": "alias"
+              }
+            ],
+            [
+              {
+                "params": [
+                  "fragments"
+                ],
+                "type": "field"
+              },
+              {
+                "params": [],
+                "type": "sum"
+              },
+              {
+                "params": [
+                  "fragments"
+                ],
+                "type": "alias"
+              }
+            ],
+            [
+              {
+                "params": [
+                  "flows"
+                ],
+                "type": "field"
+              },
+              {
+                "params": [],
+                "type": "sum"
+              },
+              {
+                "params": [
+                  "flows"
+                ],
+                "type": "alias"
+              }
+            ]
+          ],
+          "slimit": "$slimit",
+          "tags": [
+            {
+              "key": "network_monitor_name",
+              "operator": "=~",
+              "value": "/^$network_monitor$/"
+            },
+            {
+              "condition": "AND",
+              "key": "ip_protocol_name",
+              "operator": "=~",
+              "value": "/^$ip_protocol$/"
+            },
+            {
+              "condition": "AND",
+              "key": "application_port",
+              "operator": "=~",
+              "value": "/^$application$/"
+            }
+          ]
+        }
+      ],
+      "timeFrom": null,
+      "timeShift": null,
+      "title": "Flows Details (protocol: $ip_protocol application: $application)",
+      "transformations": [
+        {
+          "id": "organize",
+          "options": {
+            "excludeByName": {
+              "Time": true,
+              "destination_city": true,
+              "destination_in_monitor": true,
+              "destination_longitude": true,
+              "source_in_monitor": true
+            },
+            "indexByName": {
+              "Time": 0,
+              "application_port": 8,
+              "bytes": 9,
+              "destination_hostname": 6,
+              "destination_in_monitor": 5,
+              "destination_ip": 4,
+              "ethertype": 12,
+              "flows": 11,
+              "fragments": 10,
+              "ip_protocol_name": 7,
+              "source_hostname": 3,
+              "source_in_monitor": 2,
+              "source_ip": 1
+            },
+            "renameByName": {
+              "application_port": "Application",
+              "bytes": "Bytes",
+              "bytes_per_s": "Bytes",
+              "destination_hostname": "Destination hostname",
+              "destination_ip": "Destination IP",
+              "destination_tls_hostname": "Destination Webserver Name",
+              "flows": "Flows",
+              "fragments": "Fragments",
+              "ip_protocol_name": "IP Protocol Name",
+              "packets": "Packets",
+              "packets_per_s": "Packets",
+              "source_hostname": "Source hostname",
+              "source_ip": "Source IP",
+              "source_tls_hostname": "Source Webserver Name",
+              "sum": "Bytes"
+            }
+          }
+        },
+        {
+          "id": "groupBy",
+          "options": {
+            "fields": {
+              "Application": {
+                "aggregations": [],
+                "operation": "groupby"
+              },
+              "Bytes": {
+                "aggregations": [
+                  "sum"
+                ],
+                "operation": "aggregate"
+              },
+              "Destiantion hostname": {
+                "aggregations": [],
+                "operation": "groupby"
+              },
+              "Destination IP": {
+                "aggregations": [],
+                "operation": "groupby"
+              },
+              "Destination Webserver Name": {
+                "aggregations": [],
+                "operation": "groupby"
+              },
+              "Destination hostname": {
+                "aggregations": [],
+                "operation": "groupby"
+              },
+              "Flows": {
+                "aggregations": [
+                  "sum"
+                ],
+                "operation": "aggregate"
+              },
+              "Fragments": {
+                "aggregations": [
+                  "sum"
+                ],
+                "operation": "aggregate"
+              },
+              "IP Protocol Name": {
+                "aggregations": [],
+                "operation": "groupby"
+              },
+              "Packets": {
+                "aggregations": [
+                  "sum"
+                ],
+                "operation": "aggregate"
+              },
+              "Source IP": {
+                "aggregations": [],
+                "operation": "groupby"
+              },
+              "Source Webserver Name": {
+                "aggregations": [],
+                "operation": "groupby"
+              },
+              "Source hostname": {
+                "aggregations": [],
+                "operation": "groupby"
+              },
+              "application_port": {
+                "aggregations": [],
+                "operation": "groupby"
+              },
+              "application_side": {
+                "aggregations": [],
+                "operation": "groupby"
+              },
+              "destination_city": {
+                "aggregations": [],
+                "operation": "groupby"
+              },
+              "destination_in_monitor": {
+                "aggregations": [],
+                "operation": "groupby"
+              },
+              "destination_longitude": {
+                "aggregations": [],
+                "operation": "groupby"
+              },
+              "destination_tls_hostname": {
+                "aggregations": [],
+                "operation": "groupby"
+              },
+              "ethertype": {
+                "aggregations": [],
+                "operation": "groupby"
+              },
+              "source_city": {
+                "aggregations": [],
+                "operation": "groupby"
+              },
+              "source_in_monitor": {
+                "aggregations": [],
+                "operation": "groupby"
+              },
+              "source_tls_hostname": {
+                "aggregations": [],
+                "operation": "groupby"
+              }
+            }
+          }
+        }
+      ],
+      "type": "table"
+    },
+    {
+      "datasource": "indicators",
+      "description": "",
+      "fieldConfig": {
+        "defaults": {
+          "custom": {
+            "align": null,
+            "filterable": false
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "red",
+                "value": 80
+              }
+            ]
+          }
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 6,
+        "w": 3,
+        "x": 15,
+        "y": 16
+      },
+      "id": 266,
+      "options": {
+        "colorMode": "value",
+        "graphMode": "area",
+        "justifyMode": "auto",
+        "orientation": "auto",
+        "reduceOptions": {
+          "calcs": [
+            "mean"
+          ],
+          "fields": "",
+          "values": false
+        },
+        "textMode": "auto"
+      },
+      "pluginVersion": "7.3.1",
+      "targets": [
+        {
+          "groupBy": [
+            {
+              "params": [
+                "$__interval"
+              ],
+              "type": "time"
+            },
+            {
+              "params": [
+                "null"
+              ],
+              "type": "fill"
+            }
+          ],
+          "hide": false,
+          "orderByTime": "ASC",
+          "policy": "default",
+          "query": "show series cardinality  from flow_data_4_tuple ",
+          "rawQuery": true,
+          "refId": "B",
+          "resultFormat": "table",
+          "select": [
+            [
+              {
+                "params": [
+                  "value"
+                ],
+                "type": "field"
+              },
+              {
+                "params": [],
+                "type": "mean"
+              }
+            ]
+          ],
+          "tags": []
+        }
+      ],
+      "timeFrom": null,
+      "timeShift": null,
+      "title": "Series Count for Network Monitor: $network_monitor",
+      "transformations": [
+        {
+          "id": "groupBy",
+          "options": {
+            "fields": {
+              "key": {
+                "aggregations": [],
+                "operation": "groupby"
+              },
+              "value": {
+                "aggregations": [
+                  "count"
+                ],
+                "operation": "aggregate"
+              }
+            }
+          }
+        }
+      ],
+      "type": "stat"
+    },
+    {
+      "datasource": "indicators",
+      "description": "",
+      "fieldConfig": {
+        "defaults": {
+          "custom": {
+            "align": null,
+            "filterable": false
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "red",
+                "value": 80
+              }
+            ]
+          }
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 6,
+        "w": 3,
+        "x": 18,
+        "y": 16
+      },
+      "id": 265,
+      "options": {
+        "colorMode": "value",
+        "graphMode": "area",
+        "justifyMode": "auto",
+        "orientation": "auto",
+        "reduceOptions": {
+          "calcs": [
+            "mean"
+          ],
+          "fields": "",
+          "values": false
+        },
+        "textMode": "auto"
+      },
+      "pluginVersion": "7.3.1",
+      "targets": [
+        {
+          "groupBy": [
+            {
+              "params": [
+                "$__interval"
+              ],
+              "type": "time"
+            },
+            {
+              "params": [
+                "null"
+              ],
+              "type": "fill"
+            }
+          ],
+          "hide": false,
+          "orderByTime": "ASC",
+          "policy": "default",
+          "query": "SHOW TAG VALUES ON indicators FROM flow_data_4_tuple WITH KEY = \"source_ip\"",
+          "rawQuery": true,
+          "refId": "B",
+          "resultFormat": "table",
+          "select": [
+            [
+              {
+                "params": [
+                  "value"
+                ],
+                "type": "field"
+              },
+              {
+                "params": [],
+                "type": "mean"
+              }
+            ]
+          ],
+          "tags": []
+        }
+      ],
+      "timeFrom": null,
+      "timeShift": null,
+      "title": "Source IP Count for Flow Data",
+      "transformations": [
+        {
+          "id": "groupBy",
+          "options": {
+            "fields": {
+              "key": {
+                "aggregations": [],
+                "operation": "groupby"
+              },
+              "value": {
+                "aggregations": [
+                  "count"
+                ],
+                "operation": "aggregate"
+              }
+            }
+          }
+        }
+      ],
+      "type": "stat"
+    },
+    {
+      "datasource": "indicators",
+      "description": "",
+      "fieldConfig": {
+        "defaults": {
+          "custom": {
+            "align": null,
+            "filterable": false
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "red",
+                "value": 80
+              }
+            ]
+          }
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 6,
+        "w": 3,
+        "x": 21,
+        "y": 16
+      },
+      "id": 267,
+      "options": {
+        "colorMode": "value",
+        "graphMode": "area",
+        "justifyMode": "auto",
+        "orientation": "auto",
+        "reduceOptions": {
+          "calcs": [
+            "mean"
+          ],
+          "fields": "",
+          "values": false
+        },
+        "textMode": "auto"
+      },
+      "pluginVersion": "7.3.1",
+      "targets": [
+        {
+          "groupBy": [
+            {
+              "params": [
+                "$__interval"
+              ],
+              "type": "time"
+            },
+            {
+              "params": [
+                "null"
+              ],
+              "type": "fill"
+            }
+          ],
+          "hide": false,
+          "orderByTime": "ASC",
+          "policy": "default",
+          "query": "SHOW TAG VALUES ON indicators FROM flow_data_4_tuple WITH KEY = \"destination_ip\"",
+          "rawQuery": true,
+          "refId": "B",
+          "resultFormat": "table",
+          "select": [
+            [
+              {
+                "params": [
+                  "value"
+                ],
+                "type": "field"
+              },
+              {
+                "params": [],
+                "type": "mean"
+              }
+            ]
+          ],
+          "tags": []
+        }
+      ],
+      "timeFrom": null,
+      "timeShift": null,
+      "title": "Destination IP Count for Flow Data",
+      "transformations": [
+        {
+          "id": "groupBy",
+          "options": {
+            "fields": {
+              "key": {
+                "aggregations": [],
+                "operation": "groupby"
+              },
+              "value": {
+                "aggregations": [
+                  "count"
+                ],
+                "operation": "aggregate"
+              }
+            }
+          }
+        }
+      ],
+      "type": "stat"
+    },
+    {
+      "aliasColors": {},
+      "bars": true,
+      "cacheTimeout": null,
+      "dashLength": 10,
+      "dashes": false,
+      "datasource": "indicators",
+      "decimals": 0,
+      "description": "",
+      "fieldConfig": {
+        "defaults": {
+          "custom": {
+            "align": null,
+            "filterable": false
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "red",
+                "value": 80
+              }
+            ]
+          },
+          "unit": "short"
+        },
+        "overrides": []
+      },
+      "fill": 1,
+      "fillGradient": 0,
+      "gridPos": {
+        "h": 9,
+        "w": 9,
+        "x": 15,
+        "y": 22
+      },
+      "hiddenSeries": false,
+      "id": 164,
+      "interval": null,
+      "legend": {
+        "alignAsTable": true,
+        "avg": false,
+        "current": false,
+        "max": true,
+        "min": false,
+        "show": true,
+        "sort": "total",
+        "sortDesc": true,
+        "total": true,
+        "values": true
+      },
+      "lines": false,
+      "linewidth": 1,
+      "links": [],
+      "maxDataPoints": 3,
+      "nullPointMode": "null",
+      "options": {
+        "alertThreshold": true
+      },
+      "percentage": false,
+      "pluginVersion": "7.3.1",
+      "pointradius": 2,
+      "points": false,
+      "renderer": "flot",
+      "seriesOverrides": [],
+      "spaceLength": 10,
+      "stack": true,
+      "steppedLine": false,
+      "targets": [
+        {
+          "alias": "$tag_application_port",
+          "groupBy": [
+            {
+              "params": [
+                "$resolution"
+              ],
+              "type": "time"
+            },
+            {
+              "params": [
+                "application_port"
+              ],
+              "type": "tag"
+            },
+            {
+              "params": [
+                "0"
+              ],
+              "type": "fill"
+            }
+          ],
+          "measurement": "flow_data_4_tuple",
+          "orderByTime": "ASC",
+          "policy": "default",
+          "query": "SELECT sum(\"retransmissions_client\") + sum(\"retransmissions_server\") FROM \"tcp_4_tuple\" WHERE (\"client_ip\" =~ /^$ip$/ OR \"server_ip\" =~ /^$ip$/) AND $timeFilter GROUP BY time($resolution), \"server_ip\", \"client_ip\" fill(0)",
+          "rawQuery": false,
+          "refId": "A",
+          "resultFormat": "time_series",
+          "select": [
+            [
+              {
+                "params": [
+                  "flows"
+                ],
+                "type": "field"
+              },
+              {
+                "params": [],
+                "type": "sum"
+              }
+            ]
+          ],
+          "slimit": "",
+          "tags": [
+            {
+              "key": "network_monitor_name",
+              "operator": "=~",
+              "value": "/^$network_monitor$/"
+            }
+          ]
+        }
+      ],
+      "thresholds": [],
+      "timeFrom": null,
+      "timeRegions": [],
+      "timeShift": null,
+      "title": "Total Flows by Application $network_monitor",
+      "tooltip": {
+        "shared": true,
+        "sort": 0,
+        "value_type": "individual"
+      },
+      "transformations": [],
+      "type": "graph",
+      "xaxis": {
+        "buckets": null,
+        "mode": "time",
+        "name": null,
+        "show": true,
+        "values": []
+      },
+      "yaxes": [
+        {
+          "$$hashKey": "object:1251",
+          "decimals": 0,
+          "format": "short",
+          "label": null,
+          "logBase": 1,
+          "max": null,
+          "min": null,
+          "show": true
+        },
+        {
+          "$$hashKey": "object:1252",
+          "format": "short",
+          "label": null,
+          "logBase": 1,
+          "max": null,
+          "min": null,
+          "show": true
+        }
+      ],
+      "yaxis": {
+        "align": false,
+        "alignLevel": null
+      }
+    },
+    {
+      "collapsed": false,
+      "datasource": null,
+      "gridPos": {
+        "h": 1,
+        "w": 24,
+        "x": 0,
+        "y": 31
+      },
+      "id": 117,
+      "panels": [],
+      "repeat": null,
+      "title": "Data Breakdown by Application  ",
+      "type": "row"
+    },
+    {
+      "aliasColors": {},
+      "breakPoint": "50%",
+      "cacheTimeout": null,
+      "combine": {
+        "label": "Others",
+        "threshold": "0.02"
+      },
+      "datasource": "indicators",
+      "description": "",
+      "fieldConfig": {
+        "defaults": {
+          "custom": {
+            "align": null,
+            "filterable": false
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "red",
+                "value": 80
+              }
+            ]
+          },
+          "unit": "none"
+        },
+        "overrides": []
+      },
+      "fontSize": "80%",
+      "format": "decbytes",
+      "gridPos": {
+        "h": 10,
+        "w": 8,
+        "x": 0,
+        "y": 32
+      },
+      "id": 94,
+      "interval": null,
+      "legend": {
+        "show": true,
+        "sort": "total",
+        "sortDesc": true,
+        "values": true
+      },
+      "legendType": "Right side",
+      "links": [],
+      "maxDataPoints": 3,
+      "nullPointMode": "connected",
+      "pieType": "pie",
+      "pluginVersion": "7.3.1",
+      "strokeWidth": 1,
+      "targets": [
+        {
+          "alias": "$tag_ip_protocol_name",
+          "groupBy": [
+            {
+              "params": [
+                "$resolution"
+              ],
+              "type": "time"
+            },
+            {
+              "params": [
+                "ip_protocol_name"
+              ],
+              "type": "tag"
+            },
+            {
+              "params": [
+                "0"
+              ],
+              "type": "fill"
+            }
+          ],
+          "measurement": "flow_data_4_tuple",
+          "orderByTime": "ASC",
+          "policy": "default",
+          "query": "SELECT sum(\"retransmissions_client\") + sum(\"retransmissions_server\") FROM \"tcp_4_tuple\" WHERE (\"client_ip\" =~ /^$ip$/ OR \"server_ip\" =~ /^$ip$/) AND $timeFilter GROUP BY time($resolution), \"server_ip\", \"client_ip\" fill(0)",
+          "rawQuery": false,
+          "refId": "A",
+          "resultFormat": "time_series",
+          "select": [
+            [
+              {
+                "params": [
+                  "bytes_per_s"
+                ],
+                "type": "field"
+              },
+              {
+                "params": [],
+                "type": "sum"
+              }
+            ]
+          ],
+          "slimit": "",
+          "tags": [
+            {
+              "key": "network_monitor_name",
+              "operator": "=~",
+              "value": "/^$network_monitor$/"
+            }
+          ]
+        }
+      ],
+      "timeFrom": null,
+      "timeShift": null,
+      "title": "Total Data by IP Protocol for Network Monitor: $network_monitor",
+      "transformations": [],
+      "type": "grafana-piechart-panel",
+      "valueName": "total"
+    },
+    {
+      "aliasColors": {},
+      "breakPoint": "50%",
+      "cacheTimeout": null,
+      "combine": {
+        "label": "Others",
+        "threshold": "0.02"
+      },
+      "datasource": "-- Dashboard --",
+      "description": "",
+      "fieldConfig": {
+        "defaults": {
+          "custom": {
+            "align": null,
+            "filterable": false
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "red",
+                "value": 80
+              }
+            ]
+          },
+          "unit": "none"
+        },
+        "overrides": []
+      },
+      "fontSize": "80%",
+      "format": "decbytes",
+      "gridPos": {
+        "h": 10,
+        "w": 8,
+        "x": 8,
+        "y": 32
+      },
+      "id": 258,
+      "interval": null,
+      "legend": {
+        "show": true,
+        "sort": "total",
+        "sortDesc": true,
+        "values": true
+      },
+      "legendType": "Right side",
+      "links": [],
+      "maxDataPoints": 3,
+      "nullPointMode": "connected",
+      "pieType": "pie",
+      "pluginVersion": "7.3.1",
+      "strokeWidth": 1,
+      "targets": [
+        {
+          "panelId": 272,
+          "refId": "A"
+        }
+      ],
+      "timeFrom": null,
+      "timeShift": null,
+      "title": "Total Data by VLAN Network Monitor: $network_monitor",
+      "transformations": [],
+      "type": "grafana-piechart-panel",
+      "valueName": "total"
+    },
+    {
+      "aliasColors": {},
+      "bars": true,
+      "cacheTimeout": null,
+      "dashLength": 10,
+      "dashes": false,
+      "datasource": "indicators",
+      "description": "",
+      "fieldConfig": {
+        "defaults": {
+          "custom": {
+            "align": null,
+            "filterable": false
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "red",
+                "value": 80
+              }
+            ]
+          },
+          "unit": "decbytes"
+        },
+        "overrides": [
+          {
+            "matcher": {
+              "id": "byName"
+            },
+            "properties": []
+          }
+        ]
+      },
+      "fill": 1,
+      "fillGradient": 0,
+      "gridPos": {
+        "h": 10,
+        "w": 8,
+        "x": 16,
+        "y": 32
+      },
+      "hiddenSeries": false,
+      "id": 272,
+      "interval": null,
+      "legend": {
+        "alignAsTable": true,
+        "avg": false,
+        "current": false,
+        "max": false,
+        "min": false,
+        "show": true,
+        "sort": "total",
+        "sortDesc": true,
+        "total": true,
+        "values": true
+      },
+      "lines": false,
+      "linewidth": 1,
+      "links": [],
+      "maxDataPoints": 3,
+      "nullPointMode": "null",
+      "options": {
+        "alertThreshold": true
+      },
+      "percentage": false,
+      "pluginVersion": "7.3.1",
+      "pointradius": 2,
+      "points": false,
+      "renderer": "flot",
+      "seriesOverrides": [],
+      "spaceLength": 10,
+      "stack": true,
+      "steppedLine": false,
+      "targets": [
+        {
+          "alias": "$tag_vlan_tag_outer",
+          "groupBy": [
+            {
+              "params": [
+                "$resolution"
+              ],
+              "type": "time"
+            },
+            {
+              "params": [
+                "vlan_tag_outer"
+              ],
+              "type": "tag"
+            },
+            {
+              "params": [
+                "0"
+              ],
+              "type": "fill"
+            }
+          ],
+          "measurement": "flow_data_4_tuple",
+          "orderByTime": "ASC",
+          "policy": "default",
+          "query": "SELECT sum(\"retransmissions_client\") + sum(\"retransmissions_server\") FROM \"tcp_4_tuple\" WHERE (\"client_ip\" =~ /^$ip$/ OR \"server_ip\" =~ /^$ip$/) AND $timeFilter GROUP BY time($resolution), \"server_ip\", \"client_ip\" fill(0)",
+          "rawQuery": false,
+          "refId": "A",
+          "resultFormat": "time_series",
+          "select": [
+            [
+              {
+                "params": [
+                  "bytes_per_s"
+                ],
+                "type": "field"
+              },
+              {
+                "params": [],
+                "type": "sum"
+              }
+            ]
+          ],
+          "tags": [
+            {
+              "key": "network_monitor_name",
+              "operator": "=~",
+              "value": "/^$network_monitor$/"
+            },
+            {
+              "condition": "AND",
+              "key": "vlan_tag_outer",
+              "operator": "!=",
+              "value": "0"
+            }
+          ]
+        }
+      ],
+      "thresholds": [],
+      "timeFrom": null,
+      "timeRegions": [],
+      "timeShift": null,
+      "title": "TS Total Data by VLAN Network Monitor: $network_monitor",
+      "tooltip": {
+        "shared": true,
+        "sort": 0,
+        "value_type": "individual"
+      },
+      "transformations": [],
+      "type": "graph",
+      "xaxis": {
+        "buckets": null,
+        "mode": "time",
+        "name": null,
+        "show": true,
+        "values": []
+      },
+      "yaxes": [
+        {
+          "format": "decbytes",
+          "label": null,
+          "logBase": 1,
+          "max": null,
+          "min": null,
+          "show": true
+        },
+        {
+          "format": "short",
+          "label": null,
+          "logBase": 1,
+          "max": null,
+          "min": null,
+          "show": true
+        }
+      ],
+      "yaxis": {
+        "align": false,
+        "alignLevel": null
+      }
+    },
+    {
+      "aliasColors": {},
+      "breakPoint": "50%",
+      "cacheTimeout": null,
+      "combine": {
+        "label": "Others",
+        "threshold": 0
+      },
+      "datasource": "-- Dashboard --",
+      "description": "",
+      "fieldConfig": {
+        "defaults": {
+          "custom": {
+            "align": null,
+            "filterable": false
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "red",
+                "value": 80
+              }
+            ]
+          },
+          "unit": "none"
+        },
+        "overrides": []
+      },
+      "fontSize": "80%",
+      "format": "decbytes",
+      "gridPos": {
+        "h": 10,
+        "w": 8,
+        "x": 0,
+        "y": 42
+      },
+      "id": 118,
+      "interval": null,
+      "legend": {
+        "show": true,
+        "sort": "total",
+        "sortDesc": true,
+        "values": true
+      },
+      "legendType": "Right side",
+      "links": [],
+      "maxDataPoints": 3,
+      "nullPointMode": "connected",
+      "pieType": "pie",
+      "pluginVersion": "7.3.1",
+      "strokeWidth": 1,
+      "targets": [
+        {
+          "panelId": 263,
+          "refId": "A"
+        }
+      ],
+      "timeFrom": null,
+      "timeShift": null,
+      "title": "Total Data by TCP Application for Network Monitor: $network_monitor",
+      "transformations": [],
+      "type": "grafana-piechart-panel",
+      "valueName": "total"
+    },
+    {
+      "aliasColors": {},
+      "bars": true,
+      "cacheTimeout": null,
+      "dashLength": 10,
+      "dashes": false,
+      "datasource": "indicators",
+      "decimals": 0,
+      "description": "",
+      "fieldConfig": {
+        "defaults": {
+          "custom": {
+            "align": null,
+            "filterable": false
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "red",
+                "value": 80
+              }
+            ]
+          },
+          "unit": "decbytes"
+        },
+        "overrides": []
+      },
+      "fill": 1,
+      "fillGradient": 0,
+      "gridPos": {
+        "h": 10,
+        "w": 8,
+        "x": 8,
+        "y": 42
+      },
+      "hiddenSeries": false,
+      "id": 263,
+      "interval": null,
+      "legend": {
+        "alignAsTable": true,
+        "avg": false,
+        "current": true,
+        "max": false,
+        "min": false,
+        "show": true,
+        "sort": "total",
+        "sortDesc": true,
+        "total": true,
+        "values": true
+      },
+      "lines": false,
+      "linewidth": 1,
+      "links": [],
+      "maxDataPoints": 3,
+      "nullPointMode": "null",
+      "options": {
+        "alertThreshold": true
+      },
+      "percentage": false,
+      "pluginVersion": "7.3.1",
+      "pointradius": 2,
+      "points": false,
+      "renderer": "flot",
+      "seriesOverrides": [],
+      "spaceLength": 10,
+      "stack": true,
+      "steppedLine": false,
+      "targets": [
+        {
+          "alias": "$tag_application_port",
+          "groupBy": [
+            {
+              "params": [
+                "$resolution"
+              ],
+              "type": "time"
+            },
+            {
+              "params": [
+                "application_port"
+              ],
+              "type": "tag"
+            },
+            {
+              "params": [
+                "0"
+              ],
+              "type": "fill"
+            }
+          ],
+          "measurement": "flow_data_4_tuple",
+          "orderByTime": "ASC",
+          "policy": "default",
+          "query": "SELECT sum(\"retransmissions_client\") + sum(\"retransmissions_server\") FROM \"tcp_4_tuple\" WHERE (\"client_ip\" =~ /^$ip$/ OR \"server_ip\" =~ /^$ip$/) AND $timeFilter GROUP BY time($resolution), \"server_ip\", \"client_ip\" fill(0)",
+          "rawQuery": false,
+          "refId": "A",
+          "resultFormat": "time_series",
+          "select": [
+            [
+              {
+                "params": [
+                  "bytes_per_s"
+                ],
+                "type": "field"
+              },
+              {
+                "params": [],
+                "type": "sum"
+              }
+            ]
+          ],
+          "slimit": "",
+          "tags": [
+            {
+              "key": "network_monitor_name",
+              "operator": "=~",
+              "value": "/^$network_monitor$/"
+            },
+            {
+              "condition": "AND",
+              "key": "ip_protocol_name",
+              "operator": "=",
+              "value": "TCP"
+            }
+          ]
+        }
+      ],
+      "thresholds": [],
+      "timeFrom": null,
+      "timeRegions": [],
+      "timeShift": null,
+      "title": "TS Total TCP Data by Application for Network Monitor: $network_monitor",
+      "tooltip": {
+        "shared": true,
+        "sort": 0,
+        "value_type": "individual"
+      },
+      "transformations": [],
+      "type": "graph",
+      "xaxis": {
+        "buckets": null,
+        "mode": "time",
+        "name": null,
+        "show": true,
+        "values": []
+      },
+      "yaxes": [
+        {
+          "$$hashKey": "object:1251",
+          "decimals": 0,
+          "format": "decbytes",
+          "label": null,
+          "logBase": 1,
+          "max": null,
+          "min": null,
+          "show": true
+        },
+        {
+          "$$hashKey": "object:1252",
+          "format": "short",
+          "label": null,
+          "logBase": 1,
+          "max": null,
+          "min": null,
+          "show": true
+        }
+      ],
+      "yaxis": {
+        "align": false,
+        "alignLevel": null
+      }
+    },
+    {
+      "cacheTimeout": null,
+      "datasource": "indicators",
+      "description": "",
+      "fieldConfig": {
+        "defaults": {
+          "custom": {
+            "align": null,
+            "displayMode": "color-text",
+            "filterable": false
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "percentage",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "red",
+                "value": 80
+              }
+            ]
+          },
+          "unit": "decbytes"
+        },
+        "overrides": [
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "Application"
+            },
+            "properties": [
+              {
+                "id": "links",
+                "value": [
+                  {
+                    "targetBlank": true,
+                    "title": "Top Talkers",
+                    "url": "d/af0a5989/cpacket-test-dashboard?orgId=1&var-application=${__value.text}"
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      "gridPos": {
+        "h": 10,
+        "w": 8,
+        "x": 16,
+        "y": 42
+      },
+      "id": 285,
+      "interval": null,
+      "links": [],
+      "maxDataPoints": 3,
+      "options": {
+        "showHeader": true,
+        "sortBy": [
+          {
+            "desc": true,
+            "displayName": "Bytes (sum)"
+          }
+        ]
+      },
+      "pluginVersion": "7.3.1",
+      "targets": [
+        {
+          "alias": "$tag_application_port",
+          "groupBy": [
+            {
+              "params": [
+                "$resolution"
+              ],
+              "type": "time"
+            },
+            {
+              "params": [
+                "application_port"
+              ],
+              "type": "tag"
+            },
+            {
+              "params": [
+                "0"
+              ],
+              "type": "fill"
+            }
+          ],
+          "measurement": "flow_data_4_tuple",
+          "orderByTime": "ASC",
+          "policy": "default",
+          "query": "SELECT sum(\"retransmissions_client\") + sum(\"retransmissions_server\") FROM \"tcp_4_tuple\" WHERE (\"client_ip\" =~ /^$ip$/ OR \"server_ip\" =~ /^$ip$/) AND $timeFilter GROUP BY time($resolution), \"server_ip\", \"client_ip\" fill(0)",
+          "rawQuery": false,
+          "refId": "A",
+          "resultFormat": "table",
+          "select": [
+            [
+              {
+                "params": [
+                  "bytes_per_s"
+                ],
+                "type": "field"
+              },
+              {
+                "params": [],
+                "type": "sum"
+              },
+              {
+                "params": [
+                  "Bytes"
+                ],
+                "type": "alias"
+              }
+            ]
+          ],
+          "slimit": "",
+          "tags": [
+            {
+              "key": "network_monitor_name",
+              "operator": "=~",
+              "value": "/^$network_monitor$/"
+            },
+            {
+              "condition": "AND",
+              "key": "ip_protocol_name",
+              "operator": "=",
+              "value": "TCP"
+            }
+          ]
+        }
+      ],
+      "timeFrom": null,
+      "timeShift": null,
+      "title": "TCP Data by Application for Network Monitor: $network_monitor",
+      "transformations": [
+        {
+          "id": "organize",
+          "options": {
+            "excludeByName": {
+              "Time": true
+            },
+            "indexByName": {},
+            "renameByName": {
+              "application_port": "Application"
+            }
+          }
+        },
+        {
+          "id": "groupBy",
+          "options": {
+            "fields": {
+              "Application": {
+                "aggregations": [],
+                "operation": "groupby"
+              },
+              "Bytes": {
+                "aggregations": [
+                  "sum"
+                ],
+                "operation": "aggregate"
+              },
+              "TCP Application": {
+                "aggregations": [],
+                "operation": "groupby"
+              }
+            }
+          }
+        }
+      ],
+      "type": "table"
+    },
+    {
+      "aliasColors": {},
+      "breakPoint": "50%",
+      "cacheTimeout": null,
+      "combine": {
+        "label": "Others",
+        "threshold": 0
+      },
+      "datasource": "-- Dashboard --",
+      "description": "",
+      "fieldConfig": {
+        "defaults": {
+          "custom": {
+            "align": null,
+            "filterable": false
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "red",
+                "value": 80
+              }
+            ]
+          },
+          "unit": "none"
+        },
+        "overrides": []
+      },
+      "fontSize": "80%",
+      "format": "decbytes",
+      "gridPos": {
+        "h": 10,
+        "w": 8,
+        "x": 0,
+        "y": 52
+      },
+      "id": 162,
+      "interval": null,
+      "legend": {
+        "show": true,
+        "sort": "total",
+        "sortDesc": true,
+        "values": true
+      },
+      "legendType": "Right side",
+      "links": [],
+      "maxDataPoints": 3,
+      "nullPointMode": "connected",
+      "pieType": "pie",
+      "pluginVersion": "7.3.1",
+      "strokeWidth": 1,
+      "targets": [
+        {
+          "panelId": 271,
+          "refId": "A"
+        }
+      ],
+      "timeFrom": null,
+      "timeShift": null,
+      "title": "Total Data by UDP Application for Network Monitor: $network_monitor",
+      "transformations": [],
+      "type": "grafana-piechart-panel",
+      "valueName": "total"
+    },
+    {
+      "aliasColors": {},
+      "bars": true,
+      "cacheTimeout": null,
+      "dashLength": 10,
+      "dashes": false,
+      "datasource": "indicators",
+      "decimals": 0,
+      "description": "",
+      "fieldConfig": {
+        "defaults": {
+          "custom": {
+            "align": null,
+            "filterable": false
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "red",
+                "value": 80
+              }
+            ]
+          },
+          "unit": "decbytes"
+        },
+        "overrides": []
+      },
+      "fill": 1,
+      "fillGradient": 0,
+      "gridPos": {
+        "h": 10,
+        "w": 8,
+        "x": 8,
+        "y": 52
+      },
+      "hiddenSeries": false,
+      "id": 271,
+      "interval": null,
+      "legend": {
+        "alignAsTable": true,
+        "avg": false,
+        "current": true,
+        "max": false,
+        "min": false,
+        "show": true,
+        "sort": "total",
+        "sortDesc": true,
+        "total": true,
+        "values": true
+      },
+      "lines": false,
+      "linewidth": 1,
+      "links": [],
+      "maxDataPoints": 3,
+      "nullPointMode": "null",
+      "options": {
+        "alertThreshold": true
+      },
+      "percentage": false,
+      "pluginVersion": "7.3.1",
+      "pointradius": 2,
+      "points": false,
+      "renderer": "flot",
+      "seriesOverrides": [],
+      "spaceLength": 10,
+      "stack": true,
+      "steppedLine": false,
+      "targets": [
+        {
+          "alias": "$tag_application_port",
+          "groupBy": [
+            {
+              "params": [
+                "$resolution"
+              ],
+              "type": "time"
+            },
+            {
+              "params": [
+                "application_port"
+              ],
+              "type": "tag"
+            },
+            {
+              "params": [
+                "none"
+              ],
+              "type": "fill"
+            }
+          ],
+          "measurement": "flow_data_4_tuple",
+          "orderByTime": "ASC",
+          "policy": "default",
+          "query": "SELECT sum(\"retransmissions_client\") + sum(\"retransmissions_server\") FROM \"tcp_4_tuple\" WHERE (\"client_ip\" =~ /^$ip$/ OR \"server_ip\" =~ /^$ip$/) AND $timeFilter GROUP BY time($resolution), \"server_ip\", \"client_ip\" fill(0)",
+          "rawQuery": false,
+          "refId": "A",
+          "resultFormat": "time_series",
+          "select": [
+            [
+              {
+                "params": [
+                  "bytes_per_s"
+                ],
+                "type": "field"
+              },
+              {
+                "params": [],
+                "type": "sum"
+              }
+            ]
+          ],
+          "slimit": "",
+          "tags": [
+            {
+              "key": "network_monitor_name",
+              "operator": "=~",
+              "value": "/^$network_monitor$/"
+            },
+            {
+              "condition": "AND",
+              "key": "ip_protocol_name",
+              "operator": "=",
+              "value": "UDP"
+            }
+          ]
+        }
+      ],
+      "thresholds": [],
+      "timeFrom": null,
+      "timeRegions": [],
+      "timeShift": null,
+      "title": "TS Total UDP Data by Application for Network Monitor: $network_monitor",
+      "tooltip": {
+        "shared": true,
+        "sort": 0,
+        "value_type": "individual"
+      },
+      "transformations": [],
+      "type": "graph",
+      "xaxis": {
+        "buckets": null,
+        "mode": "time",
+        "name": null,
+        "show": true,
+        "values": []
+      },
+      "yaxes": [
+        {
+          "$$hashKey": "object:1251",
+          "decimals": 0,
+          "format": "decbytes",
+          "label": null,
+          "logBase": 1,
+          "max": null,
+          "min": null,
+          "show": true
+        },
+        {
+          "$$hashKey": "object:1252",
+          "format": "short",
+          "label": null,
+          "logBase": 1,
+          "max": null,
+          "min": null,
+          "show": true
+        }
+      ],
+      "yaxis": {
+        "align": false,
+        "alignLevel": null
+      }
+    },
+    {
+      "cacheTimeout": null,
+      "datasource": "indicators",
+      "description": "",
+      "fieldConfig": {
+        "defaults": {
+          "custom": {
+            "align": null,
+            "displayMode": "color-text",
+            "filterable": false
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "percentage",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "red",
+                "value": 80
+              }
+            ]
+          },
+          "unit": "decbytes"
+        },
+        "overrides": [
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "Application"
+            },
+            "properties": [
+              {
+                "id": "links",
+                "value": [
+                  {
+                    "targetBlank": true,
+                    "title": "Top Talker",
+                    "url": "d/af0a5989/cpacket-test-dashboard?orgId=1&var-ip_protocol=UDP&var-application=${__value.text}"
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      "gridPos": {
+        "h": 10,
+        "w": 8,
+        "x": 16,
+        "y": 52
+      },
+      "id": 286,
+      "interval": null,
+      "links": [],
+      "maxDataPoints": 3,
+      "options": {
+        "showHeader": true,
+        "sortBy": [
+          {
+            "desc": true,
+            "displayName": "Bytes (sum)"
+          }
+        ]
+      },
+      "pluginVersion": "7.3.1",
+      "targets": [
+        {
+          "alias": "$tag_application_port",
+          "groupBy": [
+            {
+              "params": [
+                "$resolution"
+              ],
+              "type": "time"
+            },
+            {
+              "params": [
+                "application_port"
+              ],
+              "type": "tag"
+            },
+            {
+              "params": [
+                "0"
+              ],
+              "type": "fill"
+            }
+          ],
+          "measurement": "flow_data_4_tuple",
+          "orderByTime": "ASC",
+          "policy": "default",
+          "query": "SELECT sum(\"retransmissions_client\") + sum(\"retransmissions_server\") FROM \"tcp_4_tuple\" WHERE (\"client_ip\" =~ /^$ip$/ OR \"server_ip\" =~ /^$ip$/) AND $timeFilter GROUP BY time($resolution), \"server_ip\", \"client_ip\" fill(0)",
+          "rawQuery": false,
+          "refId": "A",
+          "resultFormat": "table",
+          "select": [
+            [
+              {
+                "params": [
+                  "bytes_per_s"
+                ],
+                "type": "field"
+              },
+              {
+                "params": [],
+                "type": "sum"
+              },
+              {
+                "params": [
+                  "Bytes"
+                ],
+                "type": "alias"
+              }
+            ]
+          ],
+          "slimit": "",
+          "tags": [
+            {
+              "key": "network_monitor_name",
+              "operator": "=~",
+              "value": "/^$network_monitor$/"
+            },
+            {
+              "condition": "AND",
+              "key": "ip_protocol_name",
+              "operator": "=",
+              "value": "UDP"
+            }
+          ]
+        }
+      ],
+      "timeFrom": null,
+      "timeShift": null,
+      "title": "UDP Data by Application for Network Monitor: $network_monitor",
+      "transformations": [
+        {
+          "id": "organize",
+          "options": {
+            "excludeByName": {
+              "Time": true
+            },
+            "indexByName": {},
+            "renameByName": {
+              "application_port": "Application"
+            }
+          }
+        },
+        {
+          "id": "groupBy",
+          "options": {
+            "fields": {
+              "Application": {
+                "aggregations": [],
+                "operation": "groupby"
+              },
+              "Bytes": {
+                "aggregations": [
+                  "sum"
+                ],
+                "operation": "aggregate"
+              },
+              "TCP Application": {
+                "aggregations": [],
+                "operation": "groupby"
+              }
+            }
+          }
+        }
+      ],
+      "type": "table"
+    },
+    {
+      "collapsed": true,
+      "datasource": null,
+      "gridPos": {
+        "h": 1,
+        "w": 24,
+        "x": 0,
+        "y": 62
+      },
+      "id": 262,
+      "panels": [
+        {
+          "aliasColors": {},
+          "bars": true,
+          "cacheTimeout": null,
+          "dashLength": 10,
+          "dashes": false,
+          "datasource": "indicators",
+          "description": "",
+          "fieldConfig": {
+            "defaults": {
+              "custom": {
+                "align": null,
+                "filterable": false
+              },
+              "mappings": [],
+              "thresholds": {
+                "mode": "absolute",
+                "steps": [
+                  {
+                    "color": "green",
+                    "value": null
+                  },
+                  {
+                    "color": "red",
+                    "value": 80
+                  }
+                ]
+              },
+              "unit": "decbytes"
+            },
+            "overrides": []
+          },
+          "fill": 1,
+          "fillGradient": 0,
+          "gridPos": {
+            "h": 10,
+            "w": 8,
+            "x": 0,
+            "y": 63
+          },
+          "hiddenSeries": false,
+          "id": 278,
+          "interval": null,
+          "legend": {
+            "alignAsTable": true,
+            "avg": false,
+            "current": false,
+            "max": false,
+            "min": false,
+            "show": true,
+            "total": true,
+            "values": true
+          },
+          "lines": false,
+          "linewidth": 1,
+          "links": [],
+          "maxDataPoints": 3,
+          "nullPointMode": "null",
+          "options": {
+            "alertThreshold": true
+          },
+          "percentage": false,
+          "pluginVersion": "7.3.1",
+          "pointradius": 2,
+          "points": false,
+          "renderer": "flot",
+          "seriesOverrides": [],
+          "spaceLength": 10,
+          "stack": true,
+          "steppedLine": false,
+          "targets": [
+            {
+              "alias": "$tag_source_ip",
+              "groupBy": [
+                {
+                  "params": [
+                    "$resolution"
+                  ],
+                  "type": "time"
+                },
+                {
+                  "params": [
+                    "source_ip"
+                  ],
+                  "type": "tag"
+                },
+                {
+                  "params": [
+                    "0"
+                  ],
+                  "type": "fill"
+                }
+              ],
+              "hide": false,
+              "measurement": "flow_data_4_tuple",
+              "orderByTime": "ASC",
+              "policy": "default",
+              "query": "SELECT sum(\"retransmissions_client\") + sum(\"retransmissions_server\") FROM \"tcp_4_tuple\" WHERE (\"client_ip\" =~ /^$ip$/ OR \"server_ip\" =~ /^$ip$/) AND $timeFilter GROUP BY time($resolution), \"server_ip\", \"client_ip\" fill(0)",
+              "rawQuery": false,
+              "refId": "A",
+              "resultFormat": "time_series",
+              "select": [
+                [
+                  {
+                    "params": [
+                      "bytes_per_s"
+                    ],
+                    "type": "field"
+                  },
+                  {
+                    "params": [],
+                    "type": "sum"
+                  }
+                ]
+              ],
+              "slimit": "$slimit",
+              "tags": [
+                {
+                  "key": "network_monitor_name",
+                  "operator": "=~",
+                  "value": "/^$network_monitor$/"
+                },
+                {
+                  "condition": "AND",
+                  "key": "source_ip",
+                  "operator": "=~",
+                  "value": "/^$ip$/"
+                },
+                {
+                  "condition": "AND",
+                  "key": "source_ip",
+                  "operator": "!=",
+                  "value": "0.0.0.0"
+                }
+              ]
+            }
+          ],
+          "thresholds": [],
+          "timeFrom": null,
+          "timeRegions": [],
+          "timeShift": null,
+          "title": " Data TS by Source IP for: $ip  (limit $slimit)",
+          "tooltip": {
+            "shared": true,
+            "sort": 0,
+            "value_type": "individual"
+          },
+          "transformations": [],
+          "type": "graph",
+          "xaxis": {
+            "buckets": null,
+            "mode": "time",
+            "name": null,
+            "show": true,
+            "values": []
+          },
+          "yaxes": [
+            {
+              "format": "decbytes",
+              "label": null,
+              "logBase": 1,
+              "max": null,
+              "min": null,
+              "show": true
+            },
+            {
+              "format": "short",
+              "label": null,
+              "logBase": 1,
+              "max": null,
+              "min": null,
+              "show": true
+            }
+          ],
+          "yaxis": {
+            "align": false,
+            "alignLevel": null
+          }
+        },
+        {
+          "aliasColors": {},
+          "bars": true,
+          "cacheTimeout": null,
+          "dashLength": 10,
+          "dashes": false,
+          "datasource": "indicators",
+          "description": "",
+          "fieldConfig": {
+            "defaults": {
+              "custom": {
+                "align": null,
+                "filterable": false
+              },
+              "mappings": [],
+              "thresholds": {
+                "mode": "absolute",
+                "steps": [
+                  {
+                    "color": "green",
+                    "value": null
+                  },
+                  {
+                    "color": "red",
+                    "value": 80
+                  }
+                ]
+              },
+              "unit": "decbytes"
+            },
+            "overrides": []
+          },
+          "fill": 1,
+          "fillGradient": 0,
+          "gridPos": {
+            "h": 10,
+            "w": 8,
+            "x": 8,
+            "y": 63
+          },
+          "hiddenSeries": false,
+          "id": 279,
+          "interval": null,
+          "legend": {
+            "alignAsTable": true,
+            "avg": false,
+            "current": false,
+            "max": false,
+            "min": false,
+            "show": true,
+            "total": true,
+            "values": true
+          },
+          "lines": false,
+          "linewidth": 1,
+          "links": [],
+          "maxDataPoints": 3,
+          "nullPointMode": "null",
+          "options": {
+            "alertThreshold": true
+          },
+          "percentage": false,
+          "pluginVersion": "7.3.1",
+          "pointradius": 2,
+          "points": false,
+          "renderer": "flot",
+          "seriesOverrides": [],
+          "spaceLength": 10,
+          "stack": true,
+          "steppedLine": false,
+          "targets": [
+            {
+              "alias": "$tag_source_ip",
+              "groupBy": [
+                {
+                  "params": [
+                    "$resolution"
+                  ],
+                  "type": "time"
+                },
+                {
+                  "params": [
+                    "source_ip"
+                  ],
+                  "type": "tag"
+                },
+                {
+                  "params": [
+                    "0"
+                  ],
+                  "type": "fill"
+                }
+              ],
+              "hide": false,
+              "measurement": "flow_data_4_tuple",
+              "orderByTime": "ASC",
+              "policy": "default",
+              "query": "SELECT sum(\"retransmissions_client\") + sum(\"retransmissions_server\") FROM \"tcp_4_tuple\" WHERE (\"client_ip\" =~ /^$ip$/ OR \"server_ip\" =~ /^$ip$/) AND $timeFilter GROUP BY time($resolution), \"server_ip\", \"client_ip\" fill(0)",
+              "rawQuery": false,
+              "refId": "A",
+              "resultFormat": "time_series",
+              "select": [
+                [
+                  {
+                    "params": [
+                      "bytes_per_s"
+                    ],
+                    "type": "field"
+                  },
+                  {
+                    "params": [],
+                    "type": "sum"
+                  }
+                ]
+              ],
+              "slimit": "$slimit",
+              "tags": [
+                {
+                  "key": "network_monitor_name",
+                  "operator": "=~",
+                  "value": "/^$network_monitor$/"
+                },
+                {
+                  "condition": "AND",
+                  "key": "destination_ip",
+                  "operator": "=~",
+                  "value": "/^$ip$/"
+                },
+                {
+                  "condition": "AND",
+                  "key": "destination_ip",
+                  "operator": "!=",
+                  "value": "0.0.0.0"
+                }
+              ]
+            }
+          ],
+          "thresholds": [],
+          "timeFrom": null,
+          "timeRegions": [],
+          "timeShift": null,
+          "title": " Data TS by Destination IP for: $ip  (limit $slimit)",
+          "tooltip": {
+            "shared": true,
+            "sort": 0,
+            "value_type": "individual"
+          },
+          "transformations": [],
+          "type": "graph",
+          "xaxis": {
+            "buckets": null,
+            "mode": "time",
+            "name": null,
+            "show": true,
+            "values": []
+          },
+          "yaxes": [
+            {
+              "format": "decbytes",
+              "label": null,
+              "logBase": 1,
+              "max": null,
+              "min": null,
+              "show": true
+            },
+            {
+              "format": "short",
+              "label": null,
+              "logBase": 1,
+              "max": null,
+              "min": null,
+              "show": true
+            }
+          ],
+          "yaxis": {
+            "align": false,
+            "alignLevel": null
+          }
+        },
+        {
+          "aliasColors": {},
+          "bars": true,
+          "cacheTimeout": null,
+          "dashLength": 10,
+          "dashes": false,
+          "datasource": "indicators",
+          "description": "",
+          "fieldConfig": {
+            "defaults": {
+              "custom": {
+                "align": null,
+                "filterable": false
+              },
+              "mappings": [],
+              "thresholds": {
+                "mode": "absolute",
+                "steps": [
+                  {
+                    "color": "green",
+                    "value": null
+                  },
+                  {
+                    "color": "red",
+                    "value": 80
+                  }
+                ]
+              },
+              "unit": "decbytes"
+            },
+            "overrides": []
+          },
+          "fill": 1,
+          "fillGradient": 0,
+          "gridPos": {
+            "h": 10,
+            "w": 8,
+            "x": 16,
+            "y": 63
+          },
+          "hiddenSeries": false,
+          "id": 280,
+          "interval": null,
+          "legend": {
+            "alignAsTable": true,
+            "avg": false,
+            "current": false,
+            "max": false,
+            "min": false,
+            "show": true,
+            "total": true,
+            "values": true
+          },
+          "lines": false,
+          "linewidth": 1,
+          "links": [],
+          "maxDataPoints": 3,
+          "nullPointMode": "null",
+          "options": {
+            "alertThreshold": true
+          },
+          "percentage": false,
+          "pluginVersion": "7.3.1",
+          "pointradius": 2,
+          "points": false,
+          "renderer": "flot",
+          "seriesOverrides": [],
+          "spaceLength": 10,
+          "stack": true,
+          "steppedLine": false,
+          "targets": [
+            {
+              "alias": "$tag_source_ip",
+              "groupBy": [
+                {
+                  "params": [
+                    "$resolution"
+                  ],
+                  "type": "time"
+                },
+                {
+                  "params": [
+                    "source_ip"
+                  ],
+                  "type": "tag"
+                },
+                {
+                  "params": [
+                    "0"
+                  ],
+                  "type": "fill"
+                }
+              ],
+              "measurement": "flow_data_4_tuple",
+              "orderByTime": "ASC",
+              "policy": "default",
+              "query": "SELECT sum(\"retransmissions_client\") + sum(\"retransmissions_server\") FROM \"tcp_4_tuple\" WHERE (\"client_ip\" =~ /^$ip$/ OR \"server_ip\" =~ /^$ip$/) AND $timeFilter GROUP BY time($resolution), \"server_ip\", \"client_ip\" fill(0)",
+              "rawQuery": false,
+              "refId": "A",
+              "resultFormat": "time_series",
+              "select": [
+                [
+                  {
+                    "params": [
+                      "bytes_per_s"
+                    ],
+                    "type": "field"
+                  },
+                  {
+                    "params": [],
+                    "type": "sum"
+                  }
+                ]
+              ],
+              "slimit": "$slimit",
+              "tags": [
+                {
+                  "key": "network_monitor_name",
+                  "operator": "=~",
+                  "value": "/^$network_monitor$/"
+                },
+                {
+                  "condition": "AND",
+                  "key": "application_port",
+                  "operator": "=~",
+                  "value": "/^$application$/"
+                },
+                {
+                  "condition": "AND",
+                  "key": "source_ip",
+                  "operator": "!=",
+                  "value": "0.0.0.0"
+                }
+              ]
+            }
+          ],
+          "thresholds": [],
+          "timeFrom": null,
+          "timeRegions": [],
+          "timeShift": null,
+          "title": "TS Source Data per Application: $application ",
+          "tooltip": {
+            "shared": true,
+            "sort": 1,
+            "value_type": "individual"
+          },
+          "transformations": [],
+          "type": "graph",
+          "xaxis": {
+            "buckets": null,
+            "mode": "time",
+            "name": null,
+            "show": true,
+            "values": []
+          },
+          "yaxes": [
+            {
+              "format": "decbytes",
+              "label": null,
+              "logBase": 1,
+              "max": null,
+              "min": null,
+              "show": true
+            },
+            {
+              "format": "short",
+              "label": null,
+              "logBase": 1,
+              "max": null,
+              "min": null,
+              "show": true
+            }
+          ],
+          "yaxis": {
+            "align": false,
+            "alignLevel": null
+          }
+        },
+        {
+          "aliasColors": {},
+          "breakPoint": "50%",
+          "cacheTimeout": null,
+          "combine": {
+            "label": "Others",
+            "threshold": "0.02"
+          },
+          "datasource": "-- Dashboard --",
+          "description": "",
+          "fieldConfig": {
+            "defaults": {
+              "custom": {
+                "align": null,
+                "filterable": false
+              },
+              "mappings": [],
+              "thresholds": {
+                "mode": "absolute",
+                "steps": [
+                  {
+                    "color": "green",
+                    "value": null
+                  },
+                  {
+                    "color": "red",
+                    "value": 80
+                  }
+                ]
+              },
+              "unit": "none"
+            },
+            "overrides": []
+          },
+          "fontSize": "80%",
+          "format": "decbytes",
+          "gridPos": {
+            "h": 10,
+            "w": 8,
+            "x": 0,
+            "y": 73
+          },
+          "id": 120,
+          "interval": null,
+          "legend": {
+            "show": true,
+            "sort": "total",
+            "sortDesc": true,
+            "values": true
+          },
+          "legendType": "Right side",
+          "links": [],
+          "maxDataPoints": 3,
+          "nullPointMode": "connected",
+          "pieType": "pie",
+          "pluginVersion": "7.3.1",
+          "strokeWidth": 1,
+          "targets": [
+            {
+              "panelId": 278,
+              "refId": "A"
+            }
+          ],
+          "timeFrom": null,
+          "timeShift": null,
+          "title": "Total Data by Source IP for: $ip  (limit $slimit)",
+          "transformations": [],
+          "type": "grafana-piechart-panel",
+          "valueName": "total"
+        },
+        {
+          "aliasColors": {},
+          "breakPoint": "50%",
+          "cacheTimeout": null,
+          "combine": {
+            "label": "Others",
+            "threshold": "0.02"
+          },
+          "datasource": "-- Dashboard --",
+          "description": "",
+          "fieldConfig": {
+            "defaults": {
+              "custom": {
+                "align": null,
+                "filterable": false
+              },
+              "mappings": [],
+              "thresholds": {
+                "mode": "absolute",
+                "steps": [
+                  {
+                    "color": "green",
+                    "value": null
+                  },
+                  {
+                    "color": "red",
+                    "value": 80
+                  }
+                ]
+              },
+              "unit": "none"
+            },
+            "overrides": []
+          },
+          "fontSize": "80%",
+          "format": "decbytes",
+          "gridPos": {
+            "h": 10,
+            "w": 8,
+            "x": 8,
+            "y": 73
+          },
+          "id": 119,
+          "interval": null,
+          "legend": {
+            "show": true,
+            "sort": "total",
+            "sortDesc": false,
+            "values": true
+          },
+          "legendType": "Right side",
+          "links": [],
+          "maxDataPoints": 3,
+          "nullPointMode": "connected",
+          "pieType": "pie",
+          "pluginVersion": "7.3.1",
+          "strokeWidth": 1,
+          "targets": [
+            {
+              "panelId": 279,
+              "refId": "A"
+            }
+          ],
+          "timeFrom": null,
+          "timeShift": null,
+          "title": "Total Data by Destination IP for: $ip (limit $slimit)",
+          "transformations": [],
+          "type": "grafana-piechart-panel",
+          "valueName": "total"
+        },
+        {
+          "aliasColors": {},
+          "breakPoint": "50%",
+          "cacheTimeout": null,
+          "combine": {
+            "label": "Others",
+            "threshold": "0.02"
+          },
+          "datasource": "-- Dashboard --",
+          "description": "",
+          "fieldConfig": {
+            "defaults": {
+              "custom": {
+                "align": null,
+                "filterable": false
+              },
+              "mappings": [],
+              "thresholds": {
+                "mode": "absolute",
+                "steps": [
+                  {
+                    "color": "green",
+                    "value": null
+                  },
+                  {
+                    "color": "red",
+                    "value": 80
+                  }
+                ]
+              },
+              "unit": "none"
+            },
+            "overrides": []
+          },
+          "fontSize": "80%",
+          "format": "decbytes",
+          "gridPos": {
+            "h": 10,
+            "w": 8,
+            "x": 16,
+            "y": 73
+          },
+          "id": 165,
+          "interval": null,
+          "legend": {
+            "show": true,
+            "sort": "total",
+            "sortDesc": true,
+            "values": true
+          },
+          "legendType": "Right side",
+          "links": [],
+          "maxDataPoints": 3,
+          "nullPointMode": "connected",
+          "pieType": "pie",
+          "pluginVersion": "7.3.1",
+          "strokeWidth": 1,
+          "targets": [
+            {
+              "panelId": 280,
+              "refId": "A"
+            }
+          ],
+          "timeFrom": null,
+          "timeShift": null,
+          "title": "Source IP for Application: $application",
+          "transformations": [],
+          "type": "grafana-piechart-panel",
+          "valueName": "total"
+        }
+      ],
+      "title": "IP based Data (might be slow)",
+      "type": "row"
+    },
+    {
+      "collapsed": true,
+      "datasource": null,
+      "gridPos": {
+        "h": 1,
+        "w": 24,
+        "x": 0,
+        "y": 63
+      },
+      "id": 274,
+      "panels": [
+        {
+          "datasource": "indicators",
+          "description": "",
+          "fieldConfig": {
+            "defaults": {
+              "custom": {
+                "align": null,
+                "displayMode": "color-text",
+                "filterable": false
+              },
+              "mappings": [],
+              "thresholds": {
+                "mode": "absolute",
+                "steps": [
+                  {
+                    "color": "green",
+                    "value": null
+                  },
+                  {
+                    "color": "red",
+                    "value": 80
+                  }
+                ]
+              }
+            },
+            "overrides": [
+              {
+                "matcher": {
+                  "id": "byRegexp",
+                  "options": "/.*Bytes,*/"
+                },
+                "properties": [
+                  {
+                    "id": "unit",
+                    "value": "decbytes"
+                  }
+                ]
+              },
+              {
+                "matcher": {
+                  "id": "byName",
+                  "options": "Source IP"
+                },
+                "properties": [
+                  {
+                    "id": "custom.width",
+                    "value": 164
+                  }
+                ]
+              },
+              {
+                "matcher": {
+                  "id": "byName",
+                  "options": "application_side"
+                },
+                "properties": [
+                  {
+                    "id": "custom.width",
+                    "value": 136
+                  }
+                ]
+              },
+              {
+                "matcher": {
+                  "id": "byName",
+                  "options": "Source Webserver Name"
+                },
+                "properties": [
+                  {
+                    "id": "custom.width",
+                    "value": 325
+                  }
+                ]
+              },
+              {
+                "matcher": {
+                  "id": "byName",
+                  "options": "Bytes (sum)"
+                },
+                "properties": [
+                  {
+                    "id": "custom.width",
+                    "value": 157
+                  }
+                ]
+              }
+            ]
+          },
+          "gridPos": {
+            "h": 11,
+            "w": 8,
+            "x": 0,
+            "y": 64
+          },
+          "id": 276,
+          "options": {
+            "showHeader": true,
+            "sortBy": [
+              {
+                "desc": true,
+                "displayName": "Bytes (sum)"
+              }
+            ]
+          },
+          "pluginVersion": "7.3.1",
+          "targets": [
+            {
+              "groupBy": [
+                {
+                  "params": [
+                    "source_ip"
+                  ],
+                  "type": "tag"
+                },
+                {
+                  "params": [
+                    "destination_ip"
+                  ],
+                  "type": "tag"
+                },
+                {
+                  "params": [
+                    "destination_hostname"
+                  ],
+                  "type": "tag"
+                },
+                {
+                  "params": [
+                    "source_hostname"
+                  ],
+                  "type": "tag"
+                },
+                {
+                  "params": [
+                    "destination_tls_hostname"
+                  ],
+                  "type": "tag"
+                },
+                {
+                  "params": [
+                    "source_tls_hostname"
+                  ],
+                  "type": "tag"
+                }
+              ],
+              "hide": false,
+              "measurement": "flow_data_4_tuple",
+              "orderByTime": "ASC",
+              "policy": "default",
+              "query": "SELECT sum(\"bytes_per_s\") AS \"bytes\", sum(\"fragments\") AS \"fragments\" FROM \"flow_data_4_tuple\" WHERE (\"network_monitor_name\" =~ /^$network_monitor$/ AND \"ip_protocol_name\" =~ /^$ip_protocol$/) AND $timeFilter GROUP BY time($interval), \"source_ip\", \"destination_ip\", \"ip_protocol_name\", \"application_port\"",
+              "rawQuery": false,
+              "refId": "A",
+              "resultFormat": "table",
+              "select": [
+                [
+                  {
+                    "params": [
+                      "bytes_per_s"
+                    ],
+                    "type": "field"
+                  },
+                  {
+                    "params": [
+                      "bytes"
+                    ],
+                    "type": "alias"
+                  }
+                ],
+                [
+                  {
+                    "params": [
+                      "flows"
+                    ],
+                    "type": "field"
+                  },
+                  {
+                    "params": [
+                      "flows"
+                    ],
+                    "type": "alias"
+                  }
+                ]
+              ],
+              "slimit": "",
+              "tags": [
+                {
+                  "key": "network_monitor_name",
+                  "operator": "=~",
+                  "value": "/^$network_monitor$/"
+                },
+                {
+                  "condition": "AND",
+                  "key": "source_tls_hostname",
+                  "operator": "!=",
+                  "value": "none"
+                },
+                {
+                  "condition": "AND",
+                  "key": "source_tls_hostname",
+                  "operator": "!=",
+                  "value": "0.0"
+                }
+              ]
+            }
+          ],
+          "timeFrom": null,
+          "timeShift": null,
+          "title": "Data and Flows Web Server (Source)",
+          "transformations": [
+            {
+              "id": "organize",
+              "options": {
+                "excludeByName": {
+                  "Time": true,
+                  "destination_city": true,
+                  "destination_hostname": true,
+                  "destination_ip": true,
+                  "destination_longitude": true,
+                  "destination_tls_hostname": true,
+                  "source_hostname": true
+                },
+                "indexByName": {
+                  "Time": 0,
+                  "application_port": 8,
+                  "bytes": 9,
+                  "destination_hostname": 5,
+                  "destination_ip": 4,
+                  "destination_tls_hostname": 6,
+                  "flows": 11,
+                  "fragments": 10,
+                  "ip_protocol_name": 7,
+                  "source_hostname": 2,
+                  "source_ip": 1,
+                  "source_tls_hostname": 3
+                },
+                "renameByName": {
+                  "application_port": "Application",
+                  "bytes": "Bytes",
+                  "bytes_per_s": "Bytes",
+                  "destination_hostname": "Destination hostname",
+                  "destination_ip": "Destination IP",
+                  "destination_tls_hostname": "Destination Webserver Name",
+                  "flows": "Flows",
+                  "fragments": "Fragments",
+                  "ip_protocol_name": "IP Protocol Name",
+                  "packets": "Packets",
+                  "packets_per_s": "Packets",
+                  "source_hostname": "Source hostname",
+                  "source_ip": "Source IP",
+                  "source_tls_hostname": "Source Webserver Name",
+                  "sum": "Bytes"
+                }
+              }
+            },
+            {
+              "id": "groupBy",
+              "options": {
+                "fields": {
+                  "Application": {
+                    "aggregations": [],
+                    "operation": "groupby"
+                  },
+                  "Bytes": {
+                    "aggregations": [
+                      "sum"
+                    ],
+                    "operation": "aggregate"
+                  },
+                  "Destiantion hostname": {
+                    "aggregations": [],
+                    "operation": "groupby"
+                  },
+                  "Destination IP": {
+                    "aggregations": [],
+                    "operation": "groupby"
+                  },
+                  "Destination Webserver Name": {
+                    "aggregations": [],
+                    "operation": "groupby"
+                  },
+                  "Destination hostname": {
+                    "aggregations": [],
+                    "operation": "groupby"
+                  },
+                  "Flows": {
+                    "aggregations": [
+                      "sum"
+                    ],
+                    "operation": "aggregate"
+                  },
+                  "Fragments": {
+                    "aggregations": [
+                      "sum"
+                    ],
+                    "operation": "aggregate"
+                  },
+                  "IP Protocol Name": {
+                    "aggregations": [],
+                    "operation": "groupby"
+                  },
+                  "Packets": {
+                    "aggregations": [
+                      "sum"
+                    ],
+                    "operation": "aggregate"
+                  },
+                  "Source IP": {
+                    "aggregations": [],
+                    "operation": "groupby"
+                  },
+                  "Source Webserver Name": {
+                    "aggregations": [],
+                    "operation": "groupby"
+                  },
+                  "Source hostname": {
+                    "aggregations": [],
+                    "operation": "groupby"
+                  },
+                  "application_port": {
+                    "aggregations": [],
+                    "operation": "groupby"
+                  },
+                  "application_side": {
+                    "aggregations": [],
+                    "operation": "groupby"
+                  },
+                  "destination_city": {
+                    "aggregations": [],
+                    "operation": "groupby"
+                  },
+                  "destination_longitude": {
+                    "aggregations": [],
+                    "operation": "groupby"
+                  },
+                  "destination_tls_hostname": {
+                    "aggregations": [],
+                    "operation": "groupby"
+                  },
+                  "source_city": {
+                    "aggregations": [],
+                    "operation": "groupby"
+                  },
+                  "source_tls_hostname": {
+                    "aggregations": [],
+                    "operation": "groupby"
+                  }
+                }
+              }
+            }
+          ],
+          "type": "table"
+        },
+        {
+          "aliasColors": {},
+          "breakPoint": "50%",
+          "cacheTimeout": null,
+          "combine": {
+            "label": "Others",
+            "threshold": "0.02"
+          },
+          "datasource": "indicators",
+          "description": "",
+          "fieldConfig": {
+            "defaults": {
+              "custom": {
+                "align": null,
+                "filterable": false
+              },
+              "mappings": [],
+              "thresholds": {
+                "mode": "absolute",
+                "steps": [
+                  {
+                    "color": "green",
+                    "value": null
+                  },
+                  {
+                    "color": "red",
+                    "value": 80
+                  }
+                ]
+              },
+              "unit": "none"
+            },
+            "overrides": []
+          },
+          "fontSize": "80%",
+          "format": "decbytes",
+          "gridPos": {
+            "h": 11,
+            "w": 8,
+            "x": 8,
+            "y": 64
+          },
+          "id": 275,
+          "interval": null,
+          "legend": {
+            "show": true,
+            "sort": "total",
+            "sortDesc": true,
+            "values": true
+          },
+          "legendType": "Right side",
+          "links": [],
+          "maxDataPoints": 3,
+          "nullPointMode": "connected",
+          "pieType": "pie",
+          "pluginVersion": "7.3.1",
+          "strokeWidth": 1,
+          "targets": [
+            {
+              "alias": "$tag_source_tls_hostname",
+              "groupBy": [
+                {
+                  "params": [
+                    "$resolution"
+                  ],
+                  "type": "time"
+                },
+                {
+                  "params": [
+                    "source_tls_hostname"
+                  ],
+                  "type": "tag"
+                },
+                {
+                  "params": [
+                    "none"
+                  ],
+                  "type": "fill"
+                }
+              ],
+              "measurement": "flow_data_4_tuple",
+              "orderByTime": "ASC",
+              "policy": "default",
+              "query": "SELECT sum(\"retransmissions_client\") + sum(\"retransmissions_server\") FROM \"tcp_4_tuple\" WHERE (\"client_ip\" =~ /^$ip$/ OR \"server_ip\" =~ /^$ip$/) AND $timeFilter GROUP BY time($resolution), \"server_ip\", \"client_ip\" fill(0)",
+              "rawQuery": false,
+              "refId": "A",
+              "resultFormat": "time_series",
+              "select": [
+                [
+                  {
+                    "params": [
+                      "bytes_per_s"
+                    ],
+                    "type": "field"
+                  },
+                  {
+                    "params": [],
+                    "type": "sum"
+                  }
+                ]
+              ],
+              "tags": [
+                {
+                  "key": "network_monitor_name",
+                  "operator": "=~",
+                  "value": "/^$network_monitor$/"
+                },
+                {
+                  "condition": "AND",
+                  "key": "ip_protocol_name",
+                  "operator": "=",
+                  "value": "TCP"
+                },
+                {
+                  "condition": "AND",
+                  "key": "source_tls_hostname",
+                  "operator": "!=",
+                  "value": "none"
+                }
+              ]
+            }
+          ],
+          "timeFrom": null,
+          "timeShift": null,
+          "title": "Web Server Data (Source) for Network Monitor: $network_monitor",
+          "transformations": [],
+          "type": "grafana-piechart-panel",
+          "valueName": "total"
+        },
+        {
+          "datasource": "indicators",
+          "description": "",
+          "fieldConfig": {
+            "defaults": {
+              "custom": {
+                "align": null,
+                "displayMode": "color-text",
+                "filterable": false
+              },
+              "mappings": [],
+              "thresholds": {
+                "mode": "absolute",
+                "steps": [
+                  {
+                    "color": "green",
+                    "value": null
+                  },
+                  {
+                    "color": "red",
+                    "value": 80
+                  }
+                ]
+              }
+            },
+            "overrides": [
+              {
+                "matcher": {
+                  "id": "byRegexp",
+                  "options": "/.*Bytes,*/"
+                },
+                "properties": [
+                  {
+                    "id": "unit",
+                    "value": "decbytes"
+                  }
+                ]
+              },
+              {
+                "matcher": {
+                  "id": "byName",
+                  "options": "Source IP"
+                },
+                "properties": [
+                  {
+                    "id": "custom.width",
+                    "value": null
+                  }
+                ]
+              },
+              {
+                "matcher": {
+                  "id": "byName",
+                  "options": "application_side"
+                },
+                "properties": [
+                  {
+                    "id": "custom.width",
+                    "value": 136
+                  }
+                ]
+              },
+              {
+                "matcher": {
+                  "id": "byName",
+                  "options": "Destination Webserver Name"
+                },
+                "properties": [
+                  {
+                    "id": "custom.width",
+                    "value": 338
+                  }
+                ]
+              },
+              {
+                "matcher": {
+                  "id": "byName",
+                  "options": "Bytes (sum)"
+                },
+                "properties": [
+                  {
+                    "id": "custom.width",
+                    "value": 158
+                  }
+                ]
+              },
+              {
+                "matcher": {
+                  "id": "byName",
+                  "options": "Destination IP"
+                },
+                "properties": [
+                  {
+                    "id": "custom.width",
+                    "value": 159
+                  }
+                ]
+              }
+            ]
+          },
+          "gridPos": {
+            "h": 11,
+            "w": 8,
+            "x": 0,
+            "y": 75
+          },
+          "id": 277,
+          "options": {
+            "showHeader": true,
+            "sortBy": [
+              {
+                "desc": true,
+                "displayName": "Destination Webserver Name"
+              }
+            ]
+          },
+          "pluginVersion": "7.3.1",
+          "targets": [
+            {
+              "groupBy": [
+                {
+                  "params": [
+                    "source_ip"
+                  ],
+                  "type": "tag"
+                },
+                {
+                  "params": [
+                    "destination_ip"
+                  ],
+                  "type": "tag"
+                },
+                {
+                  "params": [
+                    "destination_hostname"
+                  ],
+                  "type": "tag"
+                },
+                {
+                  "params": [
+                    "source_hostname"
+                  ],
+                  "type": "tag"
+                },
+                {
+                  "params": [
+                    "destination_tls_hostname"
+                  ],
+                  "type": "tag"
+                },
+                {
+                  "params": [
+                    "source_tls_hostname"
+                  ],
+                  "type": "tag"
+                }
+              ],
+              "hide": false,
+              "measurement": "flow_data_4_tuple",
+              "orderByTime": "ASC",
+              "policy": "default",
+              "query": "SELECT sum(\"bytes_per_s\") AS \"bytes\", sum(\"fragments\") AS \"fragments\" FROM \"flow_data_4_tuple\" WHERE (\"network_monitor_name\" =~ /^$network_monitor$/ AND \"ip_protocol_name\" =~ /^$ip_protocol$/) AND $timeFilter GROUP BY time($interval), \"source_ip\", \"destination_ip\", \"ip_protocol_name\", \"application_port\"",
+              "rawQuery": false,
+              "refId": "A",
+              "resultFormat": "table",
+              "select": [
+                [
+                  {
+                    "params": [
+                      "bytes_per_s"
+                    ],
+                    "type": "field"
+                  },
+                  {
+                    "params": [
+                      "bytes"
+                    ],
+                    "type": "alias"
+                  }
+                ],
+                [
+                  {
+                    "params": [
+                      "flows"
+                    ],
+                    "type": "field"
+                  },
+                  {
+                    "params": [
+                      "flows"
+                    ],
+                    "type": "alias"
+                  }
+                ]
+              ],
+              "slimit": "",
+              "tags": [
+                {
+                  "key": "network_monitor_name",
+                  "operator": "=~",
+                  "value": "/^$network_monitor$/"
+                },
+                {
+                  "condition": "AND",
+                  "key": "ip_protocol_name",
+                  "operator": "=",
+                  "value": "TCP"
+                },
+                {
+                  "condition": "AND",
+                  "key": "application_port",
+                  "operator": "=",
+                  "value": "HTTPS"
+                },
+                {
+                  "condition": "AND",
+                  "key": "destination_tls_hostname",
+                  "operator": "!=",
+                  "value": "none"
+                },
+                {
+                  "condition": "AND",
+                  "key": "destination_tls_hostname",
+                  "operator": "!=",
+                  "value": "0.0"
+                }
+              ]
+            }
+          ],
+          "timeFrom": null,
+          "timeShift": null,
+          "title": "Data and Flows Web Server (Destination)",
+          "transformations": [
+            {
+              "id": "organize",
+              "options": {
+                "excludeByName": {
+                  "Time": true,
+                  "destination_city": true,
+                  "destination_hostname": true,
+                  "destination_ip": false,
+                  "destination_longitude": true,
+                  "destination_tls_hostname": false,
+                  "source_hostname": true,
+                  "source_ip": true,
+                  "source_tls_hostname": true
+                },
+                "indexByName": {
+                  "Time": 0,
+                  "application_port": 8,
+                  "bytes": 9,
+                  "destination_hostname": 5,
+                  "destination_ip": 4,
+                  "destination_tls_hostname": 6,
+                  "flows": 11,
+                  "fragments": 10,
+                  "ip_protocol_name": 7,
+                  "source_hostname": 2,
+                  "source_ip": 1,
+                  "source_tls_hostname": 3
+                },
+                "renameByName": {
+                  "application_port": "Application",
+                  "bytes": "Bytes",
+                  "bytes_per_s": "Bytes",
+                  "destination_hostname": "Destination hostname",
+                  "destination_ip": "Destination IP",
+                  "destination_tls_hostname": "Destination Webserver Name",
+                  "flows": "Flows",
+                  "fragments": "Fragments",
+                  "ip_protocol_name": "IP Protocol Name",
+                  "packets": "Packets",
+                  "packets_per_s": "Packets",
+                  "source_hostname": "Source hostname",
+                  "source_ip": "Source IP",
+                  "source_tls_hostname": "Source Webserver Name",
+                  "sum": "Bytes"
+                }
+              }
+            },
+            {
+              "id": "groupBy",
+              "options": {
+                "fields": {
+                  "Application": {
+                    "aggregations": [],
+                    "operation": "groupby"
+                  },
+                  "Bytes": {
+                    "aggregations": [
+                      "sum"
+                    ],
+                    "operation": "aggregate"
+                  },
+                  "Destiantion hostname": {
+                    "aggregations": [],
+                    "operation": "groupby"
+                  },
+                  "Destination IP": {
+                    "aggregations": [],
+                    "operation": "groupby"
+                  },
+                  "Destination Webserver Name": {
+                    "aggregations": [],
+                    "operation": "groupby"
+                  },
+                  "Destination hostname": {
+                    "aggregations": [],
+                    "operation": "groupby"
+                  },
+                  "Flows": {
+                    "aggregations": [
+                      "sum"
+                    ],
+                    "operation": "aggregate"
+                  },
+                  "Fragments": {
+                    "aggregations": [
+                      "sum"
+                    ],
+                    "operation": "aggregate"
+                  },
+                  "IP Protocol Name": {
+                    "aggregations": [],
+                    "operation": "groupby"
+                  },
+                  "Packets": {
+                    "aggregations": [
+                      "sum"
+                    ],
+                    "operation": "aggregate"
+                  },
+                  "Source IP": {
+                    "aggregations": [],
+                    "operation": "groupby"
+                  },
+                  "Source Webserver Name": {
+                    "aggregations": [],
+                    "operation": "groupby"
+                  },
+                  "Source hostname": {
+                    "aggregations": [],
+                    "operation": "groupby"
+                  },
+                  "application_port": {
+                    "aggregations": [],
+                    "operation": "groupby"
+                  },
+                  "application_side": {
+                    "aggregations": [],
+                    "operation": "groupby"
+                  },
+                  "destination_city": {
+                    "aggregations": [],
+                    "operation": "groupby"
+                  },
+                  "destination_longitude": {
+                    "aggregations": [],
+                    "operation": "groupby"
+                  },
+                  "destination_tls_hostname": {
+                    "aggregations": [],
+                    "operation": "groupby"
+                  },
+                  "source_city": {
+                    "aggregations": [],
+                    "operation": "groupby"
+                  },
+                  "source_tls_hostname": {
+                    "aggregations": [],
+                    "operation": "groupby"
+                  }
+                }
+              }
+            }
+          ],
+          "type": "table"
+        },
+        {
+          "aliasColors": {},
+          "breakPoint": "50%",
+          "cacheTimeout": null,
+          "combine": {
+            "label": "Others",
+            "threshold": "0.02"
+          },
+          "datasource": "indicators",
+          "description": "",
+          "fieldConfig": {
+            "defaults": {
+              "custom": {
+                "align": null,
+                "filterable": false
+              },
+              "mappings": [],
+              "thresholds": {
+                "mode": "absolute",
+                "steps": [
+                  {
+                    "color": "green",
+                    "value": null
+                  },
+                  {
+                    "color": "red",
+                    "value": 80
+                  }
+                ]
+              },
+              "unit": "none"
+            },
+            "overrides": []
+          },
+          "fontSize": "80%",
+          "format": "decbytes",
+          "gridPos": {
+            "h": 11,
+            "w": 8,
+            "x": 8,
+            "y": 75
+          },
+          "id": 260,
+          "interval": null,
+          "legend": {
+            "show": true,
+            "sort": "total",
+            "sortDesc": true,
+            "values": true
+          },
+          "legendType": "Right side",
+          "links": [],
+          "maxDataPoints": 3,
+          "nullPointMode": "connected",
+          "pieType": "pie",
+          "pluginVersion": "7.3.1",
+          "strokeWidth": 1,
+          "targets": [
+            {
+              "alias": "$tag_destination_tls_hostname",
+              "groupBy": [
+                {
+                  "params": [
+                    "$resolution"
+                  ],
+                  "type": "time"
+                },
+                {
+                  "params": [
+                    "destination_tls_hostname"
+                  ],
+                  "type": "tag"
+                },
+                {
+                  "params": [
+                    "none"
+                  ],
+                  "type": "fill"
+                }
+              ],
+              "measurement": "flow_data_4_tuple",
+              "orderByTime": "ASC",
+              "policy": "default",
+              "query": "SELECT sum(\"bytes_per_s\") FROM \"flow_data_4_tuple\" WHERE (\"network_monitor_name\" =~ /^$network_monitor$/ AND \"ip_protocol_name\" = 'TCP' AND \"destination_tls_hostname\" != ''  AND \"destination_tls_hostname\" != 'none' ) AND $timeFilter GROUP BY time($resolution), \"destination_tls_hostname\" fill(none)",
+              "rawQuery": true,
+              "refId": "A",
+              "resultFormat": "time_series",
+              "select": [
+                [
+                  {
+                    "params": [
+                      "bytes_per_s"
+                    ],
+                    "type": "field"
+                  },
+                  {
+                    "params": [],
+                    "type": "sum"
+                  }
+                ]
+              ],
+              "tags": [
+                {
+                  "key": "network_monitor_name",
+                  "operator": "=~",
+                  "value": "/^$network_monitor$/"
+                },
+                {
+                  "condition": "AND",
+                  "key": "ip_protocol_name",
+                  "operator": "=",
+                  "value": "TCP"
+                },
+                {
+                  "condition": "AND",
+                  "key": "destination_tls_hostname",
+                  "operator": "!=",
+                  "value": "''"
+                }
+              ]
+            }
+          ],
+          "timeFrom": null,
+          "timeShift": null,
+          "title": "Web Server Data (Destination) for Network Monitor: $network_monitor",
+          "transformations": [],
+          "type": "grafana-piechart-panel",
+          "valueName": "total"
+        }
+      ],
+      "title": "Web Server Name Data",
+      "type": "row"
+    },
+    {
+      "collapsed": false,
+      "datasource": null,
+      "gridPos": {
+        "h": 1,
+        "w": 24,
+        "x": 0,
+        "y": 64
+      },
+      "id": 100,
+      "panels": [],
+      "title": "Last Row",
+      "type": "row"
+    },
+    {
+      "datasource": null,
+      "description": "",
+      "fieldConfig": {
+        "defaults": {
+          "custom": {}
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 1,
+        "w": 24,
+        "x": 0,
+        "y": 65
+      },
+      "id": 102,
+      "options": {
+        "content": "",
+        "mode": "html"
+      },
+      "pluginVersion": "7.3.1",
+      "targets": [
+        {
+          "groupBy": [
+            {
+              "params": [
+                "$__interval"
+              ],
+              "type": "time"
+            },
+            {
+              "params": [
+                "null"
+              ],
+              "type": "fill"
+            }
+          ],
+          "orderByTime": "ASC",
+          "policy": "default",
+          "refId": "A",
+          "resultFormat": "time_series",
+          "select": [
+            [
+              {
+                "params": [
+                  "value"
+                ],
+                "type": "field"
+              },
+              {
+                "params": [],
+                "type": "mean"
+              }
+            ]
+          ],
+          "tags": []
+        }
+      ],
+      "timeFrom": null,
+      "timeShift": null,
+      "title": "placeholder",
+      "type": "text"
+    }
+  ],
+  "refresh": "5m",
+  "schemaVersion": 26,
+  "style": "dark",
+  "tags": [],
+  "templating": {
+    "list": [
+      {
+        "auto": true,
+        "auto_count": "20",
+        "auto_min": "10s",
+        "current": {
+          "selected": false,
+          "text": "auto",
+          "value": "$__auto_interval_resolution"
+        },
+        "error": null,
+        "hide": 0,
+        "label": null,
+        "name": "resolution",
+        "options": [
+          {
+            "selected": true,
+            "text": "auto",
+            "value": "$__auto_interval_resolution"
+          },
+          {
+            "selected": false,
+            "text": "1s",
+            "value": "1s"
+          },
+          {
+            "selected": false,
+            "text": "10s",
+            "value": "10s"
+          },
+          {
+            "selected": false,
+            "text": "1m",
+            "value": "1m"
+          },
+          {
+            "selected": false,
+            "text": "10m",
+            "value": "10m"
+          },
+          {
+            "selected": false,
+            "text": "30m",
+            "value": "30m"
+          },
+          {
+            "selected": false,
+            "text": "1h",
+            "value": "1h"
+          },
+          {
+            "selected": false,
+            "text": "6h",
+            "value": "6h"
+          },
+          {
+            "selected": false,
+            "text": "12h",
+            "value": "12h"
+          },
+          {
+            "selected": false,
+            "text": "1d",
+            "value": "1d"
+          },
+          {
+            "selected": false,
+            "text": "7d",
+            "value": "7d"
+          },
+          {
+            "selected": false,
+            "text": "14d",
+            "value": "14d"
+          },
+          {
+            "selected": false,
+            "text": "30d",
+            "value": "30d"
+          }
+        ],
+        "query": "1s,10s,1m,10m,30m,1h,6h,12h,1d,7d,14d,30d",
+        "queryValue": "",
+        "refresh": 2,
+        "skipUrlSync": false,
+        "type": "interval"
+      },
+      {
+        "allValue": null,
+        "current": {
+          "selected": true,
+          "text": [
+            "dmz_flows",
+            "fw_flows"
+          ],
+          "value": [
+            "dmz_flows",
+            "fw_flows"
+          ]
+        },
+        "datasource": "indicators",
+        "definition": "",
+        "error": null,
+        "hide": 0,
+        "includeAll": true,
+        "label": "Network Monitor",
+        "multi": true,
+        "name": "network_monitor",
+        "options": [],
+        "query": "show tag values with key=\"network_monitor_name\"",
+        "refresh": 1,
+        "regex": "",
+        "skipUrlSync": false,
+        "sort": 1,
+        "tagValuesQuery": "",
+        "tags": [],
+        "tagsQuery": "",
+        "type": "query",
+        "useTags": false
+      },
+      {
+        "allValue": null,
+        "current": {
+          "selected": false,
+          "text": "TCP",
+          "value": "TCP"
+        },
+        "datasource": "indicators",
+        "definition": "",
+        "error": null,
+        "hide": 0,
+        "includeAll": true,
+        "label": "IP Protocol",
+        "multi": false,
+        "name": "ip_protocol",
+        "options": [],
+        "query": "show tag values with key=ip_protocol_name",
+        "refresh": 1,
+        "regex": "",
+        "skipUrlSync": false,
+        "sort": 1,
+        "tagValuesQuery": "",
+        "tags": [],
+        "tagsQuery": "",
+        "type": "query",
+        "useTags": false
+      },
+      {
+        "allValue": null,
+        "current": {
+          "selected": false,
+          "text": "HTTPS",
+          "value": "HTTPS"
+        },
+        "datasource": "indicators",
+        "definition": "",
+        "error": null,
+        "hide": 0,
+        "includeAll": true,
+        "label": null,
+        "multi": false,
+        "name": "application",
+        "options": [],
+        "query": "show tag values with key= application_port",
+        "refresh": 1,
+        "regex": "",
+        "skipUrlSync": false,
+        "sort": 1,
+        "tagValuesQuery": "",
+        "tags": [],
+        "tagsQuery": "",
+        "type": "query",
+        "useTags": false
+      },
+      {
+        "allValue": null,
+        "current": {
+          "selected": false,
+          "text": "0",
+          "value": "0"
+        },
+        "datasource": "indicators",
+        "definition": "",
+        "error": null,
+        "hide": 0,
+        "includeAll": true,
+        "label": null,
+        "multi": false,
+        "name": "vlan",
+        "options": [],
+        "query": "show tag values with key=~/vlan_.*/",
+        "refresh": 1,
+        "regex": "",
+        "skipUrlSync": false,
+        "sort": 1,
+        "tagValuesQuery": "",
+        "tags": [],
+        "tagsQuery": "",
+        "type": "query",
+        "useTags": false
+      },
+      {
+        "allValue": null,
+        "current": {
+          "selected": false,
+          "text": "All",
+          "value": "$__all"
+        },
+        "datasource": "indicators",
+        "definition": "",
+        "error": null,
+        "hide": 0,
+        "includeAll": true,
+        "label": null,
+        "multi": false,
+        "name": "ip",
+        "options": [],
+        "query": "show tag values with key=~/.*_ip/   LIMIT 100",
+        "refresh": 1,
+        "regex": "",
+        "skipUrlSync": false,
+        "sort": 1,
+        "tagValuesQuery": "",
+        "tags": [],
+        "tagsQuery": "",
+        "type": "query",
+        "useTags": false
+      },
+      {
+        "allValue": null,
+        "current": {
+          "selected": false,
+          "text": "100",
+          "value": "100"
+        },
+        "error": null,
+        "hide": 0,
+        "includeAll": false,
+        "label": "Limit",
+        "multi": false,
+        "name": "slimit",
+        "options": [
+          {
+            "selected": false,
+            "text": "10",
+            "value": "10"
+          },
+          {
+            "selected": false,
+            "text": "100",
+            "value": "100"
+          },
+          {
+            "selected": false,
+            "text": "1000",
+            "value": "1000"
+          },
+          {
+            "selected": false,
+            "text": "10000",
+            "value": "10000"
+          },
+          {
+            "selected": true,
+            "text": "100000",
+            "value": "100000"
+          }
+        ],
+        "query": "10,100,1000,10000,100000",
+        "queryValue": "",
+        "skipUrlSync": false,
+        "type": "custom"
+      }
+    ]
+  },
+  "time": {
+    "from": "now-15m",
+    "to": "now"
+  },
+  "timepicker": {},
+  "timezone": "",
+  "title": "Flows Level 2 - (Sapphire w/ Network Monitor)",
+  "uid": "SU9pHuF7z",
+  "version": 85
+}
