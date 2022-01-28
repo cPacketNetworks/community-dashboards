@@ -1,0 +1,2243 @@
+{
+  "__inputs": [
+    {
+      "name": "DS_INDICATORS",
+      "label": "indicators",
+      "description": "",
+      "type": "datasource",
+      "pluginId": "influxdb",
+      "pluginName": "InfluxDB"
+    }
+  ],
+  "__requires": [
+    {
+      "type": "grafana",
+      "id": "grafana",
+      "name": "Grafana",
+      "version": "7.3.1"
+    },
+    {
+      "type": "panel",
+      "id": "grafana-piechart-panel",
+      "name": "Pie Chart",
+      "version": "1.6.1"
+    },
+    {
+      "type": "panel",
+      "id": "graph",
+      "name": "Graph",
+      "version": ""
+    },
+    {
+      "type": "datasource",
+      "id": "influxdb",
+      "name": "InfluxDB",
+      "version": "1.0.0"
+    },
+    {
+      "type": "panel",
+      "id": "table",
+      "name": "Table",
+      "version": ""
+    },
+    {
+      "type": "panel",
+      "id": "table-old",
+      "name": "Table (old)",
+      "version": ""
+    },
+    {
+      "type": "panel",
+      "id": "text",
+      "name": "Text",
+      "version": ""
+    }
+  ],
+  "annotations": {
+    "list": [
+      {
+        "builtIn": 1,
+        "datasource": "-- Grafana --",
+        "enable": true,
+        "hide": true,
+        "iconColor": "rgba(0, 211, 255, 1)",
+        "name": "Annotations & Alerts",
+        "type": "dashboard"
+      }
+    ]
+  },
+  "editable": true,
+  "gnetId": null,
+  "graphTooltip": 2,
+  "id": null,
+  "iteration": 1642005806840,
+  "links": [
+    {
+      "asDropdown": true,
+      "icon": "external link",
+      "includeVars": true,
+      "keepTime": true,
+      "tags": [
+        "Server",
+        "cPacket",
+        "TCP_Analytics"
+      ],
+      "targetBlank": true,
+      "title": "Network Monitor Server Analytics",
+      "type": "dashboards"
+    }
+  ],
+  "panels": [
+    {
+      "datasource": "${DS_INDICATORS}",
+      "fieldConfig": {
+        "defaults": {
+          "custom": {}
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 3,
+        "w": 24,
+        "x": 0,
+        "y": 0
+      },
+      "id": 60,
+      "links": [],
+      "options": {
+        "content": "<center style=\"background-color:black;padding:1rem\"><a href=\"http://www.cpacketnetworks.com\" target=\"_new\"><img width=\"220px\" src=\"/static/images/cpacket_white_text.svg\"></a></center>",
+        "mode": "html"
+      },
+      "pluginVersion": "7.3.1",
+      "title": "",
+      "transparent": true,
+      "type": "text"
+    },
+    {
+      "aliasColors": {},
+      "breakPoint": "50%",
+      "cacheTimeout": null,
+      "combine": {
+        "label": "Others",
+        "threshold": "0.01"
+      },
+      "datasource": "${DS_INDICATORS}",
+      "fieldConfig": {
+        "defaults": {
+          "custom": {}
+        },
+        "overrides": []
+      },
+      "fontSize": "80%",
+      "format": "s",
+      "gridPos": {
+        "h": 7,
+        "w": 8,
+        "x": 0,
+        "y": 3
+      },
+      "id": 63,
+      "interval": "1s",
+      "legend": {
+        "show": true,
+        "sort": "avg",
+        "sortDesc": true,
+        "values": true
+      },
+      "legendType": "Right side",
+      "links": [],
+      "maxDataPoints": 3,
+      "nullPointMode": "connected",
+      "pieType": "pie",
+      "strokeWidth": 1,
+      "targets": [
+        {
+          "alias": "$tag_server",
+          "groupBy": [
+            {
+              "params": [
+                "server"
+              ],
+              "type": "tag"
+            }
+          ],
+          "measurement": "persecond",
+          "orderByTime": "ASC",
+          "policy": "default",
+          "query": "SELECT mean(\"from_srvr_rtt\")+mean(\"to_srvr_rtt\") FROM \"persecond\" WHERE (\"flow_g\" =~ /^$flow_g$/ AND \"dp_type\" = 'eps' AND \"m_type\" = 'flow' AND \"from_srvr_rtt\" > 0) AND $timeFilter GROUP BY \"server\"",
+          "rawQuery": true,
+          "refId": "A",
+          "resultFormat": "time_series",
+          "select": [
+            [
+              {
+                "params": [
+                  "from_srvr_rtt"
+                ],
+                "type": "field"
+              },
+              {
+                "params": [],
+                "type": "mean"
+              }
+            ]
+          ],
+          "tags": [
+            {
+              "key": "flow_g",
+              "operator": "=~",
+              "value": "/^$flow_g$/"
+            },
+            {
+              "condition": "AND",
+              "key": "from_srvr_rtt",
+              "operator": ">",
+              "value": "0"
+            }
+          ]
+        },
+        {
+          "alias": "$tag_server_ip",
+          "groupBy": [
+            {
+              "params": [
+                "$interval"
+              ],
+              "type": "time"
+            },
+            {
+              "params": [
+                "server_ip"
+              ],
+              "type": "tag"
+            }
+          ],
+          "measurement": "tcp_4_tuple",
+          "orderByTime": "ASC",
+          "policy": "default",
+          "query": "SELECT mean(\"rtt_server_s\")+ mean(\"rtt_client_s\") FROM \"tcp_4_tuple\" WHERE (\"network_monitor_name\" =~ /^$flow_g$/) AND $timeFilter GROUP BY time($interval), \"server_ip\"",
+          "rawQuery": true,
+          "refId": "B",
+          "resultFormat": "time_series",
+          "select": [
+            [
+              {
+                "params": [
+                  "rtt_server_s"
+                ],
+                "type": "field"
+              },
+              {
+                "params": [],
+                "type": "mean"
+              }
+            ],
+            [
+              {
+                "params": [
+                  "rtt_client_s"
+                ],
+                "type": "field"
+              },
+              {
+                "params": [],
+                "type": "mean"
+              }
+            ]
+          ],
+          "tags": [
+            {
+              "key": "network_monitor_name",
+              "operator": "=~",
+              "value": "/^$flow_g$/"
+            }
+          ]
+        }
+      ],
+      "title": "Session RTT for \"$flow_g\" (By Server)",
+      "type": "grafana-piechart-panel",
+      "valueName": "avg"
+    },
+    {
+      "columns": [
+        {
+          "$$hashKey": "object:252",
+          "text": "Avg",
+          "value": "avg"
+        }
+      ],
+      "datasource": "${DS_INDICATORS}",
+      "description": "Session Round Trip Time: The average transit time for packets travelling from the cVu to the server, back to the cVu, to the client and then returning back to the cVu.",
+      "fieldConfig": {
+        "defaults": {
+          "custom": {}
+        },
+        "overrides": []
+      },
+      "fontSize": "100%",
+      "gridPos": {
+        "h": 7,
+        "w": 8,
+        "x": 8,
+        "y": 3
+      },
+      "id": 62,
+      "links": [
+        {
+          "targetBlank": true,
+          "title": "Server Latency & Load Details",
+          "url": "/graph-engine/d/cPacket-4tuple-Server-Latency-Level3/?${__url_time_range}&${__all_variables}"
+        }
+      ],
+      "pageSize": null,
+      "scroll": true,
+      "showHeader": true,
+      "sort": {
+        "col": 1,
+        "desc": true
+      },
+      "styles": [
+        {
+          "alias": "Time",
+          "align": "auto",
+          "dateFormat": "YYYY-MM-DD HH:mm:ss",
+          "link": false,
+          "linkTargetBlank": true,
+          "linkTooltip": "Click to drill down to current server",
+          "linkUrl": "",
+          "pattern": "Time",
+          "type": "date"
+        },
+        {
+          "alias": "Server IP",
+          "align": "auto",
+          "colorMode": null,
+          "colors": [
+            "rgba(245, 54, 54, 0.9)",
+            "rgba(237, 129, 40, 0.89)",
+            "rgba(50, 172, 45, 0.97)"
+          ],
+          "dateFormat": "YYYY-MM-DD HH:mm:ss",
+          "decimals": 2,
+          "link": true,
+          "linkTargetBlank": true,
+          "linkTooltip": "Latency Details For Server ${__cell}",
+          "linkUrl": "/graph-engine/d/cPacket-4tuple-Server-Latency-Level3/?var-res=$res&var-flow_g=$flow_g&var-server=${__cell}&from=${__from}&to=${__to}",
+          "mappingType": 1,
+          "pattern": "Metric",
+          "thresholds": [],
+          "type": "string",
+          "unit": "short"
+        },
+        {
+          "alias": "Average",
+          "align": "auto",
+          "colorMode": "cell",
+          "colors": [
+            "rgba(50, 172, 45, 0.97)",
+            "rgba(237, 129, 40, 0.89)",
+            "rgba(245, 54, 54, 0.9)"
+          ],
+          "decimals": 1,
+          "pattern": "Avg",
+          "thresholds": [
+            "0.25",
+            " 0.5"
+          ],
+          "type": "number",
+          "unit": "s"
+        }
+      ],
+      "targets": [
+        {
+          "alias": "$tag_server",
+          "groupBy": [
+            {
+              "params": [
+                "server"
+              ],
+              "type": "tag"
+            }
+          ],
+          "measurement": "persecond",
+          "orderByTime": "ASC",
+          "policy": "default",
+          "query": "SELECT mean(\"from_srvr_rtt\")+mean(\"to_srvr_rtt\") as \"Avg\" FROM \"persecond\" WHERE (\"flow_g\" =~ /^$flow_g$/ AND \"m_type\" = 'flow' AND \"dp_type\" = 'eps' AND \"from_srvr_rtt\" > 0) AND $timeFilter GROUP BY \"server\"",
+          "rawQuery": true,
+          "refId": "A",
+          "resultFormat": "time_series",
+          "select": [
+            [
+              {
+                "params": [
+                  "from_srvr_rtt"
+                ],
+                "type": "field"
+              },
+              {
+                "params": [],
+                "type": "mean"
+              }
+            ]
+          ],
+          "tags": [
+            {
+              "key": "flow_g",
+              "operator": "=~",
+              "value": "/^$flow_g$/"
+            },
+            {
+              "condition": "AND",
+              "key": "m_type",
+              "operator": "=",
+              "value": "flow"
+            },
+            {
+              "condition": "AND",
+              "key": "dp_type",
+              "operator": "=",
+              "value": "eps"
+            },
+            {
+              "condition": "AND",
+              "key": "from_srvr_rtt",
+              "operator": ">",
+              "value": "0"
+            }
+          ]
+        },
+        {
+          "alias": "$tag_server_ip",
+          "groupBy": [
+            {
+              "params": [
+                "server"
+              ],
+              "type": "tag"
+            }
+          ],
+          "measurement": "persecond",
+          "orderByTime": "ASC",
+          "policy": "default",
+          "query": "SELECT mean(\"rtt_server_s\")+ mean(\"rtt_client_s\") FROM \"tcp_4_tuple\" WHERE (\"network_monitor_name\" =~ /^$flow_g$/) AND $timeFilter GROUP BY time($interval), \"server_ip\"",
+          "rawQuery": true,
+          "refId": "B",
+          "resultFormat": "time_series",
+          "select": [
+            [
+              {
+                "params": [
+                  "from_srvr_rtt"
+                ],
+                "type": "field"
+              },
+              {
+                "params": [],
+                "type": "mean"
+              }
+            ]
+          ],
+          "tags": [
+            {
+              "key": "flow_g",
+              "operator": "=~",
+              "value": "/^$flow_g$/"
+            },
+            {
+              "condition": "AND",
+              "key": "m_type",
+              "operator": "=",
+              "value": "flow"
+            },
+            {
+              "condition": "AND",
+              "key": "dp_type",
+              "operator": "=",
+              "value": "eps"
+            },
+            {
+              "condition": "AND",
+              "key": "from_srvr_rtt",
+              "operator": ">",
+              "value": "0"
+            }
+          ]
+        }
+      ],
+      "title": "Session RTT for \"$flow_g\"",
+      "transform": "timeseries_aggregations",
+      "type": "table-old"
+    },
+    {
+      "aliasColors": {
+        "Network Time (98 Percentile): aws": "#5195ce",
+        "RTT": "#f2c96d",
+        "Server Response Time": "#7eb26d",
+        "Server Round Trip Time (98 Percentile): aws": "#7eb26d"
+      },
+      "bars": false,
+      "dashLength": 10,
+      "dashes": false,
+      "datasource": "${DS_INDICATORS}",
+      "description": "Session Round Trip Time (to server and back, to client and back) for Server $server",
+      "fieldConfig": {
+        "defaults": {
+          "custom": {},
+          "links": []
+        },
+        "overrides": []
+      },
+      "fill": 0,
+      "fillGradient": 0,
+      "gridPos": {
+        "h": 7,
+        "w": 8,
+        "x": 16,
+        "y": 3
+      },
+      "hiddenSeries": false,
+      "id": 13,
+      "interval": "1s",
+      "legend": {
+        "alignAsTable": true,
+        "avg": true,
+        "current": false,
+        "hideEmpty": true,
+        "hideZero": true,
+        "max": true,
+        "min": false,
+        "show": true,
+        "sort": "avg",
+        "sortDesc": true,
+        "total": false,
+        "values": true
+      },
+      "lines": true,
+      "linewidth": 1,
+      "links": [],
+      "nullPointMode": "connected",
+      "options": {
+        "alertThreshold": true
+      },
+      "percentage": false,
+      "pluginVersion": "7.3.1",
+      "pointradius": 1,
+      "points": false,
+      "renderer": "flot",
+      "seriesOverrides": [],
+      "spaceLength": 10,
+      "stack": false,
+      "steppedLine": false,
+      "targets": [
+        {
+          "alias": "Client: $tag_client",
+          "groupBy": [
+            {
+              "params": [
+                "$res"
+              ],
+              "type": "time"
+            },
+            {
+              "params": [
+                "server"
+              ],
+              "type": "tag"
+            },
+            {
+              "params": [
+                "client"
+              ],
+              "type": "tag"
+            },
+            {
+              "params": [
+                "none"
+              ],
+              "type": "fill"
+            }
+          ],
+          "measurement": "persecond",
+          "orderByTime": "ASC",
+          "policy": "default",
+          "query": "SELECT mean(\"from_srvr_rtt\")+mean(\"to_srvr_rtt\") FROM \"persecond\" WHERE (\"flow_g\" =~ /^$flow_g$/ AND \"m_type\" = 'flow' AND \"dp_type\" = 'eps' AND \"from_srvr_rtt\" > 0 AND \"server\" =~ /^$server$/) AND $timeFilter GROUP BY time($res), \"server\", \"client\" fill(none)",
+          "rawQuery": true,
+          "refId": "B",
+          "resultFormat": "time_series",
+          "select": [
+            [
+              {
+                "params": [
+                  "from_srvr_rtt"
+                ],
+                "type": "field"
+              },
+              {
+                "params": [],
+                "type": "mean"
+              }
+            ]
+          ],
+          "tags": [
+            {
+              "key": "flow_g",
+              "operator": "=~",
+              "value": "/^$flow_g$/"
+            },
+            {
+              "condition": "AND",
+              "key": "m_type",
+              "operator": "=",
+              "value": "flow"
+            },
+            {
+              "condition": "AND",
+              "key": "dp_type",
+              "operator": "=",
+              "value": "eps"
+            },
+            {
+              "condition": "AND",
+              "key": "from_srvr_rtt",
+              "operator": ">",
+              "value": "0"
+            },
+            {
+              "condition": "AND",
+              "key": "server",
+              "operator": "=~",
+              "value": "/^$server$/"
+            }
+          ]
+        },
+        {
+          "alias": "Client: $tag_client",
+          "groupBy": [
+            {
+              "params": [
+                "$res"
+              ],
+              "type": "time"
+            },
+            {
+              "params": [
+                "server"
+              ],
+              "type": "tag"
+            },
+            {
+              "params": [
+                "client"
+              ],
+              "type": "tag"
+            },
+            {
+              "params": [
+                "none"
+              ],
+              "type": "fill"
+            }
+          ],
+          "measurement": "persecond",
+          "orderByTime": "ASC",
+          "policy": "default",
+          "query": "SELECT mean(\"rtt_server_s\")+ mean(\"rtt_client_s\") FROM \"tcp_4_tuple\" WHERE (\"network_monitor_name\" =~ /^$flow_g$/ and server_ip =~ /$server/) AND $timeFilter GROUP BY time($interval), \"server_ip\"",
+          "rawQuery": true,
+          "refId": "A",
+          "resultFormat": "time_series",
+          "select": [
+            [
+              {
+                "params": [
+                  "from_srvr_rtt"
+                ],
+                "type": "field"
+              },
+              {
+                "params": [],
+                "type": "mean"
+              }
+            ]
+          ],
+          "tags": [
+            {
+              "key": "flow_g",
+              "operator": "=~",
+              "value": "/^$flow_g$/"
+            },
+            {
+              "condition": "AND",
+              "key": "m_type",
+              "operator": "=",
+              "value": "flow"
+            },
+            {
+              "condition": "AND",
+              "key": "dp_type",
+              "operator": "=",
+              "value": "eps"
+            },
+            {
+              "condition": "AND",
+              "key": "from_srvr_rtt",
+              "operator": ">",
+              "value": "0"
+            },
+            {
+              "condition": "AND",
+              "key": "server",
+              "operator": "=~",
+              "value": "/^$server$/"
+            }
+          ]
+        }
+      ],
+      "thresholds": [],
+      "timeFrom": null,
+      "timeRegions": [],
+      "timeShift": null,
+      "title": "Session RTT ($server Sessions)",
+      "tooltip": {
+        "shared": true,
+        "sort": 2,
+        "value_type": "individual"
+      },
+      "type": "graph",
+      "xaxis": {
+        "buckets": null,
+        "mode": "time",
+        "name": null,
+        "show": true,
+        "values": []
+      },
+      "yaxes": [
+        {
+          "format": "s",
+          "label": null,
+          "logBase": 1,
+          "max": null,
+          "min": "0",
+          "show": true
+        },
+        {
+          "format": "short",
+          "label": null,
+          "logBase": 1,
+          "max": null,
+          "min": null,
+          "show": false
+        }
+      ],
+      "yaxis": {
+        "align": false,
+        "alignLevel": null
+      }
+    },
+    {
+      "aliasColors": {},
+      "breakPoint": "50%",
+      "cacheTimeout": null,
+      "combine": {
+        "label": "Others",
+        "threshold": "0.01"
+      },
+      "datasource": "${DS_INDICATORS}",
+      "fieldConfig": {
+        "defaults": {
+          "custom": {}
+        },
+        "overrides": []
+      },
+      "fontSize": "80%",
+      "format": "s",
+      "gridPos": {
+        "h": 7,
+        "w": 8,
+        "x": 0,
+        "y": 10
+      },
+      "id": 49,
+      "interval": "1s",
+      "legend": {
+        "show": true,
+        "sort": "avg",
+        "sortDesc": true,
+        "values": true
+      },
+      "legendType": "Right side",
+      "links": [],
+      "maxDataPoints": 3,
+      "nullPointMode": "connected",
+      "pieType": "pie",
+      "strokeWidth": 1,
+      "targets": [
+        {
+          "alias": "$tag_server",
+          "groupBy": [
+            {
+              "params": [
+                "server"
+              ],
+              "type": "tag"
+            }
+          ],
+          "measurement": "persecond",
+          "orderByTime": "ASC",
+          "policy": "default",
+          "refId": "A",
+          "resultFormat": "time_series",
+          "select": [
+            [
+              {
+                "params": [
+                  "from_srvr_rtt"
+                ],
+                "type": "field"
+              },
+              {
+                "params": [],
+                "type": "mean"
+              }
+            ]
+          ],
+          "tags": [
+            {
+              "key": "flow_g",
+              "operator": "=~",
+              "value": "/^$flow_g$/"
+            },
+            {
+              "condition": "AND",
+              "key": "from_srvr_rtt",
+              "operator": ">",
+              "value": "0"
+            },
+            {
+              "condition": "AND",
+              "key": "m_type",
+              "operator": "=",
+              "value": "flow"
+            },
+            {
+              "condition": "AND",
+              "key": "dp_type",
+              "operator": "=",
+              "value": "eps"
+            }
+          ]
+        },
+        {
+          "alias": "$tag_server_ip",
+          "groupBy": [
+            {
+              "params": [
+                "server"
+              ],
+              "type": "tag"
+            }
+          ],
+          "measurement": "persecond",
+          "orderByTime": "ASC",
+          "policy": "default",
+          "query": "SELECT mean(\"rtt_server_s\") FROM \"tcp_4_tuple\" WHERE (\"network_monitor_name\" =~ /^$flow_g$/) AND $timeFilter GROUP BY time($interval), \"server_ip\"",
+          "rawQuery": true,
+          "refId": "B",
+          "resultFormat": "time_series",
+          "select": [
+            [
+              {
+                "params": [
+                  "from_srvr_rtt"
+                ],
+                "type": "field"
+              },
+              {
+                "params": [],
+                "type": "mean"
+              }
+            ]
+          ],
+          "tags": [
+            {
+              "key": "flow_g",
+              "operator": "=~",
+              "value": "/^$flow_g$/"
+            },
+            {
+              "condition": "AND",
+              "key": "from_srvr_rtt",
+              "operator": ">",
+              "value": "0"
+            },
+            {
+              "condition": "AND",
+              "key": "m_type",
+              "operator": "=",
+              "value": "flow"
+            },
+            {
+              "condition": "AND",
+              "key": "dp_type",
+              "operator": "=",
+              "value": "eps"
+            }
+          ]
+        }
+      ],
+      "title": "Server Side RTT for \"$flow_g\" (By Server)",
+      "type": "grafana-piechart-panel",
+      "valueName": "avg"
+    },
+    {
+      "datasource": "${DS_INDICATORS}",
+      "description": "Round Trip Time from the cVu to the server and back to the cVu.",
+      "fieldConfig": {
+        "defaults": {
+          "custom": {
+            "align": null,
+            "displayMode": "color-text",
+            "filterable": false
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "red",
+                "value": 0.1
+              }
+            ]
+          },
+          "unit": "s"
+        },
+        "overrides": [
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "Server"
+            },
+            "properties": [
+              {
+                "id": "links",
+                "value": [
+                  {
+                    "title": "Server Details",
+                    "url": "/graph-engine/d/cPacket-4tuple-Server-Latency-Level3/?${__url_time_range}&${__all_variables}"
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      "gridPos": {
+        "h": 7,
+        "w": 8,
+        "x": 8,
+        "y": 10
+      },
+      "id": 30,
+      "interval": "1s",
+      "links": [
+        {
+          "targetBlank": true,
+          "title": "Server Latency & Load Details",
+          "url": "/graph-engine/d/cPacket-4tuple-Server-Latency-Level3/?${__url_time_range}&${__all_variables}"
+        }
+      ],
+      "options": {
+        "showHeader": true
+      },
+      "pluginVersion": "7.3.1",
+      "targets": [
+        {
+          "alias": "$tag_server",
+          "groupBy": [
+            {
+              "params": [
+                "server"
+              ],
+              "type": "tag"
+            }
+          ],
+          "measurement": "persecond",
+          "orderByTime": "ASC",
+          "policy": "default",
+          "refId": "A",
+          "resultFormat": "table",
+          "select": [
+            [
+              {
+                "params": [
+                  "from_srvr_rtt"
+                ],
+                "type": "field"
+              },
+              {
+                "params": [],
+                "type": "mean"
+              },
+              {
+                "params": [
+                  "Avg"
+                ],
+                "type": "alias"
+              }
+            ]
+          ],
+          "tags": [
+            {
+              "key": "flow_g",
+              "operator": "=~",
+              "value": "/^$flow_g$/"
+            },
+            {
+              "condition": "AND",
+              "key": "m_type",
+              "operator": "=",
+              "value": "flow"
+            },
+            {
+              "condition": "AND",
+              "key": "dp_type",
+              "operator": "=",
+              "value": "eps"
+            },
+            {
+              "condition": "AND",
+              "key": "from_srvr_rtt",
+              "operator": ">",
+              "value": "0"
+            }
+          ]
+        },
+        {
+          "alias": "$tag_server",
+          "groupBy": [
+            {
+              "params": [
+                "server"
+              ],
+              "type": "tag"
+            }
+          ],
+          "measurement": "persecond",
+          "orderByTime": "ASC",
+          "policy": "default",
+          "query": "SELECT mean(\"rtt_server_s\") FROM \"tcp_4_tuple\" WHERE (\"network_monitor_name\" =~ /^$flow_g$/) AND $timeFilter GROUP BY  \"server_ip\"",
+          "rawQuery": true,
+          "refId": "B",
+          "resultFormat": "table",
+          "select": [
+            [
+              {
+                "params": [
+                  "from_srvr_rtt"
+                ],
+                "type": "field"
+              },
+              {
+                "params": [],
+                "type": "mean"
+              },
+              {
+                "params": [
+                  "Avg"
+                ],
+                "type": "alias"
+              }
+            ]
+          ],
+          "tags": [
+            {
+              "key": "flow_g",
+              "operator": "=~",
+              "value": "/^$flow_g$/"
+            },
+            {
+              "condition": "AND",
+              "key": "m_type",
+              "operator": "=",
+              "value": "flow"
+            },
+            {
+              "condition": "AND",
+              "key": "dp_type",
+              "operator": "=",
+              "value": "eps"
+            },
+            {
+              "condition": "AND",
+              "key": "from_srvr_rtt",
+              "operator": ">",
+              "value": "0"
+            }
+          ]
+        }
+      ],
+      "title": "Server Side RTT for \"$flow_g\"",
+      "transformations": [
+        {
+          "id": "organize",
+          "options": {
+            "excludeByName": {
+              "Time": true
+            },
+            "indexByName": {},
+            "renameByName": {
+              "Time": "",
+              "mean": "Server Round Trip Time",
+              "server_ip": "Server"
+            }
+          }
+        },
+        {
+          "id": "groupBy",
+          "options": {
+            "fields": {
+              "Server": {
+                "aggregations": [],
+                "operation": "groupby"
+              },
+              "Server Round Trip Time": {
+                "aggregations": [
+                  "mean"
+                ],
+                "operation": "aggregate"
+              }
+            }
+          }
+        }
+      ],
+      "type": "table"
+    },
+    {
+      "aliasColors": {
+        "Network Time (98 Percentile): aws": "#5195ce",
+        "RTT": "#f2c96d",
+        "Server Response Time": "#7eb26d",
+        "Server Round Trip Time (98 Percentile): aws": "#7eb26d"
+      },
+      "bars": false,
+      "dashLength": 10,
+      "dashes": false,
+      "datasource": "${DS_INDICATORS}",
+      "description": "Round Trip Time (to server and back) for Server $server",
+      "fieldConfig": {
+        "defaults": {
+          "custom": {},
+          "links": []
+        },
+        "overrides": []
+      },
+      "fill": 0,
+      "fillGradient": 0,
+      "gridPos": {
+        "h": 7,
+        "w": 8,
+        "x": 16,
+        "y": 10
+      },
+      "hiddenSeries": false,
+      "id": 61,
+      "interval": "1s",
+      "legend": {
+        "alignAsTable": true,
+        "avg": true,
+        "current": false,
+        "hideEmpty": true,
+        "hideZero": true,
+        "max": true,
+        "min": false,
+        "show": true,
+        "sort": null,
+        "sortDesc": null,
+        "total": false,
+        "values": true
+      },
+      "lines": true,
+      "linewidth": 1,
+      "links": [],
+      "nullPointMode": "connected",
+      "options": {
+        "alertThreshold": true
+      },
+      "percentage": false,
+      "pluginVersion": "7.3.1",
+      "pointradius": 1,
+      "points": false,
+      "renderer": "flot",
+      "seriesOverrides": [],
+      "spaceLength": 10,
+      "stack": false,
+      "steppedLine": false,
+      "targets": [
+        {
+          "alias": "Client: $tag_client",
+          "groupBy": [
+            {
+              "params": [
+                "$res"
+              ],
+              "type": "time"
+            },
+            {
+              "params": [
+                "server"
+              ],
+              "type": "tag"
+            },
+            {
+              "params": [
+                "client"
+              ],
+              "type": "tag"
+            },
+            {
+              "params": [
+                "none"
+              ],
+              "type": "fill"
+            }
+          ],
+          "measurement": "persecond",
+          "orderByTime": "ASC",
+          "policy": "default",
+          "query": "SELECT max(\"from_srvr_rtt\") AS \"from-server\", max(\"to_srvr_rtt\") AS \"to-server\" FROM \"persecond\" WHERE (\"flow_g\" =~ /^$flow_g$/) AND $timeFilter GROUP BY time($res) fill(0)",
+          "rawQuery": false,
+          "refId": "B",
+          "resultFormat": "time_series",
+          "select": [
+            [
+              {
+                "params": [
+                  "from_srvr_rtt"
+                ],
+                "type": "field"
+              },
+              {
+                "params": [],
+                "type": "mean"
+              }
+            ]
+          ],
+          "tags": [
+            {
+              "key": "flow_g",
+              "operator": "=~",
+              "value": "/^$flow_g$/"
+            },
+            {
+              "condition": "AND",
+              "key": "m_type",
+              "operator": "=",
+              "value": "flow"
+            },
+            {
+              "condition": "AND",
+              "key": "dp_type",
+              "operator": "=",
+              "value": "eps"
+            },
+            {
+              "condition": "AND",
+              "key": "from_srvr_rtt",
+              "operator": ">",
+              "value": "0"
+            },
+            {
+              "condition": "AND",
+              "key": "server",
+              "operator": "=~",
+              "value": "/^$server$/"
+            }
+          ]
+        },
+        {
+          "alias": "Client: $tag_client_ip",
+          "groupBy": [
+            {
+              "params": [
+                "$res"
+              ],
+              "type": "time"
+            },
+            {
+              "params": [
+                "server"
+              ],
+              "type": "tag"
+            },
+            {
+              "params": [
+                "client"
+              ],
+              "type": "tag"
+            },
+            {
+              "params": [
+                "none"
+              ],
+              "type": "fill"
+            }
+          ],
+          "measurement": "persecond",
+          "orderByTime": "ASC",
+          "policy": "default",
+          "query": "SELECT mean(\"rtt_server_s\") FROM \"tcp_4_tuple\" WHERE (\"network_monitor_name\" =~ /^$flow_g$/ and server_ip =~ /$server/) AND $timeFilter GROUP BY time($interval), \"server_ip\", \"client_ip\"",
+          "rawQuery": true,
+          "refId": "A",
+          "resultFormat": "time_series",
+          "select": [
+            [
+              {
+                "params": [
+                  "from_srvr_rtt"
+                ],
+                "type": "field"
+              },
+              {
+                "params": [],
+                "type": "mean"
+              }
+            ]
+          ],
+          "tags": [
+            {
+              "key": "flow_g",
+              "operator": "=~",
+              "value": "/^$flow_g$/"
+            },
+            {
+              "condition": "AND",
+              "key": "m_type",
+              "operator": "=",
+              "value": "flow"
+            },
+            {
+              "condition": "AND",
+              "key": "dp_type",
+              "operator": "=",
+              "value": "eps"
+            },
+            {
+              "condition": "AND",
+              "key": "from_srvr_rtt",
+              "operator": ">",
+              "value": "0"
+            },
+            {
+              "condition": "AND",
+              "key": "server",
+              "operator": "=~",
+              "value": "/^$server$/"
+            }
+          ]
+        }
+      ],
+      "thresholds": [],
+      "timeFrom": null,
+      "timeRegions": [],
+      "timeShift": null,
+      "title": "Server Side RTT ($server Sessions)",
+      "tooltip": {
+        "shared": true,
+        "sort": 2,
+        "value_type": "individual"
+      },
+      "type": "graph",
+      "xaxis": {
+        "buckets": null,
+        "mode": "time",
+        "name": null,
+        "show": true,
+        "values": []
+      },
+      "yaxes": [
+        {
+          "format": "s",
+          "label": null,
+          "logBase": 1,
+          "max": null,
+          "min": "0",
+          "show": true
+        },
+        {
+          "format": "short",
+          "label": null,
+          "logBase": 1,
+          "max": null,
+          "min": null,
+          "show": false
+        }
+      ],
+      "yaxis": {
+        "align": false,
+        "alignLevel": null
+      }
+    },
+    {
+      "aliasColors": {},
+      "breakPoint": "50%",
+      "cacheTimeout": null,
+      "combine": {
+        "label": "Others",
+        "threshold": "0.01"
+      },
+      "datasource": "${DS_INDICATORS}",
+      "fieldConfig": {
+        "defaults": {
+          "custom": {}
+        },
+        "overrides": []
+      },
+      "fontSize": "80%",
+      "format": "s",
+      "gridPos": {
+        "h": 7,
+        "w": 8,
+        "x": 0,
+        "y": 17
+      },
+      "id": 55,
+      "interval": "1s",
+      "legend": {
+        "show": true,
+        "sort": "avg",
+        "sortDesc": true,
+        "values": true
+      },
+      "legendType": "Right side",
+      "links": [],
+      "maxDataPoints": 3,
+      "nullPointMode": "connected",
+      "pieType": "pie",
+      "strokeWidth": 1,
+      "targets": [
+        {
+          "alias": "$tag_server",
+          "groupBy": [
+            {
+              "params": [
+                "server"
+              ],
+              "type": "tag"
+            }
+          ],
+          "measurement": "persecond",
+          "orderByTime": "ASC",
+          "policy": "default",
+          "refId": "A",
+          "resultFormat": "time_series",
+          "select": [
+            [
+              {
+                "params": [
+                  "response_time"
+                ],
+                "type": "field"
+              },
+              {
+                "params": [],
+                "type": "mean"
+              }
+            ]
+          ],
+          "tags": [
+            {
+              "key": "flow_g",
+              "operator": "=~",
+              "value": "/^$flow_g$/"
+            },
+            {
+              "condition": "AND",
+              "key": "response_time",
+              "operator": ">",
+              "value": "0"
+            },
+            {
+              "condition": "AND",
+              "key": "m_type",
+              "operator": "=",
+              "value": "flow"
+            },
+            {
+              "condition": "AND",
+              "key": "dp_type",
+              "operator": "=",
+              "value": "eps"
+            }
+          ]
+        },
+        {
+          "alias": "$tag_server_ip",
+          "groupBy": [
+            {
+              "params": [
+                "$res"
+              ],
+              "type": "time"
+            },
+            {
+              "params": [
+                "server_ip"
+              ],
+              "type": "tag"
+            }
+          ],
+          "measurement": "tcp_active_sessions_4_tuple",
+          "orderByTime": "ASC",
+          "policy": "default",
+          "query": "SELECT mean(\"response_time_s_avg\") FROM \"tcp_active_sessions_4_tuple\" WHERE (\"network_monitor_name\" =~ /^$flow_g$/) AND $timeFilter GROUP BY time($res), \"server_ip\"",
+          "rawQuery": true,
+          "refId": "B",
+          "resultFormat": "time_series",
+          "select": [
+            [
+              {
+                "params": [
+                  "response_time_s_avg"
+                ],
+                "type": "field"
+              },
+              {
+                "params": [],
+                "type": "mean"
+              }
+            ]
+          ],
+          "tags": [
+            {
+              "key": "network_monitor_name",
+              "operator": "=~",
+              "value": "/^$flow_g$/"
+            }
+          ]
+        }
+      ],
+      "title": "Response Time for \"$flow_g\" (By Server)",
+      "type": "grafana-piechart-panel",
+      "valueName": "avg"
+    },
+    {
+      "columns": [
+        {
+          "$$hashKey": "object:710",
+          "text": "Avg",
+          "value": "avg"
+        }
+      ],
+      "datasource": "${DS_INDICATORS}",
+      "description": "The server SYN to SYNACK Response Time.",
+      "fieldConfig": {
+        "defaults": {
+          "custom": {}
+        },
+        "overrides": []
+      },
+      "fontSize": "100%",
+      "gridPos": {
+        "h": 7,
+        "w": 8,
+        "x": 8,
+        "y": 17
+      },
+      "id": 54,
+      "interval": "1s",
+      "links": [
+        {
+          "targetBlank": true,
+          "title": "Server Latency & Load Details",
+          "url": "/graph-engine/d/cPacket-4tuple-Server-Latency-Level3/?${__url_time_range}&${__all_variables}"
+        }
+      ],
+      "pageSize": null,
+      "scroll": true,
+      "showHeader": true,
+      "sort": {
+        "col": 1,
+        "desc": true
+      },
+      "styles": [
+        {
+          "alias": "Time",
+          "align": "auto",
+          "dateFormat": "YYYY-MM-DD HH:mm:ss",
+          "pattern": "Time",
+          "type": "hidden"
+        },
+        {
+          "alias": "Server IP",
+          "align": "auto",
+          "colorMode": null,
+          "colors": [
+            "rgba(245, 54, 54, 0.9)",
+            "rgba(237, 129, 40, 0.89)",
+            "rgba(50, 172, 45, 0.97)"
+          ],
+          "dateFormat": "YYYY-MM-DD HH:mm:ss",
+          "decimals": 2,
+          "link": true,
+          "linkTargetBlank": true,
+          "linkTooltip": "Latency Details For Server ${__cell}",
+          "linkUrl": "/graph-engine/d/cPacket-4tuple-Server-Latency-Level3/?var-res=$res&var-server=${__cell}&var-flow_g=$flow_g&from=${__from}&to=${__to}",
+          "mappingType": 1,
+          "pattern": "/Metric|server/",
+          "thresholds": [],
+          "type": "string",
+          "unit": "short"
+        },
+        {
+          "alias": "Average",
+          "align": "auto",
+          "colorMode": "cell",
+          "colors": [
+            "rgba(50, 172, 45, 0.97)",
+            "rgba(237, 129, 40, 0.89)",
+            "rgba(245, 54, 54, 0.9)"
+          ],
+          "decimals": 2,
+          "pattern": "Avg",
+          "thresholds": [
+            "0.1",
+            " 0.3"
+          ],
+          "type": "number",
+          "unit": "s"
+        }
+      ],
+      "targets": [
+        {
+          "alias": "$tag_server",
+          "groupBy": [
+            {
+              "params": [
+                "server"
+              ],
+              "type": "tag"
+            }
+          ],
+          "hide": false,
+          "measurement": "persecond",
+          "orderByTime": "ASC",
+          "policy": "default",
+          "query": "SELECT mean(\"response_time\") FROM \"persecond\" WHERE (\"m_type\" = 'flow' AND \"dp_type\" = 'eps' AND \"flow_g\" =~ /^$flow_g$/) AND $timeFilter GROUP BY time($time_range*2), \"server\", \"client\" fill(none)",
+          "rawQuery": false,
+          "refId": "A",
+          "resultFormat": "table",
+          "select": [
+            [
+              {
+                "params": [
+                  "response_time"
+                ],
+                "type": "field"
+              },
+              {
+                "params": [],
+                "type": "mean"
+              },
+              {
+                "params": [
+                  "Avg"
+                ],
+                "type": "alias"
+              }
+            ]
+          ],
+          "tags": [
+            {
+              "key": "m_type",
+              "operator": "=",
+              "value": "flow"
+            },
+            {
+              "condition": "AND",
+              "key": "dp_type",
+              "operator": "=",
+              "value": "eps"
+            },
+            {
+              "condition": "AND",
+              "key": "flow_g",
+              "operator": "=~",
+              "value": "/^$flow_g$/"
+            },
+            {
+              "condition": "AND",
+              "key": "response_time",
+              "operator": ">",
+              "value": "0"
+            }
+          ]
+        },
+        {
+          "alias": "$tag_server",
+          "groupBy": [
+            {
+              "params": [
+                "server_ip"
+              ],
+              "type": "tag"
+            }
+          ],
+          "hide": false,
+          "measurement": "tcp_active_sessions_4_tuple",
+          "orderByTime": "ASC",
+          "policy": "default",
+          "query": "SELECT mean(\"response_time_s_avg\") FROM \"tcp_active_sessions_4_tuple\" WHERE (\"network_monitor_name\" =~ /^$flow_g$/) AND $timeFilter GROUP BY time($res), \"server_ip\"",
+          "rawQuery": false,
+          "refId": "B",
+          "resultFormat": "table",
+          "select": [
+            [
+              {
+                "params": [
+                  "response_time_s_avg"
+                ],
+                "type": "field"
+              },
+              {
+                "params": [],
+                "type": "mean"
+              },
+              {
+                "params": [
+                  "Avg"
+                ],
+                "type": "alias"
+              }
+            ]
+          ],
+          "tags": [
+            {
+              "key": "network_monitor_name",
+              "operator": "=~",
+              "value": "/^$flow_g$/"
+            }
+          ]
+        }
+      ],
+      "title": "Response Time for \"$flow_g\"",
+      "transform": "table",
+      "type": "table-old"
+    },
+    {
+      "aliasColors": {
+        "Network Time (98 Percentile): aws": "#5195ce",
+        "RTT": "#f2c96d",
+        "Server Response Time": "#7eb26d",
+        "Server Round Trip Time (98 Percentile): aws": "#7eb26d"
+      },
+      "bars": false,
+      "dashLength": 10,
+      "dashes": false,
+      "datasource": "${DS_INDICATORS}",
+      "description": "The server (SYN to SYNACK) response time for server $server",
+      "fieldConfig": {
+        "defaults": {
+          "custom": {},
+          "links": []
+        },
+        "overrides": []
+      },
+      "fill": 0,
+      "fillGradient": 0,
+      "gridPos": {
+        "h": 7,
+        "w": 8,
+        "x": 16,
+        "y": 17
+      },
+      "hiddenSeries": false,
+      "id": 50,
+      "interval": "1s",
+      "legend": {
+        "alignAsTable": true,
+        "avg": true,
+        "current": false,
+        "hideEmpty": true,
+        "hideZero": true,
+        "max": true,
+        "min": false,
+        "show": true,
+        "sortDesc": true,
+        "total": false,
+        "values": true
+      },
+      "lines": true,
+      "linewidth": 1,
+      "links": [],
+      "nullPointMode": "connected",
+      "options": {
+        "alertThreshold": true
+      },
+      "percentage": false,
+      "pluginVersion": "7.3.1",
+      "pointradius": 1,
+      "points": false,
+      "renderer": "flot",
+      "seriesOverrides": [],
+      "spaceLength": 10,
+      "stack": false,
+      "steppedLine": false,
+      "targets": [
+        {
+          "alias": "Client: $tag_client",
+          "groupBy": [
+            {
+              "params": [
+                "$res"
+              ],
+              "type": "time"
+            },
+            {
+              "params": [
+                "server"
+              ],
+              "type": "tag"
+            },
+            {
+              "params": [
+                "client"
+              ],
+              "type": "tag"
+            },
+            {
+              "params": [
+                "none"
+              ],
+              "type": "fill"
+            }
+          ],
+          "hide": false,
+          "measurement": "persecond",
+          "orderByTime": "ASC",
+          "policy": "default",
+          "query": "SELECT max(\"from_srvr_rtt\") AS \"from-server\", max(\"to_srvr_rtt\") AS \"to-server\" FROM \"persecond\" WHERE (\"flow_g\" =~ /^$flow_g$/) AND $timeFilter GROUP BY time($res) fill(0)",
+          "rawQuery": false,
+          "refId": "B",
+          "resultFormat": "time_series",
+          "select": [
+            [
+              {
+                "params": [
+                  "response_time"
+                ],
+                "type": "field"
+              },
+              {
+                "params": [],
+                "type": "mean"
+              }
+            ]
+          ],
+          "tags": [
+            {
+              "key": "flow_g",
+              "operator": "=~",
+              "value": "/^$flow_g$/"
+            },
+            {
+              "condition": "AND",
+              "key": "m_type",
+              "operator": "=",
+              "value": "flow"
+            },
+            {
+              "condition": "AND",
+              "key": "dp_type",
+              "operator": "=",
+              "value": "eps"
+            },
+            {
+              "condition": "AND",
+              "key": "response_time",
+              "operator": ">",
+              "value": "0"
+            },
+            {
+              "condition": "AND",
+              "key": "server",
+              "operator": "=~",
+              "value": "/^$server$/"
+            }
+          ]
+        },
+        {
+          "alias": "Client: $tag_client_ip",
+          "groupBy": [
+            {
+              "params": [
+                "$res"
+              ],
+              "type": "time"
+            },
+            {
+              "params": [
+                "server"
+              ],
+              "type": "tag"
+            },
+            {
+              "params": [
+                "client"
+              ],
+              "type": "tag"
+            },
+            {
+              "params": [
+                "none"
+              ],
+              "type": "fill"
+            }
+          ],
+          "measurement": "persecond",
+          "orderByTime": "ASC",
+          "policy": "default",
+          "query": "SELECT mean(\"response_time_s_avg\") FROM \"tcp_active_sessions_4_tuple\" WHERE (\"network_monitor_name\" =~ /^$flow_g$/ and server_ip =~ /$server/) AND $timeFilter GROUP BY time($res), \"server_ip\", \"client_ip\"",
+          "rawQuery": true,
+          "refId": "A",
+          "resultFormat": "time_series",
+          "select": [
+            [
+              {
+                "params": [
+                  "response_time"
+                ],
+                "type": "field"
+              },
+              {
+                "params": [],
+                "type": "mean"
+              }
+            ]
+          ],
+          "tags": [
+            {
+              "key": "flow_g",
+              "operator": "=~",
+              "value": "/^$flow_g$/"
+            },
+            {
+              "condition": "AND",
+              "key": "m_type",
+              "operator": "=",
+              "value": "flow"
+            },
+            {
+              "condition": "AND",
+              "key": "dp_type",
+              "operator": "=",
+              "value": "eps"
+            },
+            {
+              "condition": "AND",
+              "key": "response_time",
+              "operator": ">",
+              "value": "0"
+            },
+            {
+              "condition": "AND",
+              "key": "server",
+              "operator": "=~",
+              "value": "/^$server$/"
+            }
+          ]
+        }
+      ],
+      "thresholds": [],
+      "timeFrom": null,
+      "timeRegions": [],
+      "timeShift": null,
+      "title": "Response Time ($server Sessions)",
+      "tooltip": {
+        "shared": true,
+        "sort": 2,
+        "value_type": "individual"
+      },
+      "type": "graph",
+      "xaxis": {
+        "buckets": null,
+        "mode": "time",
+        "name": null,
+        "show": true,
+        "values": []
+      },
+      "yaxes": [
+        {
+          "format": "s",
+          "label": null,
+          "logBase": 1,
+          "max": null,
+          "min": "0",
+          "show": true
+        },
+        {
+          "format": "short",
+          "label": null,
+          "logBase": 1,
+          "max": null,
+          "min": null,
+          "show": false
+        }
+      ],
+      "yaxis": {
+        "align": false,
+        "alignLevel": null
+      }
+    },
+    {
+      "collapsed": true,
+      "datasource": "${DS_INDICATORS}",
+      "gridPos": {
+        "h": 1,
+        "w": 24,
+        "x": 0,
+        "y": 24
+      },
+      "id": 27,
+      "panels": [
+        {
+          "content": "#### Usage Notes:\n- The panels are filterd by the selected Network Monitor: $flow_g\n- When following links, the Network Monitor selection ($flow_g) will also be applied to the Linked Dashboard\n- When following links, the Server selected in the pull down menu ($server) will be passed to the Linked Dashboard\n- User Defined Filters on indicators: Adds dashboard filters to narrow down the view (the Linked Dashboard may also be affected)\n- If you don't want the \"User Defined Filters\" to apply to Linked Dashboards, then clear these filters before clicking a link.\n\n",
+          "datasource": "${DS_INDICATORS}",
+          "gridPos": {
+            "h": 5,
+            "w": 13,
+            "x": 0,
+            "y": 25
+          },
+          "id": 29,
+          "links": [],
+          "mode": "markdown",
+          "options": {},
+          "title": "Latency for Network Monitor \"$flow_g\"",
+          "type": "text"
+        }
+      ],
+      "title": "Instructions: How to Use This Dashbaord",
+      "type": "row"
+    }
+  ],
+  "refresh": false,
+  "schemaVersion": 26,
+  "style": "dark",
+  "tags": [
+    "Network_Monitor",
+    "TCP_Analytics",
+    "cPacket",
+    "Level 2"
+  ],
+  "templating": {
+    "list": [
+      {
+        "allValue": null,
+        "current": {},
+        "datasource": "${DS_INDICATORS}",
+        "definition": "",
+        "error": null,
+        "hide": 0,
+        "includeAll": false,
+        "label": "Network Monitor Name",
+        "multi": false,
+        "name": "flow_g",
+        "options": [],
+        "query": "show tag values with key =~ /network_monitor_name|flow_g/",
+        "refresh": 1,
+        "regex": "",
+        "skipUrlSync": false,
+        "sort": 0,
+        "tagValuesQuery": "",
+        "tags": [],
+        "tagsQuery": "",
+        "type": "query",
+        "useTags": false
+      },
+      {
+        "allValue": null,
+        "current": {},
+        "datasource": "${DS_INDICATORS}",
+        "definition": "",
+        "error": null,
+        "hide": 0,
+        "includeAll": false,
+        "label": "Server",
+        "multi": false,
+        "name": "server",
+        "options": [],
+        "query": "show tag values with key =~ /server_ip|server|client_ip/ limit 100 ",
+        "refresh": 1,
+        "regex": "",
+        "skipUrlSync": false,
+        "sort": 0,
+        "tagValuesQuery": "",
+        "tags": [],
+        "tagsQuery": "",
+        "type": "query",
+        "useTags": false
+      },
+      {
+        "auto": true,
+        "auto_count": 50,
+        "auto_min": "1s",
+        "current": {
+          "selected": false,
+          "text": "auto",
+          "value": "$__auto_interval_res"
+        },
+        "error": null,
+        "hide": 0,
+        "label": "Resolution",
+        "name": "res",
+        "options": [
+          {
+            "selected": true,
+            "text": "auto",
+            "value": "$__auto_interval_res"
+          },
+          {
+            "selected": false,
+            "text": "1s",
+            "value": "1s"
+          },
+          {
+            "selected": false,
+            "text": "2s",
+            "value": "2s"
+          },
+          {
+            "selected": false,
+            "text": "5s",
+            "value": "5s"
+          },
+          {
+            "selected": false,
+            "text": "10s",
+            "value": "10s"
+          },
+          {
+            "selected": false,
+            "text": "15s",
+            "value": "15s"
+          },
+          {
+            "selected": false,
+            "text": "30s",
+            "value": "30s"
+          },
+          {
+            "selected": false,
+            "text": "1m",
+            "value": "1m"
+          },
+          {
+            "selected": false,
+            "text": "5m",
+            "value": "5m"
+          },
+          {
+            "selected": false,
+            "text": "10m",
+            "value": "10m"
+          },
+          {
+            "selected": false,
+            "text": "15m",
+            "value": "15m"
+          },
+          {
+            "selected": false,
+            "text": "30m",
+            "value": "30m"
+          },
+          {
+            "selected": false,
+            "text": "1h",
+            "value": "1h"
+          },
+          {
+            "selected": false,
+            "text": "6h",
+            "value": "6h"
+          },
+          {
+            "selected": false,
+            "text": "12h",
+            "value": "12h"
+          },
+          {
+            "selected": false,
+            "text": "1d",
+            "value": "1d"
+          },
+          {
+            "selected": false,
+            "text": "7d",
+            "value": "7d"
+          },
+          {
+            "selected": false,
+            "text": "14d",
+            "value": "14d"
+          },
+          {
+            "selected": false,
+            "text": "30d",
+            "value": "30d"
+          }
+        ],
+        "query": "1s,2s,5s,10s,15s,30s,1m,5m,10m,15m,30m,1h,6h,12h,1d,7d,14d,30d",
+        "refresh": 2,
+        "skipUrlSync": false,
+        "type": "interval"
+      },
+      {
+        "datasource": "indicators",
+        "error": null,
+        "filters": [],
+        "hide": 0,
+        "label": "User Defined Filters on indicators",
+        "name": "indicators",
+        "skipUrlSync": false,
+        "type": "adhoc"
+      }
+    ]
+  },
+  "time": {
+    "from": "now-5m",
+    "to": "now"
+  },
+  "timepicker": {
+    "refresh_intervals": [
+      "5s",
+      "10s",
+      "30s",
+      "1m",
+      "5m",
+      "15m",
+      "30m",
+      "1h",
+      "2h",
+      "1d"
+    ],
+    "time_options": [
+      "5m",
+      "15m",
+      "1h",
+      "6h",
+      "12h",
+      "24h",
+      "2d",
+      "7d",
+      "30d"
+    ]
+  },
+  "timezone": "",
+  "title": "Latency Network Monitor Level 2 w Sapphire",
+  "uid": "VkWUt7Jnk",
+  "version": 11
+}
