@@ -1,0 +1,1319 @@
+{
+  "__inputs": [
+    {
+      "name": "DS_INDICATORS",
+      "label": "indicators",
+      "description": "",
+      "type": "datasource",
+      "pluginId": "influxdb",
+      "pluginName": "InfluxDB"
+    }
+  ],
+  "__requires": [
+    {
+      "type": "grafana",
+      "id": "grafana",
+      "name": "Grafana",
+      "version": "7.3.1"
+    },
+    {
+      "type": "datasource",
+      "id": "influxdb",
+      "name": "InfluxDB",
+      "version": "1.0.0"
+    },
+    {
+      "type": "panel",
+      "id": "stat",
+      "name": "Stat",
+      "version": ""
+    },
+    {
+      "type": "panel",
+      "id": "text",
+      "name": "Text",
+      "version": ""
+    }
+  ],
+  "annotations": {
+    "list": [
+      {
+        "builtIn": 1,
+        "datasource": "-- Grafana --",
+        "enable": true,
+        "hide": true,
+        "iconColor": "rgba(0, 211, 255, 1)",
+        "name": "Annotations & Alerts",
+        "type": "dashboard"
+      }
+    ]
+  },
+  "editable": true,
+  "gnetId": null,
+  "graphTooltip": 1,
+  "id": null,
+  "iteration": 1642005901649,
+  "links": [
+    {
+      "asDropdown": true,
+      "icon": "external link",
+      "includeVars": true,
+      "keepTime": true,
+      "tags": [
+        "cPacket",
+        "TCP_Analytics",
+        "Level 2",
+        "Network_Monitor"
+      ],
+      "targetBlank": true,
+      "title": "Network Monitor Health Details",
+      "type": "dashboards"
+    }
+  ],
+  "panels": [
+    {
+      "datasource": "${DS_INDICATORS}",
+      "fieldConfig": {
+        "defaults": {
+          "custom": {}
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 3,
+        "w": 24,
+        "x": 0,
+        "y": 0
+      },
+      "id": 186,
+      "links": [],
+      "options": {
+        "content": "<center style=\"background-color:black;padding:1rem\"><a href=\"http://www.cpacketnetworks.com\" target=\"_new\"><img width=\"220px\" src=\"/static/images/cpacket_white_text.svg\"></a></center>",
+        "mode": "html"
+      },
+      "pluginVersion": "7.3.1",
+      "title": "",
+      "transparent": true,
+      "type": "text"
+    },
+    {
+      "collapsed": false,
+      "datasource": "${DS_INDICATORS}",
+      "gridPos": {
+        "h": 1,
+        "w": 24,
+        "x": 0,
+        "y": 3
+      },
+      "id": 178,
+      "panels": [],
+      "title": "Single Stats",
+      "type": "row"
+    },
+    {
+      "cacheTimeout": null,
+      "datasource": "${DS_INDICATORS}",
+      "description": "The largest \"average Syn to SynAck Response Time\" measured for any server associated with the Network Monitor $flow_g.",
+      "fieldConfig": {
+        "defaults": {
+          "custom": {},
+          "mappings": [
+            {
+              "id": 0,
+              "op": "=",
+              "text": "N/A",
+              "type": 1,
+              "value": "null"
+            }
+          ],
+          "nullValueMode": "connected",
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "#299c46",
+                "value": null
+              },
+              {
+                "color": "rgba(237, 129, 40, 0.89)",
+                "value": 0.1
+              },
+              {
+                "color": "#d44a3a",
+                "value": 0.3
+              }
+            ]
+          },
+          "unit": "s"
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 3,
+        "w": 4,
+        "x": 0,
+        "y": 4
+      },
+      "id": 179,
+      "interval": null,
+      "links": [
+        {
+          "targetBlank": true,
+          "title": "Latency: Network Monitor $flow_g",
+          "url": "/graph-engine/d/cPacket-4tuple-Monitor-Latency-Level2/?${__all_variables}&${__url_time_range}"
+        },
+        {
+          "targetBlank": true,
+          "title": "Protocol Breakdown $flow_g",
+          "url": "/graph-engine/d/cPacket-4tuple-Monitor-Protocol-Level2/?${__all_variables}&${__url_time_range}"
+        }
+      ],
+      "maxDataPoints": 100,
+      "options": {
+        "colorMode": "background",
+        "graphMode": "area",
+        "justifyMode": "auto",
+        "orientation": "horizontal",
+        "reduceOptions": {
+          "calcs": [
+            "mean"
+          ],
+          "fields": "",
+          "values": false
+        },
+        "textMode": "auto"
+      },
+      "pluginVersion": "7.3.1",
+      "repeat": "flow_g",
+      "repeatDirection": "v",
+      "targets": [
+        {
+          "groupBy": [
+            {
+              "params": [
+                "$res"
+              ],
+              "type": "time"
+            },
+            {
+              "params": [
+                "flow_g"
+              ],
+              "type": "tag"
+            },
+            {
+              "params": [
+                "none"
+              ],
+              "type": "fill"
+            }
+          ],
+          "measurement": "persecond",
+          "orderByTime": "ASC",
+          "policy": "default",
+          "query": "SELECT MAX(\"response_time\") FROM\n(\n    SELECT MEAN(\"response_time\") as \"response_time\" FROM \"persecond\"\n    WHERE (\"m_type\" = 'flow' AND \"dp_type\" = 'eps' AND \"flow_g\" =~ /^$flow_g$/ AND \"response_time\" > 0) AND $timeFilter\n    GROUP BY \"flow_g\", \"server\" FILL(none)\n)\nWHERE $timeFilter FILL(0)",
+          "rawQuery": true,
+          "refId": "A",
+          "resultFormat": "time_series",
+          "select": [
+            [
+              {
+                "params": [
+                  "response_time"
+                ],
+                "type": "field"
+              },
+              {
+                "params": [],
+                "type": "max"
+              }
+            ]
+          ],
+          "tags": [
+            {
+              "key": "m_type",
+              "operator": "=",
+              "value": "flow"
+            },
+            {
+              "condition": "AND",
+              "key": "dp_type",
+              "operator": "=",
+              "value": "eps"
+            },
+            {
+              "condition": "AND",
+              "key": "flow_g",
+              "operator": "=~",
+              "value": "/^$flow_g$/"
+            }
+          ]
+        },
+        {
+          "groupBy": [
+            {
+              "params": [
+                "network_monitor_name"
+              ],
+              "type": "tag"
+            },
+            {
+              "params": [
+                "null"
+              ],
+              "type": "fill"
+            }
+          ],
+          "measurement": "tcp_active_sessions_4_tuple",
+          "orderByTime": "ASC",
+          "policy": "default",
+          "query": "SELECT MAX(\"response_time\") FROM\n(\n    SELECT MEAN(\"response_time\") as \"response_time\" FROM \"persecond\"\n    WHERE (\"m_type\" = 'flow' AND \"dp_type\" = 'eps' AND \"flow_g\" =~ /^$flow_g$/ AND \"response_time\" > 0) AND $timeFilter\n    GROUP BY \"flow_g\", \"server\" FILL(none)\n)\nWHERE $timeFilter FILL(0)",
+          "rawQuery": false,
+          "refId": "C",
+          "resultFormat": "time_series",
+          "select": [
+            [
+              {
+                "params": [
+                  "response_time_s_avg"
+                ],
+                "type": "field"
+              }
+            ]
+          ],
+          "tags": [
+            {
+              "key": "network_monitor_name",
+              "operator": "=~",
+              "value": "/^$flow_g$/"
+            }
+          ]
+        }
+      ],
+      "title": "$flow_g Response Time",
+      "type": "stat"
+    },
+    {
+      "cacheTimeout": null,
+      "datasource": "${DS_INDICATORS}",
+      "description": "The largest \"average Round Trip Time\" measured for any server TCP session associated with the Network Monitor $flow_g.",
+      "fieldConfig": {
+        "defaults": {
+          "custom": {},
+          "mappings": [
+            {
+              "id": 0,
+              "op": "=",
+              "text": "N/A",
+              "type": 1,
+              "value": "null"
+            }
+          ],
+          "nullValueMode": "connected",
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "#299c46",
+                "value": null
+              },
+              {
+                "color": "rgba(237, 129, 40, 0.89)",
+                "value": 0.25
+              },
+              {
+                "color": "#d44a3a",
+                "value": 0.5
+              }
+            ]
+          },
+          "unit": "s"
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 3,
+        "w": 4,
+        "x": 4,
+        "y": 4
+      },
+      "id": 441,
+      "interval": null,
+      "links": [
+        {
+          "targetBlank": true,
+          "title": "Latency: Network Monitor $flow_g",
+          "url": "/graph-engine/d/cPacket-4tuple-Monitor-Latency-Level2/?${__all_variables}&${__url_time_range}"
+        },
+        {
+          "targetBlank": true,
+          "title": "Protocol Breakdown",
+          "url": "/graph-engine/d/cPacket-4tuple-Monitor-Protocol-Level2/?${__all_variables}&${__url_time_range}"
+        }
+      ],
+      "maxDataPoints": 100,
+      "options": {
+        "colorMode": "background",
+        "graphMode": "area",
+        "justifyMode": "auto",
+        "orientation": "horizontal",
+        "reduceOptions": {
+          "calcs": [
+            "mean"
+          ],
+          "fields": "",
+          "values": false
+        },
+        "textMode": "auto"
+      },
+      "pluginVersion": "7.3.1",
+      "repeat": "flow_g",
+      "repeatDirection": "v",
+      "targets": [
+        {
+          "groupBy": [
+            {
+              "params": [
+                "$res"
+              ],
+              "type": "time"
+            },
+            {
+              "params": [
+                "flow_g"
+              ],
+              "type": "tag"
+            }
+          ],
+          "measurement": "persecond",
+          "orderByTime": "ASC",
+          "policy": "default",
+          "query": "SELECT MAX(\"rtt\") FROM\n(\n    SELECT MEAN(\"from_srvr_rtt\") + MEAN(\"to_srvr_rtt\") as \"rtt\" FROM \"persecond\"\n    WHERE (\"m_type\" = 'flow' AND \"dp_type\" = 'eps' AND \"flow_g\" =~ /^$flow_g$/ AND \"from_srvr_rtt\" > 0) AND $timeFilter\n    GROUP BY \"flow_g\", \"server\" FILL(none)\n)\nWHERE $timeFilter FILL(0)",
+          "rawQuery": true,
+          "refId": "A",
+          "resultFormat": "time_series",
+          "select": [
+            [
+              {
+                "params": [
+                  "from_srvr_rtt"
+                ],
+                "type": "field"
+              },
+              {
+                "params": [],
+                "type": "max"
+              }
+            ]
+          ],
+          "tags": [
+            {
+              "key": "m_type",
+              "operator": "=",
+              "value": "flow"
+            },
+            {
+              "condition": "AND",
+              "key": "dp_type",
+              "operator": "=",
+              "value": "eps"
+            },
+            {
+              "condition": "AND",
+              "key": "flow_g",
+              "operator": "=~",
+              "value": "/^$flow_g$/"
+            }
+          ]
+        },
+        {
+          "groupBy": [
+            {
+              "params": [
+                "$__interval"
+              ],
+              "type": "time"
+            },
+            {
+              "params": [
+                "null"
+              ],
+              "type": "fill"
+            }
+          ],
+          "measurement": "tcp_4_tuple",
+          "orderByTime": "ASC",
+          "policy": "default",
+          "query": "SELECT MAX(\"rtt\") from \n( \n    SELECT mean(\"rtt_client_s\") + mean(\"rtt_server_s\") as \"rtt\" FROM \"tcp_4_tuple\" \n    WHERE (\"network_monitor_name\" =~ /^$flow_g$/) AND $timeFilter \n    GROUP BY time($__interval) fill(null)\n)",
+          "rawQuery": true,
+          "refId": "B",
+          "resultFormat": "time_series",
+          "select": [
+            [
+              {
+                "params": [
+                  "rtt_client_s"
+                ],
+                "type": "field"
+              },
+              {
+                "params": [],
+                "type": "mean"
+              }
+            ],
+            [
+              {
+                "params": [
+                  "rtt_server_s"
+                ],
+                "type": "field"
+              },
+              {
+                "params": [],
+                "type": "mean"
+              }
+            ]
+          ],
+          "tags": [
+            {
+              "key": "network_monitor_name",
+              "operator": "=~",
+              "value": "/^$flow_g$/"
+            }
+          ]
+        }
+      ],
+      "title": "$flow_g Round Trip Time",
+      "type": "stat"
+    },
+    {
+      "cacheTimeout": null,
+      "datasource": "${DS_INDICATORS}",
+      "description": "The largest number of (client and server) zero windows for any server associated with the Network Monitor $flow_g.",
+      "fieldConfig": {
+        "defaults": {
+          "custom": {},
+          "mappings": [
+            {
+              "id": 0,
+              "op": "=",
+              "text": "N/A",
+              "type": 1,
+              "value": "null"
+            }
+          ],
+          "nullValueMode": "connected",
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "#299c46",
+                "value": null
+              },
+              {
+                "color": "rgba(237, 129, 40, 0.89)",
+                "value": 2
+              },
+              {
+                "color": "#d44a3a",
+                "value": 25
+              }
+            ]
+          },
+          "unit": "none"
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 3,
+        "w": 4,
+        "x": 8,
+        "y": 4
+      },
+      "id": 184,
+      "interval": null,
+      "links": [
+        {
+          "targetBlank": true,
+          "title": "TCP Errors: Network Monitor $flow_g",
+          "url": "/graph-engine/d/cPacket-4tuple-Monitor-TCPErrors-Level2/?${__all_variables}&${__url_time_range}"
+        },
+        {
+          "targetBlank": true,
+          "title": " Protocol Breakdown",
+          "url": "/graph-engine/d/cPacket-4tuple-Monitor-Protocol-Level2/?${__all_variables}&${__url_time_range}"
+        }
+      ],
+      "maxDataPoints": 100,
+      "options": {
+        "colorMode": "background",
+        "graphMode": "area",
+        "justifyMode": "auto",
+        "orientation": "horizontal",
+        "reduceOptions": {
+          "calcs": [
+            "max"
+          ],
+          "fields": "",
+          "values": false
+        },
+        "textMode": "auto"
+      },
+      "pluginVersion": "7.3.1",
+      "repeat": "flow_g",
+      "repeatDirection": "v",
+      "targets": [
+        {
+          "groupBy": [
+            {
+              "params": [
+                "$res"
+              ],
+              "type": "time"
+            },
+            {
+              "params": [
+                "none"
+              ],
+              "type": "fill"
+            }
+          ],
+          "measurement": "persecond",
+          "orderByTime": "ASC",
+          "policy": "default",
+          "query": "SELECT MAX(\"zwins\") FROM\n(\n    SELECT SUM(\"from_srvr_zwins\") + SUM(\"to_srvr_zwins\") as \"zwins\" FROM \"persecond\"\n    WHERE (\"m_type\" = 'flow' AND \"dp_type\" = 'eps' AND \"flow_g\" =~ /^$flow_g$/) AND $timeFilter\n    GROUP BY \"flow_g\", \"server\" FILL(0)\n)\nWHERE $timeFilter FILL(0)",
+          "rawQuery": true,
+          "refId": "A",
+          "resultFormat": "time_series",
+          "select": [
+            [
+              {
+                "params": [
+                  "from_srvr_zwins"
+                ],
+                "type": "field"
+              },
+              {
+                "params": [],
+                "type": "sum"
+              }
+            ],
+            [
+              {
+                "params": [
+                  "to_srvr_zwins"
+                ],
+                "type": "field"
+              },
+              {
+                "params": [],
+                "type": "sum"
+              }
+            ]
+          ],
+          "tags": [
+            {
+              "key": "m_type",
+              "operator": "=",
+              "value": "flow"
+            },
+            {
+              "condition": "AND",
+              "key": "dp_type",
+              "operator": "=",
+              "value": "eps"
+            },
+            {
+              "condition": "AND",
+              "key": "flow_g",
+              "operator": "=~",
+              "value": "/^$flow_g$/"
+            }
+          ]
+        },
+        {
+          "groupBy": [
+            {
+              "params": [
+                "$__interval"
+              ],
+              "type": "time"
+            },
+            {
+              "params": [
+                "null"
+              ],
+              "type": "fill"
+            }
+          ],
+          "measurement": "tcp_4_tuple",
+          "orderByTime": "ASC",
+          "policy": "default",
+          "query": "SELECT sum(\"zwins_client\") + sum(\"zwins_server\") FROM \"tcp_4_tuple\" WHERE (\"network_monitor_name\" =~ /^$flow_g$/) AND $timeFilter GROUP BY time($__interval) fill(null)",
+          "rawQuery": true,
+          "refId": "B",
+          "resultFormat": "time_series",
+          "select": [
+            [
+              {
+                "params": [
+                  "zwins_client"
+                ],
+                "type": "field"
+              },
+              {
+                "params": [],
+                "type": "sum"
+              }
+            ],
+            [
+              {
+                "params": [
+                  "zwins_server"
+                ],
+                "type": "field"
+              },
+              {
+                "params": [],
+                "type": "sum"
+              }
+            ]
+          ],
+          "tags": [
+            {
+              "key": "network_monitor_name",
+              "operator": "=~",
+              "value": "/^$flow_g$/"
+            }
+          ]
+        }
+      ],
+      "title": "$flow_g Zero Windows",
+      "type": "stat"
+    },
+    {
+      "cacheTimeout": null,
+      "datasource": "${DS_INDICATORS}",
+      "description": "The largest number of (client and server) retransmissions for any server associated with the Network Monitor $flow_g.",
+      "fieldConfig": {
+        "defaults": {
+          "custom": {},
+          "mappings": [
+            {
+              "id": 0,
+              "op": "=",
+              "text": "N/A",
+              "type": 1,
+              "value": "null"
+            }
+          ],
+          "nullValueMode": "connected",
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "#299c46",
+                "value": null
+              },
+              {
+                "color": "rgba(237, 129, 40, 0.89)",
+                "value": 1000
+              },
+              {
+                "color": "#d44a3a",
+                "value": 10000
+              }
+            ]
+          },
+          "unit": "none"
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 3,
+        "w": 4,
+        "x": 12,
+        "y": 4
+      },
+      "id": 183,
+      "interval": null,
+      "links": [
+        {
+          "targetBlank": true,
+          "title": "TCP Errors: Network Monitor $flow_g",
+          "url": "/graph-engine/d/cPacket-4tuple-Monitor-TCPErrors-Level2/?${__all_variables}&${__url_time_range}"
+        },
+        {
+          "targetBlank": true,
+          "title": "Protocol Breakdown",
+          "url": "/graph-engine/d/cPacket-4tuple-Monitor-Protocol-Level2/?${__all_variables}&${__url_time_range}"
+        }
+      ],
+      "maxDataPoints": 100,
+      "options": {
+        "colorMode": "background",
+        "graphMode": "area",
+        "justifyMode": "auto",
+        "orientation": "horizontal",
+        "reduceOptions": {
+          "calcs": [
+            "max"
+          ],
+          "fields": "",
+          "values": false
+        },
+        "textMode": "auto"
+      },
+      "pluginVersion": "7.3.1",
+      "repeat": "flow_g",
+      "repeatDirection": "v",
+      "targets": [
+        {
+          "alias": "",
+          "groupBy": [
+            {
+              "params": [
+                "$res"
+              ],
+              "type": "time"
+            },
+            {
+              "params": [
+                "none"
+              ],
+              "type": "fill"
+            }
+          ],
+          "measurement": "persecond",
+          "orderByTime": "ASC",
+          "policy": "default",
+          "query": "SELECT MAX(\"retrans\") FROM\n(\n    SELECT SUM(\"from_srvr_retrans\") + SUM(\"to_srvr_retrans\") as \"retrans\" FROM \"persecond\"\n    WHERE (\"m_type\" = 'flow' AND \"dp_type\" = 'eps' AND \"flow_g\" =~ /^$flow_g$/) AND $timeFilter\n    GROUP BY \"flow_g\", \"server\" FILL(0)\n)\nWHERE $timeFilter FILL(0)",
+          "rawQuery": true,
+          "refId": "A",
+          "resultFormat": "time_series",
+          "select": [
+            [
+              {
+                "params": [
+                  "from_srvr_retrans"
+                ],
+                "type": "field"
+              },
+              {
+                "params": [],
+                "type": "sum"
+              }
+            ]
+          ],
+          "tags": [
+            {
+              "key": "m_type",
+              "operator": "=",
+              "value": "flow"
+            },
+            {
+              "condition": "AND",
+              "key": "dp_type",
+              "operator": "=",
+              "value": "eps"
+            },
+            {
+              "condition": "AND",
+              "key": "flow_g",
+              "operator": "=~",
+              "value": "/^$flow_g$/"
+            }
+          ]
+        },
+        {
+          "groupBy": [
+            {
+              "params": [
+                "$__interval"
+              ],
+              "type": "time"
+            },
+            {
+              "params": [
+                "null"
+              ],
+              "type": "fill"
+            }
+          ],
+          "measurement": "tcp_4_tuple",
+          "orderByTime": "ASC",
+          "policy": "default",
+          "query": "SELECT sum(\"retransmissions_client\") + sum(\"retransmissions_server\") FROM \"tcp_4_tuple\" WHERE (\"network_monitor_name\" =~ /^$flow_g$/) AND $timeFilter GROUP BY time($__interval) fill(null)",
+          "rawQuery": true,
+          "refId": "B",
+          "resultFormat": "time_series",
+          "select": [
+            [
+              {
+                "params": [
+                  "retransmissions_client"
+                ],
+                "type": "field"
+              },
+              {
+                "params": [],
+                "type": "sum"
+              }
+            ],
+            [
+              {
+                "params": [
+                  "retransmissions_server"
+                ],
+                "type": "field"
+              },
+              {
+                "params": [],
+                "type": "sum"
+              }
+            ]
+          ],
+          "tags": [
+            {
+              "key": "network_monitor_name",
+              "operator": "=~",
+              "value": "/^$flow_g$/"
+            }
+          ]
+        }
+      ],
+      "title": "$flow_g Retransmissions",
+      "type": "stat"
+    },
+    {
+      "cacheTimeout": null,
+      "datasource": "${DS_INDICATORS}",
+      "description": "The largest number of \"failed SYN and missing SYN\" events counted for any server associated with the Network Monitor $flow_g.",
+      "fieldConfig": {
+        "defaults": {
+          "custom": {},
+          "mappings": [
+            {
+              "id": 0,
+              "op": "=",
+              "text": "N/A",
+              "type": 1,
+              "value": "null"
+            }
+          ],
+          "nullValueMode": "connected",
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "#299c46",
+                "value": null
+              },
+              {
+                "color": "rgba(237, 129, 40, 0.89)",
+                "value": 500
+              },
+              {
+                "color": "#d44a3a",
+                "value": 5000
+              }
+            ]
+          },
+          "unit": "none"
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 3,
+        "w": 4,
+        "x": 16,
+        "y": 4
+      },
+      "id": 182,
+      "interval": null,
+      "links": [
+        {
+          "targetBlank": true,
+          "title": "SYN Metrics: Network Monitor $flow_g",
+          "url": "/graph-engine/d/cPacket-4tuple-Monitor-SynMetrics-Level2/?${__all_variables}&${__url_time_range}"
+        },
+        {
+          "targetBlank": true,
+          "title": "Protocol Breakdown",
+          "url": "/graph-engine/d/cPacket-4tuple-Monitor-Protocol-Level2/?${__all_variables}&${__url_time_range}"
+        }
+      ],
+      "maxDataPoints": 100,
+      "options": {
+        "colorMode": "background",
+        "graphMode": "area",
+        "justifyMode": "auto",
+        "orientation": "horizontal",
+        "reduceOptions": {
+          "calcs": [
+            "max"
+          ],
+          "fields": "",
+          "values": false
+        },
+        "textMode": "auto"
+      },
+      "pluginVersion": "7.3.1",
+      "repeat": "flow_g",
+      "repeatDirection": "v",
+      "targets": [
+        {
+          "alias": "",
+          "groupBy": [
+            {
+              "params": [
+                "$res"
+              ],
+              "type": "time"
+            },
+            {
+              "params": [
+                "none"
+              ],
+              "type": "fill"
+            }
+          ],
+          "measurement": "persecond",
+          "orderByTime": "ASC",
+          "policy": "default",
+          "query": "SELECT MAX(\"syn_errors\") FROM\n(\n    SELECT SUM(\"missing_syn\") + SUM(\"fail_syn\") as \"syn_errors\" FROM \"persecond\"\n    WHERE (\"m_type\" = 'flow' AND \"dp_type\" = 'eps' AND \"flow_g\" =~ /^$flow_g$/) AND $timeFilter\n    GROUP BY \"flow_g\", \"server\" FILL(0)\n)\nWHERE $timeFilter FILL(0)\n\n",
+          "rawQuery": true,
+          "refId": "A",
+          "resultFormat": "time_series",
+          "select": [
+            [
+              {
+                "params": [
+                  "missing_syn"
+                ],
+                "type": "field"
+              },
+              {
+                "params": [],
+                "type": "sum"
+              }
+            ]
+          ],
+          "tags": [
+            {
+              "key": "m_type",
+              "operator": "=",
+              "value": "flow"
+            },
+            {
+              "condition": "AND",
+              "key": "dp_type",
+              "operator": "=",
+              "value": "eps"
+            },
+            {
+              "condition": "AND",
+              "key": "flow_g",
+              "operator": "=~",
+              "value": "/^$flow_g$/"
+            }
+          ]
+        },
+        {
+          "groupBy": [
+            {
+              "params": [
+                "$__interval"
+              ],
+              "type": "time"
+            },
+            {
+              "params": [
+                "null"
+              ],
+              "type": "fill"
+            }
+          ],
+          "measurement": "tcp_active_sessions_4_tuple",
+          "orderByTime": "ASC",
+          "policy": "default",
+          "query": "SELECT sum(\"missing_syns\") + sum(\"syn_failures\") FROM \"tcp_active_sessions_4_tuple\" WHERE (\"network_monitor_name\" =~ /^$flow_g$/) AND $timeFilter GROUP BY time($__interval) fill(null)",
+          "rawQuery": true,
+          "refId": "B",
+          "resultFormat": "time_series",
+          "select": [
+            [
+              {
+                "params": [
+                  "missing_syns"
+                ],
+                "type": "field"
+              },
+              {
+                "params": [],
+                "type": "sum"
+              }
+            ],
+            [
+              {
+                "params": [
+                  "syn_failures"
+                ],
+                "type": "field"
+              },
+              {
+                "params": [],
+                "type": "sum"
+              }
+            ]
+          ],
+          "tags": [
+            {
+              "key": "network_monitor_name",
+              "operator": "=~",
+              "value": "/^$flow_g$/"
+            }
+          ]
+        }
+      ],
+      "title": "$flow_g SYN Errors",
+      "type": "stat"
+    },
+    {
+      "cacheTimeout": null,
+      "datasource": "${DS_INDICATORS}",
+      "description": "The most \"new sessions\" established for any server associated with the Network Monitor $flow_g.",
+      "fieldConfig": {
+        "defaults": {
+          "custom": {},
+          "mappings": [
+            {
+              "id": 0,
+              "op": "=",
+              "text": "N/A",
+              "type": 1,
+              "value": "null"
+            }
+          ],
+          "nullValueMode": "connected",
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "#299c46",
+                "value": null
+              },
+              {
+                "color": "rgba(237, 129, 40, 0.89)",
+                "value": 5000
+              },
+              {
+                "color": "#d44a3a",
+                "value": 25000
+              }
+            ]
+          },
+          "unit": "none"
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 3,
+        "w": 4,
+        "x": 20,
+        "y": 4
+      },
+      "id": 181,
+      "interval": null,
+      "links": [
+        {
+          "targetBlank": true,
+          "title": "SYN Metrics: Network Monitor $flow_g",
+          "url": "/graph-engine/d/cPacket-4tuple-Monitor-SynMetrics-Level2/?${__all_variables}&${__url_time_range}"
+        },
+        {
+          "targetBlank": true,
+          "title": "Protocol Breakdown",
+          "url": "/graph-engine/d/cPacket-4tuple-Monitor-Protocol-Level2/?${__all_variables}&${__url_time_range}"
+        }
+      ],
+      "maxDataPoints": 100,
+      "options": {
+        "colorMode": "background",
+        "graphMode": "area",
+        "justifyMode": "auto",
+        "orientation": "horizontal",
+        "reduceOptions": {
+          "calcs": [
+            "max"
+          ],
+          "fields": "",
+          "values": false
+        },
+        "textMode": "auto"
+      },
+      "pluginVersion": "7.3.1",
+      "repeat": "flow_g",
+      "repeatDirection": "v",
+      "targets": [
+        {
+          "alias": "",
+          "groupBy": [],
+          "measurement": "persecond",
+          "orderByTime": "ASC",
+          "policy": "default",
+          "query": "SELECT MAX(\"sessions\") FROM\n(\n    SELECT SUM(\"new_sessions\") as \"sessions\" FROM \"persecond\"\n    WHERE (\"m_type\" = 'flow' AND \"dp_type\" = 'eps' AND \"flow_g\" =~ /^$flow_g$/) AND $timeFilter\n    GROUP BY \"flow_g\", \"server\" FILL(0)\n)\nWHERE $timeFilter FILL(0)",
+          "rawQuery": true,
+          "refId": "A",
+          "resultFormat": "table",
+          "select": [
+            [
+              {
+                "params": [
+                  "active_sessions"
+                ],
+                "type": "field"
+              },
+              {
+                "params": [],
+                "type": "max"
+              }
+            ]
+          ],
+          "tags": [
+            {
+              "key": "m_type",
+              "operator": "=",
+              "value": "flow"
+            },
+            {
+              "condition": "AND",
+              "key": "dp_type",
+              "operator": "=",
+              "value": "eps"
+            },
+            {
+              "condition": "AND",
+              "key": "flow_g",
+              "operator": "=~",
+              "value": "/^$flow_g$/"
+            }
+          ]
+        },
+        {
+          "groupBy": [
+            {
+              "params": [
+                "$__interval"
+              ],
+              "type": "time"
+            },
+            {
+              "params": [
+                "null"
+              ],
+              "type": "fill"
+            }
+          ],
+          "measurement": "tcp_active_sessions_4_tuple",
+          "orderByTime": "ASC",
+          "policy": "default",
+          "refId": "B",
+          "resultFormat": "time_series",
+          "select": [
+            [
+              {
+                "params": [
+                  "active_sessions"
+                ],
+                "type": "field"
+              },
+              {
+                "params": [],
+                "type": "count"
+              }
+            ]
+          ],
+          "tags": [
+            {
+              "key": "network_monitor_name",
+              "operator": "=~",
+              "value": "/^$flow_g$/"
+            }
+          ]
+        }
+      ],
+      "title": "$flow_g New Sessions",
+      "type": "stat"
+    }
+  ],
+  "schemaVersion": 26,
+  "style": "dark",
+  "tags": [
+    "Summary",
+    "TCP_Analytics",
+    "Level 1",
+    "cPacket"
+  ],
+  "templating": {
+    "list": [
+      {
+        "allValue": null,
+        "current": {},
+        "datasource": "${DS_INDICATORS}",
+        "definition": "",
+        "error": null,
+        "hide": 0,
+        "includeAll": true,
+        "label": "Network Monitors to Display",
+        "multi": true,
+        "name": "flow_g",
+        "options": [],
+        "query": "show tag values with key =~ /flow_g|network_monitor_name/",
+        "refresh": 1,
+        "regex": "",
+        "skipUrlSync": false,
+        "sort": 0,
+        "tagValuesQuery": "",
+        "tags": [],
+        "tagsQuery": "",
+        "type": "query",
+        "useTags": false
+      }
+    ]
+  },
+  "time": {
+    "from": "now-30m",
+    "to": "now"
+  },
+  "timepicker": {
+    "hidden": false,
+    "refresh_intervals": [
+      "5s",
+      "10s",
+      "30s",
+      "1m",
+      "5m",
+      "15m",
+      "30m",
+      "1h",
+      "2h",
+      "1d"
+    ],
+    "time_options": [
+      "5m",
+      "15m",
+      "1h",
+      "6h",
+      "12h",
+      "24h",
+      "2d",
+      "7d",
+      "30d"
+    ]
+  },
+  "timezone": "",
+  "title": "TCP Health Level 1 w Sapphire",
+  "uid": "PQ691717z",
+  "version": 6
+}
