@@ -127,8 +127,6 @@ init
 pref_org_json=$(curl --noproxy '*' -k $CURL_COOKIE "$HOST/graph-engine/api/org/preferences")
 pref_user_json=$(curl --noproxy '*' -k $CURL_COOKIE "$HOST/graph-engine/api/user/preferences")
 
-rm mycookie
-
 # log result
 if [ -z "$pref_org_json" ] || [ -z "$pref_user_json" ]; then
   log_failure "Failed to download preferences. Please check parameters passed in. "
@@ -154,6 +152,7 @@ GRAFANA_VERSION="grafana_$(echo $grafana_json | jq '.version' | tr -d '"')"
 DATE_TIME="date_$(date '+%d%m%Y_%H%M%S')"
 PREF_FILE_ZIP="${PREF_FOLDER}_${TARGET_HOST_IP}_${CCLEAR_VERSION}_${GRAFANA_VERSION}_${DATE_TIME}"
 zip -r -m "${PREF_FILE_ZIP}.zip" "${PREF_FOLDER}"
+rm mycookie
 
 log_title "Preferences were saved in ${PREF_FILE_ZIP}";
 log_title "------------------------------ FINISHED ---------------------------------";
