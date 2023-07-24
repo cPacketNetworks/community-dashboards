@@ -39,49 +39,64 @@ def find_match(dash_str):
     return False, False, ""
 
 
-# Depth First Search to find any matching measurement and back up the tree to update the nearest parent's "datasource"
-# property to the matching split database
+def replace(dash_obj, is_matched, ds_matched):
+    if dash_obj and is_matched:
+        if DS_KEY in dash_obj.keys() and dash_obj[DS_KEY] == DS_ORIGINAL:
+            dash_obj[DS_KEY] = ds_matched
+            return True, False, ""
+    return False, is_matched, ds_matched
+
+
 def split_datasource_json(dash_obj):
+    """
+    Depth First Search to find any matching measurement and back up the tree to update the nearest parent's "datasource"
+    property to the matching split database.
+
+    Returns:
+        is_updated: if any node gets updated, it bubbles up to root so the dashboard json file will be rewritten
+        is_matched: notifies each node's parent if there's a match to replace.
+        ds_matched: the name of the matching datasource to replace with.
+    """
     is_updated: bool = False
     is_matched: bool = False
     ds_matched: str = ""
 
-    if type(dash_obj) == list:
-        for ls in dash_obj:
-            temp_is_updated, is_matched, ds_matched = split_datasource_json(ls)
+    if dash_obj:
+        if type(dash_obj) == list:
+            for ls in dash_obj:
+                temp_is_updated, is_matched, ds_matched = split_datasource_json(ls)
+                if temp_is_updated:
+                    is_updated = True
+        elif type(dash_obj) == dict:
+            # depth first
+            for key, value in dash_obj.items():
+                temp_is_updated, temp_is_matched, temp_ds_matched = split_datasource_json(value)
+                if temp_is_updated:
+                    is_updated = True
+                if temp_is_matched:
+                    is_matched = True
+                    ds_matched = temp_ds_matched
+            # update datasource
+                temp_is_updated, is_matched, ds_matched = replace(dash_obj, is_matched, ds_matched)
+                if temp_is_updated:
+                    is_updated = True
+        elif type(dash_obj) == str:
+            temp_is_updated, is_matched, ds_matched = find_match(dash_obj)
             if temp_is_updated:
                 is_updated = True
-    elif type(dash_obj) == dict:
-        # depth first
-        for key, value in dash_obj.items():
-            temp_is_updated, temp_is_matched, temp_ds_matched = split_datasource_json(value)
-            if temp_is_updated:
-                is_updated = True
-            if temp_is_matched:
-                is_matched = True
-                ds_matched = temp_ds_matched
-        # update datasource
-        if is_matched and DS_KEY in dash_obj.keys() and dash_obj[DS_KEY] == DS_ORIGINAL:
-            dash_obj[DS_KEY] = ds_matched
-            is_matched = False
-            ds_matched = ""
-            is_updated = True
-    elif type(dash_obj) == str:
-        return find_match(dash_obj)
-    else:
-        pass  # do nothing with other types: int, float, bool, None
+        else:
+            pass  # do nothing with other types: int, float, bool, None
     return is_updated, is_matched, ds_matched
 
 
 def split_datasource_file(file):
     is_updated = False
-    print(file)
     with open(file, "r") as dash_json:
         dash_obj = json.load(dash_json)
     for prop in SEARCH_PROPERTIES:
-        temp_is_updated, temp_is_matched, temp_ds_matched = split_datasource_json(dash_obj[prop])
+        temp_is_updated, is_matched, ds_matched = split_datasource_json(dash_obj[prop])
         if temp_is_updated:
-            is_updated = temp_is_updated
+            is_updated = True
     if is_updated:
         with open(str(file)[:file.index(".json")] + OUTFILE_EXTENSION, "w") as f:
             json.dump(dash_obj, f, indent=4)
@@ -90,8 +105,11 @@ def split_datasource_file(file):
 def split_datasource_folder(folder):
     for root, dirs, files in os.walk(folder):
         for file in files:
-            if str(file).endswith(".json"):
-                split_datasource_file(root + "/" + file)
+            try:
+                if str(file).endswith(".json"):
+                    split_datasource_file(root + "/" + file)
+            except Exception:
+                continue
         for sub_dir in dirs:
             split_datasource_folder(sub_dir)
 

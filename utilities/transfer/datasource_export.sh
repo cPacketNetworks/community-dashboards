@@ -1,10 +1,14 @@
 #!/bin/bash
 
+# Script to export datasource from a specified cClear as JSON files.
+# Modified from Paul Sulistio's scripts.
+
 OPTSPEC=":hu:p:t:"
 
+###### Show help on how to use this script ######
 show_help() {
 cat << EOF
-Usage: $0 [-u USER] [-p PASSWORD] [-t TARGET_HOST] 
+Usage: $0 [-u USER] [-p PASSWORD] [-t TARGET_HOST_IP]
 Script to export grafana datasources
     -u      Required. cClear user to login
     -p      Required. cClear user password to login
@@ -25,7 +29,7 @@ while getopts "$OPTSPEC" optchar; do
         p)
             PASSWORD="$OPTARG";;
         t)
-            HOST="$OPTARG";;
+            TARGET_HOST_IP="$OPTARG";;
         \?)
           echo "Invalid option: -$OPTARG" >&2
           exit 1
@@ -37,7 +41,8 @@ while getopts "$OPTSPEC" optchar; do
     esac
 done
 
-if [ -z "$USER" ] || [ -z "$PASSWORD" ] || [ -z "$HOST" ]; then
+###### Check required arguments ######
+if [ -z "$USER" ] || [ -z "$PASSWORD" ] || [ -z "$TARGET_HOST_IP" ]; then
     show_help
     exit 1
 fi
@@ -91,36 +96,53 @@ function log_title() {
    ${SETCOLOR_NORMAL}
 }
 
-mycookie="$PWD/mycookie"
-counter=0
-
 function init() {
-   DS_DIR="$PWD/datasources"
+   DS_FOLDER="datasources"
+   DS_DIR="$PWD/${DS_FOLDER}"
+   echo $DS_DIR
 
    if [ ! -d "${DS_DIR}" ]; then
-   	 mkdir "${DS_DIR}" 
+   	 mkdir -p "${DS_DIR}"
    else
-   	log_title "----------------- A $DS_DIR directory already exists! -----------------"
+   	 log_title "----------------- A $DS_DIR directory already exists! -----------------"
+   	 log_title "----------------- Rename or remove this directory before continuing -----------------"
+   	 exit 1
    fi
 }
 
-init
-
-# host url
-if [[ ! "$HOST" == "https://"* ]]; then
-  HOST="https://$HOST"
+# set cookie param for curl command according to login options
+STATUS_CODE=$(curl --noproxy '*' -k --write-out '%{http_code}' --silent --output /dev/null --data "uname=$USER&psw=$PASSWORD" "https://$TARGET_HOST_IP/sess/login?rp=/vb/")
+if [[ "$STATUS_CODE" -eq 404 ]]; then
+  HOST="https://$USER:$PASSWORD@$TARGET_HOST_IP"
+elif [[ "$STATUS_CODE" -eq 302 ]]; then
+  HOST="https://$TARGET_HOST_IP"
+  mycookie="$PWD/mycookie"
+  LOGIN=$(curl --noproxy '*' -k -c mycookie --data "uname=$USER&psw=$PASSWORD" $HOST/sess/login?rp=/vb/)
+  CURL_COOKIE="-b $mycookie"
+else
+  show_help
+  exit 1
 fi
 
-curl --noproxy '*' -k -c mycookie --data "uname=$USER&psw=$PASSWORD" "$HOST/sess/login?rp=/vb/"
-datasource_json=$(curl --noproxy '*' -k -b $mycookie "$HOST/graph-engine/api/datasources")
+counter=0
+init
+datasource_json=$(curl --noproxy '*' -k $CURL_COOKIE "$HOST/graph-engine/api/datasources")
 for id in $(echo $datasource_json | jq -r '.[] | .id'); do
+    name=$(echo $datasource_json | jq -r '.[] | select(.id == '"$id"') | .name' | sed -r 's/[ \/]+/_/g' | \
+    tr '[:upper:]' '[:lower:]')
     counter=$((counter + 1))
-    curl --noproxy '*' -f -k -b  $mycookie "$HOST/graph-engine/api/datasources/${id}" | jq '' > "$DS_DIR/${id}.json"
-    log_success "Datasource has been saved\t id=\"${id}\", path=\"${DS_DIR}/${id}.json\"."
+    curl --noproxy '*' -f -k $CURL_COOKIE "$HOST/graph-engine/api/datasources/${id}" | jq '' > "$DS_DIR/${name}.json"
+    log_success "Datasource has been saved\t id=\"${id}\", name=\"${name}\", path=\"${DS_DIR}/${name}.json\"."
 done
 
-zip -r -m datasources.zip datasources 
+cclear_json=$(curl --noproxy '*' -k $CURL_COOKIE  "$HOST/api/admin/info")
+CCLEAR_VERSION="cclear_$(echo $cclear_json | jq '.data.software.build' | tr -d '"')"
+grafana_json=$(curl --noproxy '*' -k $CURL_COOKIE  "$HOST/graph-engine/api/health")
+GRAFANA_VERSION="grafana_$(echo $grafana_json | jq '.version' | tr -d '"')"
+DATE_TIME="date_$(date '+%d%m%Y_%H%M%S')"
+DS_FILE_ZIP="${DS_FOLDER}_${TARGET_HOST_IP}_${CCLEAR_VERSION}_${GRAFANA_VERSION}_${DATE_TIME}"
+zip -r -m "${DS_FILE_ZIP}.zip" "${DS_FOLDER}"
 rm mycookie
 
-log_title "${counter} datasource(s) were saved and zipped in $PWD/datasources.zip";
+log_title "${counter} datasource(s) were saved and zipped in "$PWD/${DS_FILE_ZIP}".zip";
 log_title "------------------------------ FINISHED ---------------------------------";

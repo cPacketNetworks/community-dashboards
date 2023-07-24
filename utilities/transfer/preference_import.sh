@@ -1,17 +1,20 @@
 #!/bin/bash
-#
-# todo: ip to both ip and https; from folder to be both zipped or unzipped
-#
-OPTSPEC=":hu:p:z:t:"
 
+# Script to import preference JSON files into a specified cClear
+# Tests have been done on exported preference json files from running "preference_export.sh".
+# Modified from Paul Sulistio's scripts.
+
+OPTSPEC=":hu:p:t:i:"
+
+###### Show help on how to use this script ######
 show_help() {
 cat << EOF
-Usage: $0 [-u USER] [-p PASSWORD] [-z PATH] [-t TARGET_HOST] 
+Usage: $0 [-u USER] [-p PASSWORD] [-t TARGET_HOST_IP] [-z IMPORT_PATH] 
 Script to import dashboards into Grafana
     -u      Required. cClear user to login
     -p      Required. cClear user password to login
-    -z      Required. Grafana preferences json file to import from. e.g. preferences.json
     -t      Required. The IP of the destination cClear host i.e 10.51.10.32
+    -i      Required. Grafana preferences json file to import from. e.g. preferences.json
     -h      Display this help and exit.
 EOF
 }
@@ -27,10 +30,10 @@ while getopts "$OPTSPEC" optchar; do
             USER="$OPTARG";;
         p)
             PASSWORD="$OPTARG";;
-        z)
-            PREF_PATH="$OPTARG";;
         t)
-            HOST="$OPTARG";;
+            TARGET_HOST_IP="$OPTARG";;
+        i)
+            IMPORT_PATH="$OPTARG";;
         \?)
           echo "Invalid option: -$OPTARG" >&2
           exit 1
@@ -42,7 +45,8 @@ while getopts "$OPTSPEC" optchar; do
     esac
 done
 
-if [ -z "$USER" ] || [ -z "$PASSWORD" ] || [ -z "$PREF_PATH" ] || [ -z "$HOST" ]; then
+###### Check required arguments ######
+if [ -z "$USER" ] || [ -z "$PASSWORD" ] || [ -z "$IMPORT_PATH" ] || [ -z "$TARGET_HOST_IP" ]; then
     show_help
     exit 1
 fi
@@ -96,42 +100,67 @@ function log_title() {
    ${SETCOLOR_NORMAL}
 }
 
-PREF_FILE=$(basename $PREF_PATH)
+ZIP_FILE=$(basename $IMPORT_PATH)
 
-if [[ ! $PREF_FILE =~ \.json$ ]]; then
-   log_title "-------------------- $PREF_FILE Wrong format! -----------------"
-   log_failure "$PREF_PATH is not a json file. Please enter a correct file"
+if [[ $ZIP_FILE =~ \.zip$ ]]; then
+   PREF_DIR=$(unzip -qql $IMPORT_PATH | head -n1 | tr -s ' ' | cut -d' ' -f5-)
+   unzip -o $IMPORT_PATH
+   DIR_LENGTH=${#PREF_DIR}
+   PREF_DIR=${PREF_DIR:0:DIR_LENGTH-1}
+else
+   PREF_DIR=$IMPORT_PATH
+fi
+
+if [ -d "$PREF_DIR" ]; then
+   PREF_LIST=$(find "$PWD/$PREF_DIR" -mindepth 1 -name \*.json)
+
+   if [ -z "$PREF_LIST" ]; then
+       log_title "----------------- $PREF_DIR contains no JSON files! -----------------"
+       log_failure "Directory $PREF_DIR does not appear to contain any JSON files for import. Check your path and try again."
+       exit 1
+   else
+       FILESTOTAL=$(echo "$PREF_LIST" | wc -l)
+       log_title "----------------- Starting import of $FILESTOTAL dashboards -----------------"
+   fi
+else
+   log_title "-------------------- $PREF_DIR directory not found! -----------------"
+   log_failure "Directory $PREF_DIR does not exist. Check your path and try again."
    exit 1
 fi
 
-if [[ ! -f "$PREF_FILE" ]]; then
-  log_failure "No such file: $PREF_FILE."
+# set cookie param for curl command according to login options
+STATUS_CODE=$(curl --noproxy '*' -k --write-out '%{http_code}' --silent --output /dev/null --data "uname=$USER&psw=$PASSWORD" "https://$TARGET_HOST_IP/sess/login?rp=/vb/")
+if [[ "$STATUS_CODE" -eq 404 ]]; then
+  HOST="https://$USER:$PASSWORD@$TARGET_HOST_IP"
+elif [[ "$STATUS_CODE" -eq 302 ]]; then
+  HOST="https://$TARGET_HOST_IP"
+  mycookie="$PWD/mycookie"
+  LOGIN=$(curl --noproxy '*' -k -c mycookie --data "uname=$USER&psw=$PASSWORD" $HOST/sess/login?rp=/vb/)
+  CURL_COOKIE="-b $mycookie"
+else
+  show_help
   exit 1
 fi
 
 NUMSUCCESS=0
 NUMFAILURE=0
 COUNTER=0
-
-
-# host url
-if [[ ! "$HOST" == "https://"* ]]; then
-  HOST="https://$HOST"
-fi
-
-mycookie="$PWD/mycookie"
-curl --noproxy '*' -k -c mycookie --data "uname=$USER&psw=$PASSWORD" $HOST/sess/login?rp=/vb/
-
-RESULT=$(cat "$PREF_FILE" | jq '.' | curl --noproxy '*' -k -b $mycookie -X PUT -H \
-"Content-Type: application/json" "$HOST/graph-engine/api/user/preferences" -d @-)
-
+for PREF_FILE in $PREF_LIST; do
+  COUNTER=$((COUNTER + 1))
+  echo "Import $COUNTER/$FILESTOTAL: $PREF_FILE..."
+  RESULT=$(cat "$PREF_FILE" | jq '.' | curl --noproxy '*' -k $CURL_COOKIE -X PUT -H \
+  "Content-Type: application/json" "$HOST/graph-engine/api/user/preferences" -d @-)
+  echo
+  # log result
+  if [[ "$RESULT" == *"updated"* ]]; then
+    log_success "$RESULT"
+    NUMSUCCESS=$((NUMSUCCESS + 1))
+ else
+    log_failure "$RESULT"
+    NUMFAILURE=$((NUMFAILURE + 1))
+ fi
+done
 rm mycookie
 
-# log result
-if [[ "$RESULT" == *"updated"* ]]; then
-  log_success "$RESULT"
-else
-  log_failure "$RESULT"
-fi
-
-log_title "-------------------- Preferences were successfully imported.-------------------------"
+log_title "Import complete. $NUMSUCCESS dashboards were successfully imported. $NUMFAILURE dashboard imports failed.";
+log_title "-------------------------------------FINISHED----------------------------------------";

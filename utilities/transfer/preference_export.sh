@@ -1,13 +1,14 @@
 #!/bin/bash
-#
-#
-#
 
-OPTSPEC=":hu:p:t:f:"
+# Script to export preferences from a specified cClear as JSON files.
+# Modified from Paul Sulistio's scripts.
+
+###### Show help on how to use this script ######
+OPTSPEC=":hu:p:t:"
 
 show_help() {
 cat << EOF
-Usage: $0 [-u USER] [-p PASSWORD] [-f FROM_FOLDER] [-t TARGET_HOST]
+Usage: $0 [-u USER] [-p PASSWORD] [-f FROM_FOLDER] [-t TARGET_HOST_IP]
 Script to export grafana dashboards
     -u      Required. cClear user to login
     -p      Required. cClear user password to login
@@ -28,7 +29,7 @@ while getopts "$OPTSPEC" optchar; do
         p)
             PASSWORD="$OPTARG";;
         t)
-            HOST="$OPTARG";;
+            TARGET_HOST_IP="$OPTARG";;
         \?)
           echo "Invalid option: -$OPTARG" >&2
           exit 1
@@ -40,7 +41,8 @@ while getopts "$OPTSPEC" optchar; do
     esac
 done
 
-if [ -z "$USER" ] || [ -z "$PASSWORD" ] || [ -z "$HOST" ]; then
+###### Check required arguments ######
+if [ -z "$USER" ] || [ -z "$PASSWORD" ] || [ -z "$TARGET_HOST_IP" ]; then
     show_help
     exit 1
 fi
@@ -95,31 +97,35 @@ function log_title() {
 }
 
 function init() {
-   DATE_TIME=$(date '+%d%m%Y_%H%M%S')
-   DASH_DIR="$PWD/preferences_${HOST}_${DATE_TIME}"
-   if [ ! -d "${DASH_DIR}" ]; then
-   	 mkdir "${DASH_DIR}"
+   PREF_FOLDER="preferences"
+   PREF_DIR="$PWD/${PREF_FOLDER}"
+   if [ ! -d "${PREF_DIR}" ]; then
+   	 mkdir -p "${PREF_DIR}"
    else
-   	 log_title "----------------- A $DASH_DIR directory already exists! -----------------"
+   	 log_title "----------------- A $PREF_DIR directory already exists! -----------------"
+   	 log_title "----------------- Rename or remove this directory before continuing -----------------"
+   	 exit 1
    fi
 }
 
-init
-
-PREF_ORG="$DASH_DIR/preferences_org.json"
-PREF_USER="$DASH_DIR/preferences_user.json"
-
-# host url
-if [[ ! "$HOST" == "https://"* ]]; then
-  HOST="https://$HOST"
+# set cookie param for curl command according to login options
+STATUS_CODE=$(curl --noproxy '*' -k --write-out '%{http_code}' --silent --output /dev/null --data "uname=$USER&psw=$PASSWORD" "https://$TARGET_HOST_IP/sess/login?rp=/vb/")
+if [[ "$STATUS_CODE" -eq 404 ]]; then
+  HOST="https://$USER:$PASSWORD@$TARGET_HOST_IP"
+elif [[ "$STATUS_CODE" -eq 302 ]]; then
+  HOST="https://$TARGET_HOST_IP"
+  mycookie="$PWD/mycookie"
+  LOGIN=$(curl --noproxy '*' -k -c mycookie --data "uname=$USER&psw=$PASSWORD" $HOST/sess/login?rp=/vb/)
+  CURL_COOKIE="-b $mycookie"
+else
+  show_help
+  exit 1
 fi
 
-mycookie="$PWD/mycookie"
-curl --noproxy '*' -k -c mycookie --data "uname=$USER&psw=$PASSWORD" "$HOST/sess/login?rp=/vb/"
-
+init
 # Get preferences
-pref_org_json=$(curl --noproxy '*' -k -b "$mycookie" "$HOST/graph-engine/api/org/preferences")
-pref_user_json=$(curl --noproxy '*' -k -b "$mycookie" "$HOST/graph-engine/api/user/preferences")
+pref_org_json=$(curl --noproxy '*' -k $CURL_COOKIE "$HOST/graph-engine/api/org/preferences")
+pref_user_json=$(curl --noproxy '*' -k $CURL_COOKIE "$HOST/graph-engine/api/user/preferences")
 
 rm mycookie
 
@@ -134,10 +140,20 @@ elif [[ "$pref_org_json" == *"Unauthorized"* ]] || [[ "$pref_user_json" == *"Una
 fi
 
 # Save preferences
+PREF_ORG="$PREF_DIR/preferences_org.json"
+PREF_USER="$PREF_DIR/preferences_user.json"
 echo $pref_org_json | jq '.' > "$PREF_ORG"
 log_success "Org. preferences saved: $pref_org_json"
 echo $pref_user_json | jq '.' > "$PREF_USER"
 log_success "User preferences saved: $pref_user_json"
 
-log_title "Preferences were saved in $DASH_DIR";
+cclear_json=$(curl --noproxy '*' -k $CURL_COOKIE  "$HOST/api/admin/info")
+CCLEAR_VERSION="cclear_$(echo $cclear_json | jq '.data.software.build' | tr -d '"')"
+grafana_json=$(curl --noproxy '*' -k $CURL_COOKIE  "$HOST/graph-engine/api/health")
+GRAFANA_VERSION="grafana_$(echo $grafana_json | jq '.version' | tr -d '"')"
+DATE_TIME="date_$(date '+%d%m%Y_%H%M%S')"
+PREF_FILE_ZIP="${PREF_FOLDER}_${TARGET_HOST_IP}_${CCLEAR_VERSION}_${GRAFANA_VERSION}_${DATE_TIME}"
+zip -r -m "${PREF_FILE_ZIP}.zip" "${PREF_FOLDER}"
+
+log_title "Preferences were saved in ${PREF_FILE_ZIP}";
 log_title "------------------------------ FINISHED ---------------------------------";

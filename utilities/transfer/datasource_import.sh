@@ -1,15 +1,20 @@
-#!/bin/bash -x
+#!/bin/bash
 
-OPTSPEC=":hu:p:z:t:"
+# Script to import datasource JSON files into a specified cClear
+# Tests have been done on exported datasource json files from running "datasource_export.sh".
+# Modified from Paul Sulistio's scripts.
 
+OPTSPEC=":hu:p:t:i:"
+
+###### Show help on how to use this script ######
 show_help() {
 cat << EOF
-Usage: $0 [-u USER] [-p PASSWORD] [-z PATH] [-t TARGET_HOST] 
+Usage: $0 [-u USER] [-p PASSWORD] [-t TARGET_HOST_IP] [-i IMPORT_PATH]
 Script to import datasource into Grafana
     -u      Required. cClear user to login
     -p      Required. cClear user password to login
-    -z      Required. Full path to the zip file containing JSON exports of the datasource you want to be imported.
     -t      Required. The IP of the target host i.e 10.51.10.32
+    -i      Required. Full path to the zip file containing JSON exports of the datasource you want to be imported.
     -h      Display this help and exit.
 EOF
 }
@@ -25,10 +30,10 @@ while getopts "$OPTSPEC" optchar; do
             USER="$OPTARG";;
         p)
             PASSWORD="$OPTARG";;
-        z)
-            DS_PATH="$OPTARG";;
         t)
-            HOST="$OPTARG";;
+            TARGET_HOST_IP="$OPTARG";;
+        i)
+            IMPORT_PATH="$OPTARG";;
         \?)
           echo "Invalid option: -$OPTARG" >&2
           exit 1
@@ -40,7 +45,8 @@ while getopts "$OPTSPEC" optchar; do
     esac
 done
 
-if [ -z "$USER" ] || [ -z "$PASSWORD" ] || [ -z "$DS_PATH" ] || [ -z "$HOST" ]; then
+###### Check required arguments ######
+if [ -z "$USER" ] || [ -z "$PASSWORD" ] || [ -z "$IMPORT_PATH" ] || [ -z "$TARGET_HOST_IP" ]; then
     show_help
     exit 1
 fi
@@ -94,12 +100,12 @@ function log_title() {
    ${SETCOLOR_NORMAL}
 }
 
-ZIP_FILE=$(basename $DS_PATH)
+ZIP_FILE=$(basename $IMPORT_PATH)
 echo $ZIP_FILE
 
 if [[ $ZIP_FILE =~ \.zip$ ]]; then
-   DS_DIR=$(unzip -qql $DS_PATH | head -n1 | tr -s ' ' | cut -d' ' -f5-) 
-   unzip $DS_PATH
+   DS_DIR=$(unzip -qql $IMPORT_PATH | head -n1 | tr -s ' ' | cut -d' ' -f5-)
+   unzip -o $IMPORT_PATH
    DS_DIR=${DS_DIR: : -1}
    if [ -d "$DS_DIR" ]; then
        DS_LIST=$(find "$PWD/$DS_DIR" -mindepth 1 -name \*.json)
@@ -122,21 +128,25 @@ else
    log_failure "$ZIP_FILE is not a zip file. Please enter a correct file"
 fi
 
+# set cookie param for curl command according to login options
+STATUS_CODE=$(curl --noproxy '*' -k --write-out '%{http_code}' --silent --output /dev/null --data "uname=$USER&psw=$PASSWORD" "https://$TARGET_HOST_IP/sess/login?rp=/vb/")
+if [[ "$STATUS_CODE" -eq 404 ]]; then
+  HOST="https://$USER:$PASSWORD@$TARGET_HOST_IP"
+elif [[ "$STATUS_CODE" -eq 302 ]]; then
+  HOST="https://$TARGET_HOST_IP"
+  mycookie="$PWD/mycookie"
+  LOGIN=$(curl --noproxy '*' -k -c mycookie --data "uname=$USER&psw=$PASSWORD" $HOST/sess/login?rp=/vb/)
+  CURL_COOKIE="-b $mycookie"
+else
+  show_help
+  exit 1
+fi
+
 NUMSUCCESS=0
 NUMFAILURE=0
 COUNTER=0
-
-
-# host url
-if [[ ! "$HOST" == "https://"* ]]; then
-  HOST="https://$HOST"
-fi
-
-mycookie="$PWD/mycookie"
-curl --noproxy '*' -k -c mycookie --data "uname=$USER&psw=$PASSWORD" "$HOST/sess/login?rp=/vb/"
-
 for i in datasources/*; do
-    RESULT=$(curl --noproxy '*' -k -b $mycookie -X "POST" "$HOST/graph-engine/api/datasources" \
+    RESULT=$(curl --noproxy '*' -k $CURL_COOKIE -X "POST" "$HOST/graph-engine/api/datasources" \
     -H "Content-Type: application/json" --data-binary @$i)
     if [[ "$RESULT" == *"Datasource added"* ]]; then
         log_success "$RESULT"
