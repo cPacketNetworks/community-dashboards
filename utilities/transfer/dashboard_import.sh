@@ -198,6 +198,7 @@ for DASH_FILE in $DASH_LIST; do
 done
 
 rm mycookie
+rm -rf "$DASH_DIR"
 
 log_title "Import complete. $NUMSUCCESS dashboards were successfully imported. $NUMFAILURE dashboard imports failed.";
 log_title "-------------------------------------FINISHED----------------------------------------";
